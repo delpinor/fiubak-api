@@ -10,4 +10,4 @@ COPY Gemfile.lock .
 RUN gem install bundler
 RUN /bin/bash -lc "bundle"
 
-CMD ["bundle", "exec", "padrino", "start", "-h", "0.0.0.0"]
+CMD ["sh", "-c", "bundle exec padrino start -h 0.0.0.0 -p $PORT"]

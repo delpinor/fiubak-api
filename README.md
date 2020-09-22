@@ -56,5 +56,10 @@ bundle
 Every time you want to start the server, you may repeat step 3 and 4. 
 
 
- 
+### Deploy with Dockerfile + Heroku
+
+1\) Set `HEROKU_TOKEN` environment var with your heroku token.
+
+2\) Run `./scripts/build-image.sh` to create the binary and then `./scripts/deploy.sh` to update heroku runtime.
+  
 

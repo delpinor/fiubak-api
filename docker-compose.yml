@@ -19,6 +19,7 @@ services:
     environment:
       - RACK_ENV=development
       - DATABASE_URL=postgres://webtemplate:webtemplate@postgres/webtemplate_development
+      - PORT=3000
 
 volumes:
   data:
