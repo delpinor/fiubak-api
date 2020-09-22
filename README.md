@@ -47,7 +47,9 @@ cd /vagrant
 bundle
 ```
 
-4\) You have your environment ready. You can start the app running `bundle exec padrino start -h 0.0.0.0`
+4.1\) You have your environment ready. You can start the app running `bundle exec padrino start -h 0.0.0.0`
+
+4.2\) Set `DATABASE_URL=postgres://webtemplate:webtemplate@localhost/webtemplate_development` before running
 
 5\) When you are done, don't forget to leave ssh (just exit in vagrant shell) and stop the VM with `vagrant halt`
 
