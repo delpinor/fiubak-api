@@ -10,3 +10,4 @@ db/*.db
 ubuntu-*
 .vagrant
 imageid.txt
+reports
