@@ -19,7 +19,9 @@ gem 'rake'
 # Component requirements
 gem 'activemodel', require: 'active_model'
 gem 'pg'
-gem 'sequel'
+gem 'rom'
+gem 'rom-sql'
+# gem 'sequel'
 
 # Test requirements
 
@@ -33,3 +35,12 @@ gem 'padrino', '0.15.0'
 # %w(core support gen helpers cache mailer admin).each do |g|
 #   gem 'padrino-' + g, '0.15.0'
 # end
+
+group :development, :test do
+  gem 'cucumber'
+  gem 'rspec'
+  gem 'rspec-core'
+  gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'simplecov'
+end

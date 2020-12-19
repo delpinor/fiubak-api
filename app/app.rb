@@ -4,8 +4,8 @@ module WebTemplate
     register Padrino::Helpers
     enable :sessions
 
-    get "/" do
-      "Hello people!"
+    get '/' do
+      'Hello people!'
     end
 
     ##
