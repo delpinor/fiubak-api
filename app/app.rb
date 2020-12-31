@@ -8,6 +8,10 @@ module WebTemplate
       'Hello people!'
     end
 
+    get :docs, map: '/docs' do
+      render 'docs'
+    end
+
     ##
     # Caching support.
     #
