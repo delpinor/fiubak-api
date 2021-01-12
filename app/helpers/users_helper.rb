@@ -20,15 +20,13 @@ module WebTemplate
       end
 
       def handle_errors(&block)
-        begin
-          block.call
-        rescue UserNotFound => e
-          status 404
-          {error: e.message}.to_json
-        rescue InvalidUser => e
-          status 400
-          {error: e.message}.to_json
-        end
+        block.call
+      rescue UserNotFound => e
+        status 404
+        {error: e.message}.to_json
+      rescue InvalidUser => e
+        status 400
+        {error: e.message}.to_json
       end
     end
 

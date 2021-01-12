@@ -3,7 +3,7 @@ class User
 
   def initialize(attributes)
     @attributes = attributes
-    raise InvalidUser.new('name is missing') if attributes[:name] == ''
+    raise InvalidUser, 'name is missing' if attributes[:name] == ''
   end
 
   def [](name)

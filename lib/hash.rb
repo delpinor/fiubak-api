@@ -1,3 +1,5 @@
+# rubocop:disable all
+
 class Hash
   def symbolize_keys
     transform_keys do |key|

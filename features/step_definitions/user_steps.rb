@@ -9,7 +9,7 @@ end
 
 When('I get the last user created') do
   @request ||= {}
-  @response = Faraday.get(get_user_url(@user_id))
+  @response = Faraday.get(find_user_url(@user_id))
 end
 
 Then('I should get user {string}') do |user_name|
@@ -21,14 +21,14 @@ end
 
 When('I get all the users') do
   @request ||= {}
-  @response = Faraday.get(get_all_users_url())
+  @response = Faraday.get(find_all_users_url)
 end
 
 Then('I should get user {string} and {string}') do |name_one, name_two|
   expect(@response.status).to eq(200)
   all_users = JSON.parse(@response.body)
   expect(all_users.size).to eq(2)
-  all_users.each {|u| expect([name_one, name_two]).to include(u['name']) }
+  all_users.each { |u| expect([name_one, name_two]).to include(u['name']) }
 end
 
 When('I delete the user') do
@@ -39,7 +39,7 @@ end
 
 Then('I should not get user {string}') do |_name|
   @request = {}
-  @response = Faraday.get(get_user_url(@user_id))
+  @response = Faraday.get(find_user_url(@user_id))
   expect(@response.status).to eq(404)
 end
 

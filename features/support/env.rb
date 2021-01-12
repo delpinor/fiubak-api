@@ -10,7 +10,7 @@ def header
   {'Content-Type' => 'application/json'}
 end
 
-def get_user_url(user_id)
+def find_user_url(user_id)
   "#{BASE_URL}/users/#{user_id}"
 end
 
@@ -18,7 +18,7 @@ def update_user_url(user_id)
   "#{BASE_URL}/users/#{user_id}"
 end
 
-def get_all_users_url()
+def find_all_users_url
   "#{BASE_URL}/users"
 end
 
