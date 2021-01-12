@@ -73,6 +73,11 @@ GEM
       dry-equalizer (~> 0.3)
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 1.0, >= 1.0.2)
+    faraday (1.3.0)
+      faraday-net_http (~> 1.0)
+      multipart-post (>= 1.2, < 3)
+      ruby2_keywords
+    faraday-net_http (1.0.0)
     ffi (1.13.1)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
@@ -87,6 +92,7 @@ GEM
     minitest (5.14.2)
     moneta (1.1.1)
     multi_test (0.1.2)
+    multipart-post (2.1.1)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     padrino (0.15.0)
@@ -130,6 +136,8 @@ GEM
       thor
       thread_safe
     rack (2.2.3)
+    rack-parser (0.7.0)
+      rack
     rack-protection (2.1.0)
       rack
     rainbow (3.0.0)
@@ -222,8 +230,10 @@ PLATFORMS
 DEPENDENCIES
   activemodel
   cucumber
+  faraday
   padrino (= 0.15.0)
   pg
+  rack-parser
   rake
   rom
   rom-sql
