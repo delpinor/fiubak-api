@@ -14,6 +14,22 @@ module Persistence
         user
       end
 
+      def update_user(user_id, user_params)
+        user = find(user_id)
+        updated_user = update(user.id, user_params)
+        User.new(updated_user.attributes)
+      end
+
+      def create_user(user_params)
+        new_user = User.new(user_params)
+        create(new_user.attributes)
+      end
+
+      def delete_user(user_id)
+        user = find(user_id)
+        delete(user.id)
+      end
+
       def delete_all
         users.delete
       end
