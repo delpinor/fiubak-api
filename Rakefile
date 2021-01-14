@@ -1,6 +1,9 @@
 require 'bundler/setup'
 require 'padrino-core/cli/rake'
 require 'English'
+require 'rom'
+require 'rom/sql/rake_task'
+require './config/initializers/database'
 
 RACK_ENV = ENV['RACK_ENV'] ||= ENV['RACK_ENV'] ||= 'test' unless defined?(RACK_ENV)
 
@@ -55,6 +58,12 @@ if %w[development test].include?(RACK_ENV)
     task.requires << 'rubocop-rspec'
     # don't abort rake on failure
     task.fail_on_error = false
+  end
+
+  namespace :db do
+    task :setup do
+      ROM::SQL::RakeSupport.env = ROM.container(:sql, DATABASE_URL)
+    end
   end
 
   task default: [:all]

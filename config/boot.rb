@@ -11,6 +11,7 @@ Bundler.require(:default, RACK_ENV)
 #
 # Padrino::Logger::Config[:development][:log_level]  = :devel
 # Padrino::Logger::Config[:development][:log_static] = true
+
 #
 # ## Configure Ruby to allow requiring features from your lib folder
 #
@@ -49,6 +50,8 @@ Padrino.dependency_paths.unshift Padrino.root('config/initializers/*.rb')
 # These hooks are run before any dependencies are required.
 #
 Padrino.before_load do
+  Padrino.dependency_paths << Padrino.root('app/persistence/**/*.rb')
+  Padrino.dependency_paths << Padrino.root('app/errors/**/*.rb')
 end
 
 ##

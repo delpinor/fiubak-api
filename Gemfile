@@ -19,6 +19,7 @@ gem 'rake'
 # Component requirements
 gem 'activemodel', require: 'active_model'
 gem 'pg'
+gem 'rack-parser', :require => 'rack/parser'
 gem 'rom'
 gem 'rom-sql'
 # gem 'sequel'
@@ -38,6 +39,7 @@ gem 'padrino', '0.15.0'
 
 group :development, :test do
   gem 'cucumber'
+  gem 'faraday'
   gem 'rspec'
   gem 'rspec-core'
   gem 'rubocop', require: false

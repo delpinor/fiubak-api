@@ -4,8 +4,21 @@ module WebTemplate
     register Padrino::Helpers
     enable :sessions
 
+    use Rack::Parser, :content_types => {
+      'application/json' => proc { |body| ::MultiJson.decode body }
+    }
+
     get '/' do
-      'Hello people!'
+      'It\'s alive!'
+    end
+
+    if Padrino.env == :test
+      post '/reset', :provides => [:js] do
+        user_repo.delete_all
+
+        status 200
+        {message: 'reset ok'}.to_json
+      end
     end
 
     get :docs, map: '/docs' do
