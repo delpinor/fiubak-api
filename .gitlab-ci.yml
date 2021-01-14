@@ -1,0 +1,23 @@
+image: ruby:2.5.7
+services:
+  - postgres:9.5
+  - docker:dind
+
+variables:
+  POSTGRES_DB: webtemplate_test
+  POSTGRES_USER: webtemplate
+  POSTGRES_PASSWORD: webtemplate
+  DB_HOST: postgres
+
+stages:
+  - build
+
+build_job:
+  stage: build
+  script:
+    - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake
+    - ruby -v
+    - which ruby
+    - gem install bundler --no-document
+    - bundle install --without staging production
+    - RACK_ENV=test bundle exec rake
