@@ -1,13 +1,12 @@
 FROM ruby:2.5.7
-
-COPY . /src
-
-WORKDIR /src
-
-COPY Gemfile .
-COPY Gemfile.lock .
-
+RUN mkdir /app
+WORKDIR /app
+RUN useradd -m appuser
+COPY Gemfile /app
+COPY Gemfile.lock /app
 RUN gem install bundler
-RUN /bin/bash -lc "bundle"
-
-CMD ["sh", "-c", "bundle exec padrino start -h 0.0.0.0 -p $PORT"]
+RUN bundler install
+COPY . /app
+RUN chown -R appuser:appuser /app
+USER appuser
+CMD ["/app/start_app.sh"]
