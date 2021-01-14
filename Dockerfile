@@ -1,13 +1,9 @@
 FROM ruby:2.5.7
-
-COPY . /src
-
-WORKDIR /src
-
-COPY Gemfile .
-COPY Gemfile.lock .
-
+RUN mkdir /temp
+WORKDIR /temp
+ADD . /temp
 RUN gem install bundler
-RUN /bin/bash -lc "bundle"
-
-CMD ["sh", "-c", "bundle exec padrino start -h 0.0.0.0 -p $PORT"]
+RUN bundler install
+RUN mkdir /app
+WORKDIR /app
+EXPOSE 3000
