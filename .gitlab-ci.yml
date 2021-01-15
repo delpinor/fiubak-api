@@ -6,6 +6,7 @@ services:
 variables:
   REGISTRY_URL: registry.gitlab.com/fiuba-memo2/ejemplos
   APP_NAME: webapi-template
+  HEROKU_APP: webapi-example
   POSTGRES_DB: webtemplate_test
   POSTGRES_USER: webtemplate
   POSTGRES_PASSWORD: webtemplate
@@ -14,6 +15,7 @@ variables:
 stages:
   - build
   - package
+  - deploy
 
 build_job:
   stage: build
@@ -42,3 +44,21 @@ package_job:
     - docker tag $REGISTRY_URL/$APP_NAME:$VERSION $REGISTRY_URL/$APP_NAME:latest
     - docker push $REGISTRY_URL/$APP_NAME:$VERSION
     - docker push $REGISTRY_URL/$APP_NAME:latest
+
+deploy_dev_job:
+  stage: deploy
+  image: docker:stable
+  before_script:
+    - echo $CI_REGISTRY_USER
+    - echo $CI_REGISTRY_PASSWORD
+    - echo $CI_REGISTRY
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - docker login -u _ -p $HEROKU_TOKEN registry.heroku.com
+  script:
+    - VERSION=$(cat VERSION.txt)
+    - docker pull $REGISTRY_URL/$APP_NAME:$VERSION
+    - docker tag $REGISTRY/$APP_NAME:$VERSION registry.heroku.com/$HEROKU_APP/web
+    - docker push registry.heroku.com/$HEROKU_APP/web
+    - IMAGE_ID=`docker image ls registry.heroku.com/$HEROKU_APP/web -q`
+    - echo $IMAGE_ID
+    - ./script/deploy.sh
