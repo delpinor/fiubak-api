@@ -11,6 +11,12 @@ PadrinoTasks.use(:database)
 # PadrinoTasks.use(:sequel)
 PadrinoTasks.init
 
+task :version do
+  require './lib/version.rb'
+  puts Version.current
+  exit 0
+end
+
 if %w[development test].include?(RACK_ENV)
 
   task :all do

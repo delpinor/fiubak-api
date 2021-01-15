@@ -1,0 +1,43 @@
+image: ruby:2.5.7
+services:
+  - postgres:9.5
+  - docker:dind
+
+variables:
+  APP_NAME: webapi-template
+  POSTGRES_DB: webtemplate_test
+  POSTGRES_USER: webtemplate
+  POSTGRES_PASSWORD: webtemplate
+  DB_HOST: postgres
+
+stages:
+  - build
+  - package
+
+build_job:
+  stage: build
+  script:
+    - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake # todo check si es necesario
+    - gem install bundler --no-document
+    - bundle install --without staging production
+    # pendiente: ejercuta rake para que corra test y rubocop
+    - bundle exec rake version > VERSION.txt
+  artifacts:
+    paths:
+      - VERSION.txt
+
+package_job:
+  stage: package
+  image: docker:stable
+  before_script:
+    - echo $CI_REGISTRY_USER
+    - echo $CI_REGISTRY_PASSWORD
+    - echo $CI_REGISTRY
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+  script:
+    - VERSION=$(cat VERSION.txt)
+    - echo $VERSION
+    - docker build -t registry.gitlab.com/fiuba-memo2/$APP_NAME:$VERSION .
+    - docker tag registry.gitlab.com/fiuba-memo2/$APP_NAME:$VERSION registry.gitlab.com/fiuba-memo2/$APP_NAME:latest
+    - docker push registry.gitlab.com/fiuba-memo2/$APP_NAME:$VERSION
+    - docker push registry.gitlab.com/fiuba-memo2/$APP_NAME:latest
