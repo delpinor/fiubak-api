@@ -49,6 +49,7 @@ deploy_dev_job:
   stage: deploy
   image: docker:stable
   before_script:
+    - apk add curl
     - echo $CI_REGISTRY_USER
     - echo $CI_REGISTRY_PASSWORD
     - echo $CI_REGISTRY
@@ -61,5 +62,4 @@ deploy_dev_job:
     - docker push registry.heroku.com/$HEROKU_APP/web
     - export IMAGE_ID=`docker image ls registry.heroku.com/$HEROKU_APP/web -q`
     - echo $IMAGE_ID
-    - ls scripts
     - ./scripts/deploy_app.sh
