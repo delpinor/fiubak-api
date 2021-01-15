@@ -62,4 +62,4 @@ deploy_dev_job:
     - export IMAGE_ID=`docker image ls registry.heroku.com/$HEROKU_APP/web -q`
     - echo $IMAGE_ID
     - ls scripts
-    - ./scripts/deploy.sh
+    - ./scripts/deploy_app.sh
