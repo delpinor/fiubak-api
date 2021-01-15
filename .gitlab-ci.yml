@@ -37,7 +37,7 @@ package_job:
   script:
     - VERSION=$(cat VERSION.txt)
     - echo $VERSION
-    - docker build -f Dockerfile.prod -t registry.gitlab.com/fiuba-memo2/$APP_NAME:$VERSION .
-    - docker tag registry.gitlab.com/fiuba-memo2/$APP_NAME:$VERSION registry.gitlab.com/fiuba-memo2/$APP_NAME:latest
-    - docker push registry.gitlab.com/fiuba-memo2/$APP_NAME:$VERSION
-    - docker push registry.gitlab.com/fiuba-memo2/$APP_NAME:latest
+    - docker build -f Dockerfile.prod -t registry.gitlab.com/fiuba-memo2/ejemplos/$APP_NAME:$VERSION .
+    - docker tag registry.gitlab.com/fiuba-memo2/$APP_NAME:$VERSION registry.gitlab.com/fiuba-memo2/ejemplos/$APP_NAME:latest
+    - docker push registry.gitlab.com/fiuba-memo2/ejemplos/$APP_NAME:$VERSION
+    - docker push registry.gitlab.com/fiuba-memo2/ejemplos/$APP_NAME:latest
