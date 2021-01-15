@@ -59,6 +59,6 @@ deploy_dev_job:
     - docker pull $REGISTRY_URL/$APP_NAME:$VERSION
     - docker tag $REGISTRY_URL/$APP_NAME:$VERSION registry.heroku.com/$HEROKU_APP/web
     - docker push registry.heroku.com/$HEROKU_APP/web
-    - IMAGE_ID=`docker image ls registry.heroku.com/$HEROKU_APP/web -q`
+    - export IMAGE_ID=`docker image ls registry.heroku.com/$HEROKU_APP/web -q`
     - echo $IMAGE_ID
-    - ./script/deploy.sh
+    - ./scripts/deploy.sh
