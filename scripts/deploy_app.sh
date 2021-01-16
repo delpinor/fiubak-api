@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # first wait some seconds to ensure the image is registered bby heroku
-sleep 10
+sleep 30
 
 echo "image id: $IMAGE_ID"
 
