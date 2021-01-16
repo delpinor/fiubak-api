@@ -9,7 +9,7 @@ module WebTemplate
     }
 
     get '/' do
-      'It\'s alive!'
+      "It\'s alive! version: #{Version.current}"
     end
 
     if Padrino.env == :test

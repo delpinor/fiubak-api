@@ -17,6 +17,12 @@ task :version do
   exit 0
 end
 
+namespace :db do
+  task :setup do
+    ROM::SQL::RakeSupport.env = ROM.container(:sql, DATABASE_URL)
+  end
+end
+
 if %w[development test].include?(RACK_ENV)
 
   task :all do
@@ -64,12 +70,6 @@ if %w[development test].include?(RACK_ENV)
     task.requires << 'rubocop-rspec'
     # don't abort rake on failure
     task.fail_on_error = false
-  end
-
-  namespace :db do
-    task :setup do
-      ROM::SQL::RakeSupport.env = ROM.container(:sql, DATABASE_URL)
-    end
   end
 
   task default: [:all]
