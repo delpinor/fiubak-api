@@ -4,11 +4,12 @@ require File.expand_path("#{File.dirname(__FILE__)}/../../config/boot")
 
 require 'rspec/expectations'
 
+
 if ENV['BASE_URL']
   BASE_URL = ENV['BASE_URL']
 else
+  BASE_URL = 'http://localhost:3000'
   include Rack::Test::Methods
-  BASE_URL='http://localhost:3000'
   def app
     Padrino.application
   end
