@@ -38,6 +38,7 @@ gem 'padrino', '0.15.0'
 # end
 
 group :development, :test do
+  gem 'byebug'
   gem 'cucumber'
   gem 'faraday'
   gem 'rspec'
@@ -45,4 +46,5 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
   gem 'simplecov'
+  gem 'rack-test', require: 'rack/test'
 end

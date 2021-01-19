@@ -2,7 +2,6 @@ module WebTemplate
   class App < Padrino::Application
     register Padrino::Mailer
     register Padrino::Helpers
-    enable :sessions
 
     use Rack::Parser, :content_types => {
       'application/json' => proc { |body| ::MultiJson.decode body }
