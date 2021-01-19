@@ -41,10 +41,10 @@ group :development, :test do
   gem 'byebug'
   gem 'cucumber'
   gem 'faraday'
+  gem 'rack-test', require: 'rack/test'
   gem 'rspec'
   gem 'rspec-core'
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
   gem 'simplecov'
-  gem 'rack-test', require: 'rack/test'
 end
