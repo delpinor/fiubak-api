@@ -1,0 +1,26 @@
+version: '3'
+services:
+
+  prod_db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: example
+
+  webapp:
+    build: 
+      context: .
+      dockerfile: Dockerfile.prod
+    command: "/bin/bash"
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000
+    volumes:
+        - .:/app
+    environment:
+        RACK_ENV: "production"
+        DATABASE_URL: "postgres://postgres:example@prod_db:5432/postgres"
+    depends_on:
+      - prod_db
