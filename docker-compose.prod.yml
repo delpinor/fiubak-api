@@ -7,7 +7,7 @@ services:
       POSTGRES_PASSWORD: example
 
   webapi:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile.prod
     ports:

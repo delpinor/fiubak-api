@@ -1,4 +1,5 @@
 require 'rom'
+require_relative 'database'
 
 DB = ROM.container(:sql, DATABASE_URL) do |config|
   config.relation(:users) do
