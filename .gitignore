@@ -11,3 +11,5 @@ ubuntu-*
 .vagrant
 imageid.txt
 reports
+.byebug_history
+VERSION.txt
