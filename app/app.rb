@@ -3,10 +3,6 @@ module WebTemplate
     register Padrino::Mailer
     register Padrino::Helpers
 
-    use Rack::Parser, :content_types => {
-      'application/json' => proc { |body| ::MultiJson.decode body }
-    }
-
     get '/' do
       "It\'s alive! version: #{Version.current}"
     end

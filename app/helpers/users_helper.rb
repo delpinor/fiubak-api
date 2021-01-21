@@ -8,7 +8,9 @@ module WebTemplate
       end
 
       def user_params
-        params[:user].to_h.symbolize_keys
+        @body ||= request.body.read
+        user_json = JSON.parse(@body).symbolize_keys
+        user_json[:user].symbolize_keys
       end
 
       def user_to_json(user)
