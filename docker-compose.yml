@@ -1,25 +1,33 @@
 version: '3'
 services:
-  postgres:
-    image: postgres:12-alpine
-    ports:
-      - 5435:5432
-    volumes:
-      - data:/var/lib/postgresql/data
-      - ./scripts/create_dev_and_test_dbs.sql:/docker-entrypoint-initdb.d/create_dev_and_test_dbs.sql
-    environment:
-      - POSTGRES_PASSWORD=webtemplate
 
-  server:
-    build: .
-    volumes:
-      - ./:/src
+  test_db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: example
+
+  dev_db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: example
+
+  webapp:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    command: "/bin/bash"
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
     ports:
       - "3000:3000"
+    expose:
+      - 3000
+    volumes:
+        - .:/app
     environment:
-      - RACK_ENV=development
-      - DATABASE_URL=postgres://webtemplate:webtemplate@postgres/webtemplate_development
-      - PORT=3000
-
-volumes:
-  data:
+        RACK_ENV: "development"
+        TEST_DB_URL: "postgres://postgres:example@test_db:5432/postgres"
+        DEV_DB_URL: "postgres://postgres:example@dev_db:5432/postgres"
+    depends_on:
+      - test_db
+      - dev_db

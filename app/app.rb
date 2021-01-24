@@ -2,14 +2,9 @@ module WebTemplate
   class App < Padrino::Application
     register Padrino::Mailer
     register Padrino::Helpers
-    enable :sessions
-
-    use Rack::Parser, :content_types => {
-      'application/json' => proc { |body| ::MultiJson.decode body }
-    }
 
     get '/' do
-      'It\'s alive!'
+      "It\'s alive! version: #{Version.current}"
     end
 
     if Padrino.env == :test

@@ -1,17 +1,17 @@
+# rubocop:disable all
 ENV['RACK_ENV'] = 'test'
 
 require File.expand_path("#{File.dirname(__FILE__)}/../../config/boot")
 
 require 'rspec/expectations'
 
-BASE_URL = 'http://localhost:3000'
-
 if ENV['BASE_URL']
   BASE_URL = ENV['BASE_URL']
 else
+  BASE_URL = 'http://localhost:3000'.freeze
   include Rack::Test::Methods
   def app
-    Sinatra::Application
+    Padrino.application
   end
 end
 
