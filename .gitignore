@@ -1,5 +1,6 @@
 .DS_Store
 log/**/*
+logs/**/*
 tmp/**/*
 vendor/gems/*
 !vendor/gems/cache/
@@ -13,3 +14,5 @@ imageid.txt
 reports
 .byebug_history
 VERSION.txt
+.env
+*.logs

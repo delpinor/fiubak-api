@@ -11,6 +11,7 @@ variables:
   POSTGRES_USER: webtemplate
   POSTGRES_PASSWORD: webtemplate
   DB_HOST: postgres
+  DEV_HOST: webapi-example.herokuapp.com
 
 stages:
   - build
@@ -33,9 +34,6 @@ package_job:
   stage: package
   image: docker:stable
   before_script:
-    - echo $CI_REGISTRY_USER
-    - echo $CI_REGISTRY_PASSWORD
-    - echo $CI_REGISTRY
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
   script:
     - VERSION=$(cat VERSION.txt)
@@ -50,9 +48,6 @@ deploy_dev_job:
   image: docker:stable
   before_script:
     - apk add curl
-    - echo $CI_REGISTRY_USER
-    - echo $CI_REGISTRY_PASSWORD
-    - echo $CI_REGISTRY
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
     - docker login -u _ -p $HEROKU_TOKEN registry.heroku.com
   script:
@@ -63,3 +58,4 @@ deploy_dev_job:
     - export IMAGE_ID=`docker inspect registry.heroku.com/$HEROKU_APP/web --format={{.Id}}`
     - echo $IMAGE_ID
     - ./scripts/deploy_app.sh
+    - ./scripts/smoke_test.sh $DEV_HOST $VERSION
