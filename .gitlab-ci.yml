@@ -10,6 +10,7 @@ variables:
   POSTGRES_DB: webtemplate_test
   POSTGRES_USER: webtemplate
   POSTGRES_PASSWORD: webtemplate
+  TEST_DB_URL: postgres://webtemplate:webtemplate@postgres/webtemplate_test
   DB_HOST: postgres
   DEV_HOST: webapi-example.herokuapp.com
 
