@@ -16,8 +16,11 @@ module Persistence
 
       def update_user(user_id, user_params)
         user = find(user_id)
-        updated_user = update(user.id, user_params)
-        User.new(updated_user.attributes)
+        updated_user = User.new(user.attributes.merge(user_params))
+
+        update(user.id, updated_user.attributes)
+
+        updated_user
       end
 
       def create_user(user_params)
