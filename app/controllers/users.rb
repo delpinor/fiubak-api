@@ -1,10 +1,10 @@
-WebTemplate::App.controllers :users, :provides => [:json] do
-  get :index, :provides => [:js] do
+WebTemplate::App.controllers :users do
+  get :index do
     all_users = user_repo.all
     users_to_json all_users
   end
 
-  get :show, :map => '/users', :with => :id, :provides => [:js] do
+  get :show, :map => '/users', :with => :id do
     handle_errors do
       user_id = params[:id]
       user = user_repo.find(user_id)
@@ -12,7 +12,7 @@ WebTemplate::App.controllers :users, :provides => [:json] do
     end
   end
 
-  put :update, :map => '/users', :with => :id, :provides => [:js] do
+  put :update, :map => '/users', :with => :id do
     handle_errors do
       user_id = params[:id]
       user = user_repo.update_user(user_id, user_params)
@@ -22,7 +22,7 @@ WebTemplate::App.controllers :users, :provides => [:json] do
     end
   end
 
-  post :create, :map => '/users', :provides => [:js] do
+  post :create, :map => '/users' do
     handle_errors do
       user = user_repo.create_user(user_params)
 
@@ -32,7 +32,7 @@ WebTemplate::App.controllers :users, :provides => [:json] do
     end
   end
 
-  delete :destroy, :map => '/users', :with => :id, :provides => [:js] do
+  delete :destroy, :map => '/users', :with => :id do
     handle_errors do
       user_id = params[:id]
       user_repo.delete_user(user_id)
