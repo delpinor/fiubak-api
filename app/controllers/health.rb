@@ -1,5 +1,4 @@
 WebTemplate::App.controllers :health, :provides => [:json] do
-
   get :index do
     status 200
     logger.info 'status:ok'
@@ -13,5 +12,4 @@ WebTemplate::App.controllers :health, :provides => [:json] do
     status 200
     { :version => Version.current}.to_json
   end
-
 end

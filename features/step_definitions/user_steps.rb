@@ -53,6 +53,16 @@ When('I change the user name to {string}') do |user_name|
   expect(@response.status).to eq(200)
 end
 
+When('I remove the user name') do
+  @request = {user: {name: ''}}.to_json
+  @response = Faraday.put(update_user_url(@user_id), @request, header)
+
+  expect(@response.status).to eq(400)
+
+  parsed_response = JSON.parse(@response.body)
+  @error = parsed_response['error']
+end
+
 When('I get the last user updated') do
   step 'I get the last user created'
 end
