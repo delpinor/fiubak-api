@@ -14,21 +14,15 @@ module WebTemplate
       end
 
       def user_to_json(user)
-        user.attributes.to_json
+        user_mapper.attributes(user).to_json
       end
 
       def users_to_json(users)
-        users.map(&:attributes).to_json
+        users.map { |user| user_mapper.attributes(user) }.to_json
       end
 
-      def handle_errors(&block)
-        block.call
-      rescue UserNotFound => e
-        status 404
-        {error: e.message}.to_json
-      rescue InvalidUser => e
-        status 400
-        {error: e.message}.to_json
+      def user_mapper
+        Persistence::Mappers::UserMapper.new
       end
     end
 

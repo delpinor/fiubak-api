@@ -4,37 +4,42 @@ module Persistence
       commands :create, update: :by_pk, delete: :by_pk
 
       def all
-        users.map_to(User).to_a
+        (users >> user_mapper).to_a
       end
 
       def find(id)
-        user = users.by_pk(id).map_to(User).one
+        users_relation = (users.by_pk(id) >> user_mapper)
+        user = users_relation.one
         raise UserNotFound, "User with id [#{id}] not found" if user.nil?
 
         user
       end
 
-      def update_user(user_id, user_params)
-        user = find(user_id)
-        updated_user = User.new(user.attributes.merge(user_params))
+      def update_user(user)
+        update(user.id, user_mapper.changeset(user))
 
-        update(user.id, updated_user.attributes)
-
-        updated_user
+        user
       end
 
-      def create_user(user_params)
-        new_user = User.new(user_params)
-        create(new_user.attributes)
+      def create_user(user)
+        user_struct = create(user_mapper.changeset(user))
+        user.id = user_struct.id
+
+        user
       end
 
-      def delete_user(user_id)
-        user = find(user_id)
+      def delete_user(user)
         delete(user.id)
       end
 
       def delete_all
         users.delete
+      end
+
+      private
+
+      def user_mapper
+        Persistence::Mappers::UserMapper.new
       end
     end
   end

@@ -18,11 +18,13 @@ WebTemplate::App.controllers :users do
 
   put :update, :map => '/users', :with => :id do
     begin
-      user_id = params[:id]
-      user = user_repo.update_user(user_id, user_params)
+      user = user_repo.find(params[:id])
+      user.replace_name_with(user_params[:name])
+
+      updated_user = user_repo.update_user(user)
 
       status 200
-      user_to_json user
+      user_to_json updated_user
     rescue UserNotFound => e
       status 404
       {error: e.message}.to_json
@@ -34,10 +36,11 @@ WebTemplate::App.controllers :users do
 
   post :create, :map => '/users' do
     begin
-      user = user_repo.create_user(user_params)
+      user = User.new(user_params[:name])
+      new_user = user_repo.create_user(user)
 
       status 201
-      user_to_json user
+      user_to_json new_user
     rescue InvalidUser => e
       status 400
       {error: e.message}.to_json
@@ -46,8 +49,8 @@ WebTemplate::App.controllers :users do
 
   delete :destroy, :map => '/users', :with => :id do
     begin
-      user_id = params[:id]
-      user_repo.delete_user(user_id)
+      user = user_repo.find(params[:id])
+      user_repo.delete_user(user)
 
       status 200
     rescue UserNotFound => e

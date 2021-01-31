@@ -1,22 +1,25 @@
 class User
-  attr_reader :attributes
+  attr_reader :name
+  attr_accessor :id
 
-  def initialize(attributes)
-    @attributes = attributes
-    raise InvalidUser, 'name is missing' if name_is_empty?
+  def initialize(name, id = nil)
+    @name = name
+    @id = id
+    validate_user!
   end
 
-  def [](name)
-    attributes[name]
-  end
-
-  def id
-    @attributes[:id]
+  def replace_name_with(new_name)
+    @name = new_name
+    validate_user!
   end
 
   private
 
+  def validate_user!
+    raise InvalidUser, 'name is missing' if name_is_empty?
+  end
+
   def name_is_empty?
-    (@attributes[:name].nil? || @attributes[:name] == '')
+    (@name.nil? || @name == '')
   end
 end
