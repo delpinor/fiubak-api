@@ -4,7 +4,7 @@ module Persistence
       commands :create, update: :by_pk, delete: :by_pk
 
       def create_task(task)
-        task_struct = create(task_mapper.changeset(task))
+        task_struct = create(task_changeset(task))
         task.id = task_struct.id
 
         task
@@ -23,6 +23,10 @@ module Persistence
       end
 
       private
+
+      def task_changeset(task)
+        {title: task.title, user_id: task.user.id}
+      end
 
       def task_mapper
         Persistence::Mappers::TaskMapper.new

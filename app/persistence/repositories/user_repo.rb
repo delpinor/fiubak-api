@@ -16,13 +16,13 @@ module Persistence
       end
 
       def update_user(user)
-        update(user.id, user_mapper.changeset(user))
+        update(user.id, user_changeset(user))
 
         user
       end
 
       def create_user(user)
-        user_struct = create(user_mapper.changeset(user))
+        user_struct = create(user_changeset(user))
         user.id = user_struct.id
 
         user
@@ -37,6 +37,10 @@ module Persistence
       end
 
       private
+
+      def user_changeset(user)
+        {name: user.name}
+      end
 
       def user_mapper
         Persistence::Mappers::UserMapper.new

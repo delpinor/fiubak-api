@@ -14,11 +14,17 @@ module WebTemplate
       end
 
       def user_to_json(user)
-        user_mapper.attributes(user).to_json
+        user_attributes(user).to_json
       end
 
       def users_to_json(users)
-        users.map { |user| user_mapper.attributes(user) }.to_json
+        users.map { |user| user_attributes(user) }.to_json
+      end
+
+      private
+
+      def user_attributes(user)
+        {id: user.id, name: user.name}
       end
 
       def user_mapper

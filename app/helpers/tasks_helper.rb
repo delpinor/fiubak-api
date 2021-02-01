@@ -14,15 +14,21 @@ module WebTemplate
       end
 
       def task_to_json(task)
-        task_mapper.attributes(task).to_json
+        task_attributes(task).to_json
       end
 
       def tasks_to_json(tasks)
-        tasks.map { |task| task_mapper.attributes(task) }.to_json
+        tasks.map { |task| task_attributes(task) }.to_json
       end
 
       def task_mapper
         Persistence::Mappers::TaskMapper.new
+      end
+
+      private
+
+      def task_attributes(task)
+        {id: task.id, title: task.title, user_id: task.user.id}
       end
     end
 
