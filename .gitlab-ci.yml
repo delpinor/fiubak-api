@@ -26,7 +26,7 @@ build_job:
     - gem install bundler --no-document
     - bundle install --without staging production
     - RACK_ENV=test bundle exec rake
-    - bundle exec rake version > VERSION.txt
+    - RACK_ENV=ci bundle exec rake version > VERSION.txt
   artifacts:
     paths:
       - VERSION.txt

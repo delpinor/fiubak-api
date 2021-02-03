@@ -4,27 +4,30 @@ require 'English'
 require 'rom'
 require 'rom/sql/rake_task'
 
-ENV['RACK_ENV'] ||= 'test'
-require './config/initializers/database'
-
-RACK_ENV = ENV['RACK_ENV'] ||= ENV['RACK_ENV'] ||= 'test' unless defined?(RACK_ENV)
-
-PadrinoTasks.use(:database)
-PadrinoTasks.init
-
 task :version do
   require './lib/version'
   puts Version.current
   exit 0
 end
 
-namespace :db do
-  task :setup do
-    ROM::SQL::RakeSupport.env = ROM.container(:sql, DATABASE_URL)
-  end
-end
+ENV['RACK_ENV'] ||= 'test'
+RACK_ENV = ENV['RACK_ENV'] ||= ENV['RACK_ENV'] ||= 'test' unless defined?(RACK_ENV)
 
 if %w[development test].include?(RACK_ENV)
+
+  #ENV['RACK_ENV'] ||= 'test'
+  require './config/initializers/database'
+
+  #RACK_ENV = ENV['RACK_ENV'] ||= ENV['RACK_ENV'] ||= 'test' unless defined?(RACK_ENV)
+
+  PadrinoTasks.use(:database)
+  PadrinoTasks.init
+
+  namespace :db do
+    task :setup do
+      ROM::SQL::RakeSupport.env = ROM.container(:sql, DATABASE_URL)
+    end
+  end
 
   task :all do
     ['rubocop', 'rake spec', 'rake cucumber'].each do |cmd|
