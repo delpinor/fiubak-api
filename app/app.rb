@@ -9,6 +9,8 @@ module WebTemplate
 
     if Padrino.env == :test
       post '/reset', :provides => [:js] do
+        tag_task_repo.delete_all
+        tag_repo.delete_all
         task_repo.delete_all
         user_repo.delete_all
 

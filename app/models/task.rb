@@ -1,12 +1,17 @@
 class Task
-  attr_reader :user, :title
+  attr_reader :user, :title, :tags
   attr_accessor :id
 
   def initialize(user, title, id = nil)
     @user = user
     @title = title
     @id = id
+    @tags = []
     validate_task!
+  end
+
+  def add_tag(tag)
+    @tags << tag
   end
 
   private

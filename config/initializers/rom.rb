@@ -17,7 +17,7 @@ DB = ROM.container(:sql, DATABASE_URL) do |config|
     schema(infer: true) do
       associations do
         belongs_to :user
-        has_many :tags
+        many_to_many :tags, through: :tags_tasks
       end
     end
   end
@@ -26,7 +26,17 @@ DB = ROM.container(:sql, DATABASE_URL) do |config|
     auto_struct true
     schema(infer: true) do
       associations do
-        has_many :tasks
+        many_to_many :tasks, through: :tags_tasks
+      end
+    end
+  end
+
+  config.relation(:tags_tasks) do
+    auto_struct true
+    schema(infer: true) do
+      associations do
+        belongs_to :tag
+        belongs_to :task
       end
     end
   end

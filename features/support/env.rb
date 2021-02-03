@@ -43,6 +43,14 @@ def create_task_url
   "#{BASE_URL}/tasks"
 end
 
+def create_tag_url
+  "#{BASE_URL}/tags"
+end
+
+def add_tag_to_task_url(task_id)
+  "#{BASE_URL}/tasks/add_tag/#{task_id}"
+end
+
 def delete_user_url(user_id)
   "#{BASE_URL}/users/#{user_id}"
 end

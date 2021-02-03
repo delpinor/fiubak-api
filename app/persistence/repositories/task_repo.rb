@@ -11,7 +11,7 @@ module Persistence
       end
 
       def find(id)
-        tasks_relation = tasks.combine(:user).by_pk(id)
+        tasks_relation = tasks.combine(:tags, :user).by_pk(id)
         task = (tasks_relation >> task_mapper).first
         raise TaskNotFound, "Task with id [#{id}] not found" if task.nil?
 
@@ -25,7 +25,15 @@ module Persistence
       private
 
       def task_changeset(task)
-        {title: task.title, user_id: task.user.id}
+        {title: task.title, user_id: task.user.id, tags: tags_changeset(task)}
+      end
+
+      def tags_changeset(task)
+        task.tags.map(&method(:tag_changeset))
+      end
+
+      def tag_changeset(tag)
+        {tag_name: tag.tag_name}
       end
 
       def task_mapper

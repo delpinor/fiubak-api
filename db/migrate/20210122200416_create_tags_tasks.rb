@@ -3,7 +3,7 @@ ROM::SQL.migration do
     create_table :tags_tasks do
       primary_key :id
       foreign_key :tag_id, :tags
-      foreign_key :tasks_id, :tasks
+      foreign_key :task_id, :tasks
     end
   end
 end
