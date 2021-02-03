@@ -10,7 +10,6 @@ require './config/initializers/database'
 RACK_ENV = ENV['RACK_ENV'] ||= ENV['RACK_ENV'] ||= 'test' unless defined?(RACK_ENV)
 
 PadrinoTasks.use(:database)
-# PadrinoTasks.use(:sequel)
 PadrinoTasks.init
 
 task :version do
@@ -45,13 +44,13 @@ if %w[development test].include?(RACK_ENV)
 
   require 'cucumber/rake/task'
   Cucumber::Rake::Task.new(:cucumber) do |task|
-    # Rake::Task['db:migrate'].invoke
+    Rake::Task['db:migrate'].invoke
     # Rake::Task['db:seed'].invoke
     task.cucumber_opts = ['features', '--tags \'not @wip\'']
   end
 
   Cucumber::Rake::Task.new(:cucumber_report) do |task|
-    # Rake::Task['db:migrate'].invoke
+    Rake::Task['db:migrate'].invoke
     task.cucumber_opts = ['features', '--format html -o reports/cucumber.html']
   end
 
