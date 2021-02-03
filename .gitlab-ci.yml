@@ -10,6 +10,7 @@ variables:
   POSTGRES_DB: webtemplate_test
   POSTGRES_USER: webtemplate
   POSTGRES_PASSWORD: webtemplate
+  TEST_DB_URL: postgres://webtemplate:webtemplate@postgres/webtemplate_test
   DB_HOST: postgres
   DEV_HOST: webapi-example.herokuapp.com
 
@@ -24,7 +25,7 @@ build_job:
     - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake # todo check si es necesario
     - gem install bundler --no-document
     - bundle install --without staging production
-    # pendiente: ejercuta rake para que corra test y rubocop
+    - RACK_ENV=test bundle exec rake
     - bundle exec rake version > VERSION.txt
   artifacts:
     paths:
