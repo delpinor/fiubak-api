@@ -36,7 +36,7 @@ module WebTemplate
       end
 
       def tags_attributes(task)
-        task.tags.map {|tag| tag_attributes(tag) }
+        task.tags.map { |tag| tag_attributes(tag) }
       end
     end
 

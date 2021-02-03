@@ -43,8 +43,8 @@ Then('the task should have a tag assigned {string}') do |tag_name|
   task = JSON.parse(@response.body)
   tags = task['tags']
 
-  tag = tags.select { |t| t[:tag_name] == tag_name}
-  expect(tag).not_to be_nil()
+  tag = tags.select { |t| t[:tag_name] == tag_name }
+  expect(tag).not_to be_nil
 end
 
 Given('a tag already exists with name {string}') do |tag_name|

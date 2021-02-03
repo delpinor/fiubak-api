@@ -16,7 +16,6 @@ module Persistence
       def tag_task_changeset(tag, task)
         {tag_id: tag.id, task_id: task.id}
       end
-
     end
   end
 end
