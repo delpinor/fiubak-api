@@ -15,10 +15,7 @@ RACK_ENV = ENV['RACK_ENV'] ||= ENV['RACK_ENV'] ||= 'test' unless defined?(RACK_E
 
 if %w[development test].include?(RACK_ENV)
 
-  #ENV['RACK_ENV'] ||= 'test'
   require './config/initializers/database'
-
-  #RACK_ENV = ENV['RACK_ENV'] ||= ENV['RACK_ENV'] ||= 'test' unless defined?(RACK_ENV)
 
   PadrinoTasks.use(:database)
   PadrinoTasks.init
