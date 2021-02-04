@@ -1,0 +1,2 @@
+class InvalidTag < StandardError
+end

@@ -1,0 +1,2 @@
+class InvalidTask < StandardError
+end

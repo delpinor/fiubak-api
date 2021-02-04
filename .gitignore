@@ -16,3 +16,5 @@ reports
 VERSION.txt
 .env
 *.logs
+/bin/
+/.bundle/

@@ -7,15 +7,15 @@ SimpleCov.start do
   add_filter '/admin/'
   add_filter '/db/'
   add_filter '/config/'
-  add_group 'Models', 'models'
+  add_group 'Models', 'app/models'
   add_group 'Controllers', 'app/controllers'
   add_group 'Helpers', 'app/helpers'
-  add_group 'Repositories', 'app/repositories'
+  add_group 'Persistence', 'app/persistence'
   add_group 'Mailers', 'app/mailers'
-  add_group 'Security', 'app/security'
-  add_group 'Forms', 'app/forms'
   add_group 'Lib', 'lib'
 end
+
+require "#{__dir__}/../config/boot"
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
