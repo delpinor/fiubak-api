@@ -5,7 +5,7 @@ services:
 
 variables:
   REGISTRY_URL: registry.gitlab.com/fiuba-memo2/ejemplos
-  APP_NAME: webapi-template
+  APP_NAME: webapi-example
   HEROKU_APP: webapi-example
   POSTGRES_DB: webtemplate_test
   POSTGRES_USER: webtemplate
@@ -26,7 +26,7 @@ build_job:
     - gem install bundler --no-document
     - bundle install --without staging production
     - RACK_ENV=test bundle exec rake
-    - bundle exec rake version > VERSION.txt
+    - RACK_ENV=ci bundle exec rake version > VERSION.txt
   artifacts:
     paths:
       - VERSION.txt

@@ -44,7 +44,7 @@ if %w[development test].include?(RACK_ENV)
 
   require 'cucumber/rake/task'
   Cucumber::Rake::Task.new(:cucumber) do |task|
-    Rake::Task['db:migrate'].invoke
+    # Rake::Task['db:migrate'].invoke
     # Rake::Task['db:seed'].invoke
     task.cucumber_opts = ['features', '--tags \'not @wip\'']
   end
@@ -56,6 +56,7 @@ if %w[development test].include?(RACK_ENV)
 
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec) do |t|
+    Rake::Task['db:migrate'].invoke
     t.pattern = './spec/**/*_spec.rb'
   end
 
