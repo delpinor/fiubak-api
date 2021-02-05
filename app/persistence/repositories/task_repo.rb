@@ -19,6 +19,7 @@ module Persistence
       end
 
       def delete_all
+        tags_tasks_relation.delete
         tasks.delete
       end
 
