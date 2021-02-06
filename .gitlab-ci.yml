@@ -6,18 +6,17 @@ services:
 variables:
   REGISTRY_URL: registry.gitlab.com/fiuba-memo2/ejemplos
   APP_NAME: webapi-example
-  HEROKU_APP: webapi-example
   POSTGRES_DB: db_test
   POSTGRES_USER: webapi
   POSTGRES_PASSWORD: Passw0rd!
   TEST_DB_URL: postgres://webapi:Passw0rd!@postgres/db_test
   DB_HOST: postgres
-  DEV_HOST: webapi-example.herokuapp.com
+  HEROKU_APP: webapi-example
 
 stages:
   - build
   - package
-  - deploy
+  - deploy_dev
 
 build_job:
   stage: build
@@ -47,7 +46,7 @@ package_job:
     - tags
 
 deploy_dev_job:
-  stage: deploy
+  stage: deploy_dev
   image: docker:stable
   before_script:
     - apk add curl
@@ -61,6 +60,6 @@ deploy_dev_job:
     - export IMAGE_ID=`docker inspect registry.heroku.com/$HEROKU_APP/web --format={{.Id}}`
     - echo $IMAGE_ID
     - ./scripts/deploy_app.sh
-    - ./scripts/smoke_test.sh $DEV_HOST $VERSION
+    - ./scripts/smoke_test.sh $HEROKU_APP.herokuapp.com $VERSION
   only:
     - tags
