@@ -7,10 +7,6 @@ module WebTemplate
         Persistence::Repositories::TaskRepo.new(DB)
       end
 
-      def tag_task_repo
-        Persistence::Repositories::TagsTasksRepo.new(DB)
-      end
-
       def task_params
         @body ||= request.body.read
         task_json = JSON.parse(@body).symbolize_keys

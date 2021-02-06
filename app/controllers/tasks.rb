@@ -37,7 +37,7 @@ WebTemplate::App.controllers :tasks do
       end
 
       task.add_tag(tag)
-      tag_task_repo.create_tag_task(tag, task)
+      task_repo.update_tags(task)
 
       status 201
       task_to_json task
