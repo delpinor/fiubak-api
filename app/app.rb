@@ -7,15 +7,13 @@ module WebTemplate
       "It\'s alive! version: #{Version.current}"
     end
 
-    if Padrino.env == :test
-      post '/reset', :provides => [:js] do
-        task_repo.delete_all
-        tag_repo.delete_all
-        user_repo.delete_all
+    post '/reset', :provides => [:js] do
+      task_repo.delete_all
+      tag_repo.delete_all
+      user_repo.delete_all
 
-        status 200
-        {message: 'reset ok'}.to_json
-      end
+      status 200
+      {message: 'reset ok'}.to_json
     end
 
     get :docs, map: '/docs' do

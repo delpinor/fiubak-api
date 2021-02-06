@@ -44,8 +44,12 @@ if %w[development test].include?(RACK_ENV)
 
   require 'cucumber/rake/task'
   Cucumber::Rake::Task.new(:cucumber) do |task|
-    # Rake::Task['db:migrate'].invoke
-    # Rake::Task['db:seed'].invoke
+    Rake::Task['db:migrate'].invoke
+    task.cucumber_opts = ['features', '--tags \'not @wip\'']
+  end
+
+  Cucumber::Rake::Task.new(:cucumber_remote) do |task|
+    ENV['BASE_URL'] = 'https://webapi-example.herokuapp.com/'
     task.cucumber_opts = ['features', '--tags \'not @wip\'']
   end
 
