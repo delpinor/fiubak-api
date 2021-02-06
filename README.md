@@ -30,9 +30,10 @@ Then, open the browser and go to http://0.0.0.0:3000
 
 First, get [docker-compose](https://docs.docker.com/compose/install/).
 
-Then, you have to build the image just as step 1 before. Then, using docker-compose
+Then, you can run script `start_dev_containers.sh`. After this, you will be inside the container. 
 
-`docker-compose up`
+Start the app with `bundle exec padrino start -h 0.0.0.0` and check health in another terminal at `http://localhost:3000/`
+
 
 ### Run local with Vagrant
 

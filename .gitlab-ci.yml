@@ -5,11 +5,12 @@ services:
 
 variables:
   REGISTRY_URL: registry.gitlab.com/fiuba-memo2/ejemplos
-  APP_NAME: webapi-template
+  APP_NAME: webapi-example
   HEROKU_APP: webapi-example
   POSTGRES_DB: webtemplate_test
   POSTGRES_USER: webtemplate
   POSTGRES_PASSWORD: webtemplate
+  TEST_DB_URL: postgres://webtemplate:webtemplate@postgres/webtemplate_test
   DB_HOST: postgres
   DEV_HOST: webapi-example.herokuapp.com
 
@@ -24,8 +25,8 @@ build_job:
     - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake # todo check si es necesario
     - gem install bundler --no-document
     - bundle install --without staging production
-    # pendiente: ejercuta rake para que corra test y rubocop
-    - bundle exec rake version > VERSION.txt
+    - RACK_ENV=test bundle exec rake
+    - RACK_ENV=ci bundle exec rake version > VERSION.txt
   artifacts:
     paths:
       - VERSION.txt
@@ -42,6 +43,8 @@ package_job:
     - docker tag $REGISTRY_URL/$APP_NAME:$VERSION $REGISTRY_URL/$APP_NAME:latest
     - docker push $REGISTRY_URL/$APP_NAME:$VERSION
     - docker push $REGISTRY_URL/$APP_NAME:latest
+  only:
+    - tags
 
 deploy_dev_job:
   stage: deploy

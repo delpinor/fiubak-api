@@ -12,6 +12,15 @@ Bundler.require(:default, RACK_ENV)
 # Padrino::Logger::Config[:development][:log_level]  = :devel
 # Padrino::Logger::Config[:development][:log_static] = true
 
+log_level = ENV['LOG_LEVEL'] || 'debug'
+log_stream = ENV['LOG_STREAM'] || 'stdout'
+log_file = ENV['LOG_FILE'] || '/app/logs/dev.log'
+
+current_env = ENV['RACK_ENV'].to_sym
+Padrino::Logger::Config[current_env][:log_level]  = log_level.to_sym
+Padrino::Logger::Config[current_env][:stream] = log_stream.to_sym
+Padrino::Logger::Config[current_env][:log_path]  = log_file
+
 #
 # ## Configure Ruby to allow requiring features from your lib folder
 #
