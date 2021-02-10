@@ -3,8 +3,11 @@
 
 set -e
 
-# heroku container:login
-heroku apps:create webapi-example
-heroku addons:create heroku-postgresql:hobby-dev --app webapi-example
-heroku config:set RACK_ENV=production --app webapi-example
-heroku drains:add <SUMOLOGIC_SOURCE> --app webapi-example
+# heroku login
+
+APP_NAME=webapi-example-test
+
+heroku apps:create $APP_NAME
+heroku addons:create heroku-postgresql:hobby-dev --app $APP_NAME
+heroku config:set RACK_ENV=production --app $APP_NAME
+heroku drains:add $SUMOLOGIC_SOURCE --app $APP_NAME
