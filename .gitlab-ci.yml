@@ -11,12 +11,12 @@ variables:
   POSTGRES_PASSWORD: Passw0rd!
   TEST_DB_URL: postgres://webapi:Passw0rd!@postgres/db_test
   DB_HOST: postgres
-  HEROKU_APP: webapi-example
 
 stages:
   - build
   - package
-  - deploy_dev
+  - deploy_test
+  - deploy_prod
 
 build_job:
   stage: build
@@ -45,8 +45,9 @@ package_job:
   only:
     - tags
 
-deploy_dev_job:
-  stage: deploy_dev
+deploy_test_job:
+  stage: deploy_test
+  environment: test
   image: docker:stable
   before_script:
     - apk add curl
@@ -63,3 +64,24 @@ deploy_dev_job:
     - ./scripts/smoke_test.sh $HEROKU_APP.herokuapp.com $VERSION
   only:
     - tags
+
+deploy_prod_job:
+  stage: deploy_prod
+  environment: prod
+  image: docker:stable
+  before_script:
+    - apk add curl
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - docker login -u _ -p $HEROKU_TOKEN registry.heroku.com
+  script:
+    - VERSION=$(cat VERSION.txt)
+    - docker pull $REGISTRY_URL/$APP_NAME:$VERSION
+    - docker tag $REGISTRY_URL/$APP_NAME:$VERSION registry.heroku.com/$HEROKU_APP/web
+    - docker push registry.heroku.com/$HEROKU_APP/web
+    - export IMAGE_ID=`docker inspect registry.heroku.com/$HEROKU_APP/web --format={{.Id}}`
+    - echo $IMAGE_ID
+    - ./scripts/deploy_app.sh
+    - ./scripts/smoke_test.sh $HEROKU_APP.herokuapp.com $VERSION
+  only:
+    - tags
+  when: manual
