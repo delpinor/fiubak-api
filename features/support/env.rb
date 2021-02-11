@@ -1,5 +1,6 @@
 # rubocop:disable all
 ENV['RACK_ENV'] = 'test'
+ENV['ENABLE_RESET'] = 'true'
 
 require File.expand_path("#{File.dirname(__FILE__)}/../../config/boot")
 
