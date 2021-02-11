@@ -8,12 +8,17 @@ module WebTemplate
     end
 
     post '/reset', :provides => [:js] do
-      task_repo.delete_all
-      tag_repo.delete_all
-      user_repo.delete_all
+      if ENV['ENABLE_RESET'] == 'true'
+        task_repo.delete_all
+        tag_repo.delete_all
+        user_repo.delete_all
 
-      status 200
-      {message: 'reset ok'}.to_json
+        status 200
+        {message: 'reset ok'}.to_json
+      else
+        status 403
+        {message: 'reset not enabled'}.to_json
+      end
     end
 
     get :docs, map: '/docs' do

@@ -1,4 +1,5 @@
 {
-"FOO": "fooprod",
-"BAZ": "baz"
+"LOG_LEVEL":"info",
+"LOG_STREAM":"stdout",
+"ENABLE_RESET": "false"
 }

@@ -1,4 +1,5 @@
 {
-"FOO": "footest",
-"BAZ": "baz"
+"LOG_LEVEL":"debug",
+"LOG_STREAM":"stdout",
+"ENABLE_RESET": "true"
 }
