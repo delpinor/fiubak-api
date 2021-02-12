@@ -5,7 +5,7 @@ Feature: Users CRUD
     And I get the last user created
     Then I should get user "John"
 
-  Scenario: u2 - Create invalid user wiut
+  Scenario: u2 - Create invalid user without name
     When I create the user without a name
     Then I get should get an error message
     And I get all the users
