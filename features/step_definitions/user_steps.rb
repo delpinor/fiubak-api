@@ -1,5 +1,5 @@
 Given('User {string} is already registered') do |user_name|
-  @request = {user: {name: user_name}}.to_json
+  @request = {name: user_name}.to_json
   @response = Faraday.post(create_user_url, @request, header)
   expect(@response.status).to eq(201)
 
@@ -48,13 +48,13 @@ When('I create the user with name {string}') do |user_name|
 end
 
 When('I change the user name to {string}') do |user_name|
-  @request = {user: {name: user_name}}.to_json
+  @request = {name: user_name}.to_json
   @response = Faraday.put(update_user_url(@user_id), @request, header)
   expect(@response.status).to eq(200)
 end
 
 When('I remove the user name') do
-  @request = {user: {name: ''}}.to_json
+  @request = {name: ''}.to_json
   @response = Faraday.put(update_user_url(@user_id), @request, header)
 
   expect(@response.status).to eq(400)
@@ -68,13 +68,13 @@ When('I get the last user updated') do
 end
 
 When('I change an invalid user name to {string}') do |user_name|
-  @request = {user: {name: user_name}}.to_json
+  @request = {name: user_name}.to_json
   @response = Faraday.put(update_user_url(-1), @request, header)
   expect(@response.status).to eq(404)
 end
 
 When('I create the user without a name') do
-  @request = {user: {name: ''}}.to_json
+  @request = {name: ''}.to_json
   @response = Faraday.post(create_user_url, @request, header)
   expect(@response.status).to eq(400)
 

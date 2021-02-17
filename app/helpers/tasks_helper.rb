@@ -9,8 +9,7 @@ module WebTemplate
 
       def task_params
         @body ||= request.body.read
-        task_json = JSON.parse(@body).symbolize_keys
-        task_json[:task].symbolize_keys
+        JSON.parse(@body).symbolize_keys
       end
 
       def task_to_json(task)

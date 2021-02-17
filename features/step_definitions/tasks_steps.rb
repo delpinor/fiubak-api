@@ -1,5 +1,5 @@
 When('I assign a task with title {string} to the last user created') do |task_title|
-  @request = {task: {title: task_title, user_id: @user_id}}.to_json
+  @request = {title: task_title, user_id: @user_id}.to_json
   @response = Faraday.post(create_task_url, @request, header)
   expect(@response.status).to eq(201)
 
@@ -31,7 +31,7 @@ Given('a task with title {string} is already assigned to the last user created')
 end
 
 When('I assign a tag with name {string} to the last task created') do |tag_name|
-  @request = {tag: {tag_name: tag_name}}.to_json
+  @request = {tag_name: tag_name}.to_json
   @response = Faraday.post(add_tag_to_task_url(@task_id), @request, header)
   expect(@response.status).to eq(201)
 
@@ -48,7 +48,7 @@ Then('the task should have a tag assigned {string}') do |tag_name|
 end
 
 Given('a tag already exists with name {string}') do |tag_name|
-  @request = {tag: {tag_name: tag_name}}.to_json
+  @request = {tag_name: tag_name}.to_json
   @response = Faraday.post(create_tag_url, @request, header)
   expect(@response.status).to eq(201)
 
