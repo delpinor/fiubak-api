@@ -1,4 +1,4 @@
-WebTemplate::App.controllers :users do
+WebTemplate::App.controllers :users, :provides => [:json] do
   get :index do
     all_users = user_repo.all
     users_to_json all_users

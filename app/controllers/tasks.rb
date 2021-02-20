@@ -1,4 +1,4 @@
-WebTemplate::App.controllers :tasks do
+WebTemplate::App.controllers :tasks, :provides => [:json] do
   get :show, :map => '/tasks', :with => :id do
     begin
       task_id = params[:id]

@@ -1,4 +1,4 @@
-WebTemplate::App.controllers :tags do
+WebTemplate::App.controllers :tags, :provides => [:json] do
   get :show, :map => '/tags', :with => :id do
     begin
       tag_id = params[:id]
