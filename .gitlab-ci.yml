@@ -77,6 +77,9 @@ acceptance_test_job:
     - ./scripts/acceptance_test.sh https://$HEROKU_APP.herokuapp.com
   only:
     - tags
+  artifacts:
+    paths:
+      - reports
 
 deploy_prod_job:
   stage: deploy_prod
