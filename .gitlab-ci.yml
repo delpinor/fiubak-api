@@ -15,6 +15,7 @@ stages:
   - build
   - package
   - deploy_test
+  - acceptance_test
   - deploy_prod
 
 build_job:
@@ -62,6 +63,18 @@ deploy_test_job:
     - ./scripts/deploy_config.sh
     - ./scripts/deploy_app.sh
     - ./scripts/smoke_test.sh $HEROKU_APP.herokuapp.com $VERSION
+  only:
+    - tags
+
+acceptance_test_job:
+  stage: acceptance_test
+  environment: test
+  needs: ["deploy_test_job"]
+  script:
+    - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake # todo check si es necesario
+    - gem install bundler --no-document
+    - bundle install --without staging production
+    - ./scripts/acceptance_test.sh $HEROKU_APP.herokuapp.com
   only:
     - tags
 

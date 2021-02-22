@@ -22,6 +22,7 @@ Feature: Users CRUD
     And I get the last user updated
     Then I should get user "Paul"
 
+  @local
   Scenario: u5 - Update invalid user
     Given User "John" is already registered
     When I remove the user name
