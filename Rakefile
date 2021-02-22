@@ -24,6 +24,11 @@ namespace :db do
   end
 end
 
+require 'cucumber/rake/task'
+Cucumber::Rake::Task.new(:acceptance) do |task|
+  task.cucumber_opts = ['features', '--tags \'not @wip\'']
+end
+
 if %w[development test].include?(RACK_ENV)
 
   task :all do
