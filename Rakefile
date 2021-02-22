@@ -27,7 +27,6 @@ end
 require 'cucumber/rake/task'
 Cucumber::Rake::Task.new(:acceptance) do |task|
   task.cucumber_opts = ['features', '--tags \'not @wip and not @local\' --format html -o reports/cucumber.html']
-  #task.cucumber_opts = ['features', '--tags \'not @wip and not @local\'']
 end
 
 if %w[development test].include?(RACK_ENV)
