@@ -1,0 +1,99 @@
+---
+openapi: 3.0.3
+info:
+  title: webapi-example
+  version: 0.0.25
+paths:
+  "/reset":
+    post:
+      summary: POST /reset
+      responses:
+        '200':
+          description: POST /reset
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: reset ok
+  "/users":
+    post:
+      summary: POST /users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+            example:
+              name: juan
+      responses:
+        '201':
+          description: POST /users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+              example:
+                id: 100
+                name: juan
+    get:
+      summary: GET /users
+      responses:
+        '200':
+          description: GET /users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+              example:
+              - id: 99
+                name: juan
+              - id: 100
+                name: juan
+  "/users/{id}":
+    delete:
+      summary: DELETE /users/99
+      parameters:
+      - name: "id"
+        in: "path"
+        type: "integer"
+        format: int64
+      responses:
+        '200':
+          description: DELETE /users
+  "/health":
+    get:
+      summary: GET /health
+      responses:
+        '200':
+          description: GET /health
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  version:
+                    type: string
+              example:
+                status: ok
+                version: 0.0.25
