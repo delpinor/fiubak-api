@@ -14,7 +14,7 @@ WebTemplate::App.controllers :tags, :provides => [:json] do
   post :create, :map => '/tags' do
     begin
       tag = Tag.new(tag_params[:tag_name])
-      new_tag = tag_repo.create_tag(tag)
+      new_tag = tag_repo.save(tag)
 
       status 201
       tag_to_json new_tag

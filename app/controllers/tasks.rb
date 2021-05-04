@@ -15,7 +15,7 @@ WebTemplate::App.controllers :tasks, :provides => [:json] do
     begin
       user = user_repo.find(task_params[:user_id])
       task = Task.new(user, task_params[:title])
-      new_task = task_repo.create_task(task)
+      new_task = task_repo.save(task)
 
       status 201
       task_to_json new_task
@@ -33,11 +33,11 @@ WebTemplate::App.controllers :tasks, :provides => [:json] do
       tag_name = tag_params[:tag_name]
       tag = tag_repo.find_by_tag_name(tag_name) do
         tag = Tag.new(tag_name)
-        tag_repo.create_tag(tag)
+        tag_repo.save(tag)
       end
 
       task.add_tag(tag)
-      task_repo.update_tags(task)
+      task_repo.save(task)
 
       status 201
       task_to_json task

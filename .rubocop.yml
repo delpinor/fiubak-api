@@ -43,3 +43,7 @@ Style/HashSyntax:
   EnforcedStyle: no_mixed_keys
 Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
+RSpec/DescribedClass:
+  Enabled: false
+RSpec/InstanceVariable:
+  Enabled: false

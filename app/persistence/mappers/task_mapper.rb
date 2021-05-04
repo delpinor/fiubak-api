@@ -18,8 +18,16 @@ module Persistence
         Task.new(user, task_attributes.title, task_attributes.id)
       end
 
+      def task_changeset(task)
+        {title: task.title, user_id: task.user.id, tags: tags_changeset(task)}
+      end
+
       def user_mapper
         UserMapper.new
+      end
+
+      def tags_changeset(task)
+        tag_mapper.tags_changeset(task)
       end
 
       def tag_mapper

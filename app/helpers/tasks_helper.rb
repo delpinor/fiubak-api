@@ -4,7 +4,7 @@ module WebTemplate
   class App
     module TaskHelper
       def task_repo
-        Persistence::Repositories::TaskRepo.new(DB)
+        Persistence::Repositories::TaskRepository.new
       end
 
       def task_params

@@ -14,6 +14,11 @@ class Task
     @tags << tag
   end
 
+  def replace_title_with(new_title)
+    @title = new_title
+    validate_task!
+  end
+
   private
 
   def validate_task!

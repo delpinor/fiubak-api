@@ -4,7 +4,7 @@ module WebTemplate
   class App
     module UserHelper
       def user_repo
-        Persistence::Repositories::UserRepo.new(DB)
+        Persistence::Repositories::UserRepository.new
       end
 
       def user_params

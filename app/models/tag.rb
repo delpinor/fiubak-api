@@ -8,6 +8,11 @@ class Tag
     validate_tag!
   end
 
+  def replace_tag_name_with(new_name)
+    @tag_name = new_name
+    validate_tag!
+  end
+
   private
 
   def validate_tag!
