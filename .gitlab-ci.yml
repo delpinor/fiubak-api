@@ -75,7 +75,6 @@ acceptance_test_job:
     - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake # todo check si es necesario
     - gem install bundler --no-document
     - bundle install --without staging production
-    - touch reports
     - ./scripts/acceptance_test.sh https://$HEROKU_APP.herokuapp.com
   only:
     - tags
