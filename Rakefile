@@ -32,7 +32,7 @@ end
 if %w[development test].include?(RACK_ENV)
 
   task :all do
-    ['rubocop', 'rake spec', 'rake cucumber'].each do |cmd|
+    ['rake spec', 'rake cucumber'].each do |cmd|
       puts "Starting to run #{cmd}..."
       system("export DISPLAY=:99.0 && bundle exec #{cmd}")
       raise "#{cmd} failed!" unless $CHILD_STATUS.exitstatus.zero?
@@ -67,15 +67,6 @@ if %w[development test].include?(RACK_ENV)
   RSpec::Core::RakeTask.new(:spec_report) do |t|
     t.pattern = './spec/**/*_spec.rb'
     t.rspec_opts = %w[--format RspecJunitFormatter --out reports/spec/spec.xml]
-  end
-
-  require 'rubocop/rake_task'
-  desc 'Run RuboCop on the lib directory'
-  RuboCop::RakeTask.new(:rubocop) do |task|
-    # run analysis on rspec tests
-    task.requires << 'rubocop-rspec'
-    # don't abort rake on failure
-    task.fail_on_error = false
   end
 
   task default: [:all]

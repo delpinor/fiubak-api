@@ -36,9 +36,7 @@ WebTemplate::App.controllers :users, :provides => [:json] do
 
   post :create, :map => '/users' do
     begin
-      user = User.new(user_params[:name])
-      new_user = user_repo.save(user)
-
+      new_user = UserCreator.new(user_repo, self).create_user(user_params[:name]) # User.new(user_params[:name])
       status 201
       user_to_json new_user
     rescue InvalidUser => e
