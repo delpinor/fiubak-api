@@ -1,7 +1,11 @@
 class Tag
-  attr_reader :tag_name
+  attr_reader :tag_name, :updated_on, :created_on
   attr_accessor :id
 
+  def valid?
+    true
+  end
+  
   def initialize(tag_name, id = nil)
     @tag_name = tag_name
     @id = id

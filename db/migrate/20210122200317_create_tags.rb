@@ -1,8 +1,15 @@
-ROM::SQL.migration do
-  change do
-    create_table :tags do
+Sequel.migration do
+  up do
+    create_table(:tags) do
       primary_key :id
-      column :tag_name, String, null: false
+      String :tag_name
+      Date :created_on
+      Date :updated_on
     end
   end
+
+  down do
+    drop_table(:tags)
+  end
 end
+

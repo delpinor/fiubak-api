@@ -59,6 +59,7 @@ Padrino.dependency_paths.unshift Padrino.root('config/initializers/*.rb')
 # These hooks are run before any dependencies are required.
 #
 Padrino.before_load do
+  #Sequel::Model.plugin :validation_helpers
   Padrino.dependency_paths << Padrino.root('app/persistence/**/*.rb')
   Padrino.dependency_paths << Padrino.root('app/errors/**/*.rb')
 end

@@ -1,9 +1,15 @@
-ROM::SQL.migration do
-  change do
-    create_table :tags_tasks do
+Sequel.migration do
+  up do
+    create_table(:tags_tasks) do
       primary_key :id
-      foreign_key :tag_id, :tags
-      foreign_key :task_id, :tasks
+      Integer :tag_id
+      Integer :task_id
     end
   end
+
+  down do
+    drop_table(:tags_tasks)
+  end
 end
+
+

@@ -25,6 +25,8 @@ describe Persistence::Repositories::UserRepository do
 
       user_repo.save(@new_user)
 
+      debugger
+
       expect(user_repo.find(@user_id).name).to eq('Paul')
     end
 

@@ -1,27 +1,20 @@
 require 'bundler/setup'
 require 'padrino-core/cli/rake'
 require 'English'
-require 'rom'
-require 'rom/sql/rake_task'
 
 ENV['RACK_ENV'] ||= 'test'
-require './config/initializers/database'
-
 RACK_ENV = ENV['RACK_ENV'] ||= ENV['RACK_ENV'] ||= 'test' unless defined?(RACK_ENV)
 
+#PadrinoTasks.use(:database)
+#PadrinoTasks.init
 PadrinoTasks.use(:database)
+PadrinoTasks.use(:sequel)
 PadrinoTasks.init
 
 task :version do
   require './lib/version'
   puts Version.current
   exit 0
-end
-
-namespace :db do
-  task :setup do
-    ROM::SQL::RakeSupport.env = ROM.container(:sql, DATABASE_URL)
-  end
 end
 
 require 'cucumber/rake/task'

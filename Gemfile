@@ -20,9 +20,7 @@ gem 'rake'
 gem 'activemodel', require: 'active_model'
 gem 'pg'
 gem 'rack-parser', :require => 'rack/parser'
-gem 'rom'
-gem 'rom-sql'
-# gem 'sequel'
+gem 'sequel'
 
 # Test requirements
 
