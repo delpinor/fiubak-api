@@ -26,8 +26,9 @@ module Persistence
       end
     
       def find(id)
+        debugger
         found_record = dataset.first(pk_column => id)
-        raise UserNotFound.new if found_record.nil?
+        raise ObjectNotFound.new(self.class.model_class, id) if found_record.nil?
         load_object dataset.first(found_record)
       end
     

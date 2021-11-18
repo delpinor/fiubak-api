@@ -75,6 +75,6 @@ describe Persistence::Repositories::TagRepository do
   it 'should raise an error when attempts to find a non-existing tag' do
     expect do
       tag_repo.find(99_999)
-    end.to raise_error(TagNotFound)
+    end.to raise_error(ObjectNotFound)
   end
 end

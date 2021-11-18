@@ -23,7 +23,7 @@ describe Persistence::Repositories::TaskRepository do
 
   it 'should save a new task with a tag' do
     task = task_repo.save(a_task_with_tags)
-
+    debugger
     new_task = task_repo.find(task.id)
     expect(new_task.tags.count).to eq(1)
     expect(new_task.tags.first.tag_name).to eq(a_tag.tag_name)
@@ -97,6 +97,6 @@ describe Persistence::Repositories::TaskRepository do
   it 'should raise an error when attempts to find a non-existing task' do
     expect do
       task_repo.find(99_999)
-    end.to raise_error(TaskNotFound)
+    end.to raise_error(ObjectNotFound)
   end
 end

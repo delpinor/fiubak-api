@@ -22,11 +22,7 @@ describe Persistence::Repositories::UserRepository do
 
     it 'should update a user name' do
       @new_user.replace_name_with 'Paul'
-
       user_repo.save(@new_user)
-
-      debugger
-
       expect(user_repo.find(@user_id).name).to eq('Paul')
     end
 
@@ -60,6 +56,6 @@ describe Persistence::Repositories::UserRepository do
   it 'should raise an error when attempts to find a non-existing user' do
     expect do
       user_repo.find(99_999)
-    end.to raise_error(UserNotFound)
+    end.to raise_error(ObjectNotFound)
   end
 end
