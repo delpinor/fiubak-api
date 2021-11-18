@@ -5,7 +5,7 @@ WebTemplate::App.controllers :tags, :provides => [:json] do
       tag = tag_repo.find(tag_id)
 
       tag_to_json tag
-    rescue TagNotFound => e
+    rescue ObjectNotFound => e
       status 404
       {error: e.message}.to_json
     end

@@ -26,7 +26,7 @@ gem 'sequel'
 
 # Padrino Stable Gem
 gem 'padrino', '0.15.0'
-gem 'sinatra', '2.0.8.1'
+# gem 'sinatra', '2.0.8.1' # revisar, en teoria no es necesario pero en un momento lo agregamos por algo
 
 # Or Padrino Edge
 # gem 'padrino', :github => 'padrino/padrino-framework'

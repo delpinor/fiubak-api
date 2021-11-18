@@ -22,7 +22,7 @@ module Persistence
       end
     
       def all
-        dataset
+        load_collection dataset.all
       end
     
       def find(id)
@@ -32,6 +32,7 @@ module Persistence
       end
     
       def first
+        load_collection dataset.where(is_active: true)
         load_object dataset.first
       end
     

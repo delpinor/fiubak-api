@@ -5,7 +5,7 @@ WebTemplate::App.controllers :tasks, :provides => [:json] do
       task = task_repo.find(task_id)
 
       task_to_json task
-    rescue TaskNotFound => e
+    rescue ObjectNotFound => e
       status 404
       {error: e.message}.to_json
     end
@@ -41,7 +41,7 @@ WebTemplate::App.controllers :tasks, :provides => [:json] do
 
       status 201
       task_to_json task
-    rescue TaskNotFound => e
+    rescue ObjectNotFound => e
       status 404
       {error: e.message}.to_json
     rescue InvalidTag => e
