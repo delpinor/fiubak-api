@@ -23,7 +23,6 @@ describe Persistence::Repositories::TaskRepository do
 
   it 'should save a new task with a tag' do
     task = task_repo.save(a_task_with_tags)
-    debugger
     new_task = task_repo.find(task.id)
     expect(new_task.tags.count).to eq(1)
     expect(new_task.tags.first.tag_name).to eq(a_tag.tag_name)

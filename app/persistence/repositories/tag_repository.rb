@@ -10,6 +10,16 @@ module Persistence
         when_not_found.call
       end
 
+      def find_by_task(task)
+        tags_tasks_dataset = DB[:tags_tasks]
+        tags_tasks = tags_tasks_dataset.where(task_id: task.id)
+        tags = []
+        tags_tasks.each do | tag_task |
+          tags << find( tag_task[:tag_id])
+        end
+        tags
+      end
+
       protected
       
       def load_object(a_hash)
