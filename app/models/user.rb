@@ -1,10 +1,6 @@
 class User
   attr_reader :name, :updated_on, :created_on
   attr_accessor :id
-
-  def valid?
-    true
-  end
   
   def initialize(name, id = nil)
     @name = name
