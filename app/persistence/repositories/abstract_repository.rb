@@ -68,7 +68,7 @@ module Persistence
         raise 'Subclass must implement'
       end
 
-      def changeset(_a_record)
+      def changeset(a_object)
         raise 'Subclass must implement'
       end
     
