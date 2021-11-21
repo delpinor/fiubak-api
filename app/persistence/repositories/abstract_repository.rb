@@ -5,15 +5,15 @@ module Persistence
     class AbstractRepository
       def save(a_record)
         if find_dataset_by_id(a_record.id).first
-          update(a_record).positive?
+          update(a_record)
         else
-          !insert(a_record).id.nil?
+          insert(a_record)
         end
         a_record
       end
     
       def destroy(a_record)
-        find_dataset_by_id(a_record.id).delete.positive?
+        find_dataset_by_id(a_record.id).delete
       end
       alias delete destroy
     
@@ -65,7 +65,10 @@ module Persistence
       end
     
       def load_object(a_record)
-        # Object.const_get(self.class.model_class).new(a_record)
+        raise 'Subclass must implement'
+      end
+
+      def changeset(_a_record)
         raise 'Subclass must implement'
       end
     
@@ -80,11 +83,7 @@ module Persistence
       def changeset_with_timestamps(a_record)
         changeset(a_record).merge(created_on: a_record.created_on, updated_on: a_record.updated_on)
       end
-    
-      def changeset(_a_record)
-        raise 'Subclass must implement'
-      end
-    
+        
       def class_name
         self.class.model_class
       end

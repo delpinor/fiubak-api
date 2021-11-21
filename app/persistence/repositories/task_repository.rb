@@ -14,6 +14,21 @@ module Persistence
         a_task
       end
 
+      def destroy(a_task)
+        tags_tasks_dataset = DB[:tags_tasks]
+        tasks_tags = tags_tasks_dataset.where(task_id: a_task.id)
+        tasks_tags.delete
+        find_dataset_by_id(a_task.id).delete
+      end
+
+      alias delete destroy
+    
+      def delete_all
+        tags_tasks_dataset = DB[:tags_tasks]
+        tags_tasks_dataset.delete
+        super
+      end
+
 
       protected
 
