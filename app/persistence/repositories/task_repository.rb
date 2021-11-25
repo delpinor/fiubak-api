@@ -6,9 +6,9 @@ module Persistence
 
       def save(a_task)
         if find_dataset_by_id(a_task.id).first
-          update(a_task).positive?
+          update(a_task)
         else
-          !insert(a_task).id.nil?
+          !insert(a_task)
         end
         save_tags(a_task)
         a_task
