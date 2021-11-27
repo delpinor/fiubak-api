@@ -13,7 +13,7 @@ describe Persistence::Repositories::UserRepository do
     expect(repo_usuario.all.count).to eq(1)
   end
 
-  xit 'Debería asignar un id' do
+  it 'Debería asignar un id' do
     nuevo_usuario = repo_usuario.save(usuario)
     expect(nuevo_usuario.id).to be_present
   end
