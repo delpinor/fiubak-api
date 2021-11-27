@@ -1,3 +1,4 @@
+@wip
 Feature: Users CRUD
 
   Scenario: u1 - Create one user sucessfully
