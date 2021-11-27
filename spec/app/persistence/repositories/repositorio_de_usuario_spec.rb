@@ -24,7 +24,7 @@ describe Persistence::Repositories::UserRepository do
       @id_usuario = @nuevo_usuario.id
     end
 
-    xit 'No debería tener usuarios al eliminar todos' do
+    it 'No debería tener usuarios al eliminar todos' do
       repo_usuario.delete_all
       expect(repo_usuario.all.count).to eq(0)
     end

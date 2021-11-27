@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Crear usuario' do
   context 'Se crea con datos válidos' do
     before(:each)  do
-      @usuario = Usuario.new(33234543, 'Nicolas', 'nicoperez@gmail.com', 3)
+      @usuario = Usuario.new(33234543, 'Nicolas', 'nicoperez@gmail.com')
     end
     it 'Se crea con DNI' do
       expect(@usuario.dni).to eq 33234543
