@@ -35,9 +35,9 @@ describe Persistence::Repositories::UserRepository do
     end
   end
 
-  xit 'Debería lanzar un error cuando el usuario no existe' do
+  it 'Debería lanzar un error cuando el usuario no existe' do
     expect do
-      repo_usuario.find(99_999)
+      repo_usuario.find(99999)
     end.to raise_error(ObjectNotFound)
   end
 end
