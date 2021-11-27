@@ -5,7 +5,7 @@ set -e
 
 # heroku login
 
-APP_NAME=webapi-example-test
+APP_NAME=webapi-nairobi-prod
 
 heroku apps:create $APP_NAME
 heroku addons:create heroku-postgresql:hobby-dev --app $APP_NAME
