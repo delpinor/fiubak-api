@@ -1,15 +1,19 @@
 require 'integration_helper'
 
 describe Persistence::Repositories::UserRepository do
-  let(:repo_usuario) { Persistence::Repositories::RepositorioDeUsuario.new }
-  let(:usuario) { Usuario.new(23434231, 'Jhon', 'jhon@gmail.com') }
+  let(:repo_usuario) { Persistence::Repositories::RepositorioDeUsuarios.new }
+  let(:usuario) { Usuario.new(12323423, 'Jhon', 'jhon@gmail.com') }
 
-  xit 'Debe haber un usuario' do
+  before do
+    repo_usuario.delete_all
+  end
+
+  it 'Al crear un usuario debería tener cantidad 1' do
     repo_usuario.save(usuario)
     expect(repo_usuario.all.count).to eq(1)
   end
 
-  xit 'Debe asignar un id' do
+  xit 'Debería asignar un id' do
     nuevo_usuario = repo_usuario.save(usuario)
     expect(nuevo_usuario.id).to be_present
   end
@@ -20,7 +24,7 @@ describe Persistence::Repositories::UserRepository do
       @id_usuario = @nuevo_usuario.id
     end
 
-    xit 'No debería tener usuario al eliminar todos' do
+    xit 'No debería tener usuarios al eliminar todos' do
       repo_usuario.delete_all
       expect(repo_usuario.all.count).to eq(0)
     end

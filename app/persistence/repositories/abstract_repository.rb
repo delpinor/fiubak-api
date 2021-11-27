@@ -51,11 +51,11 @@ module Persistence
       end
     
       def update(a_record)
-        find_dataset_by_id(a_record.id).update(update_changeset(a_record))
+        find_dataset_by_id(a_record.id).update(changeset(a_record))
       end
     
       def insert(a_record)
-        id = dataset.insert(insert_changeset(a_record))
+        id = dataset.insert(changeset(a_record))
         a_record.id = id
         a_record
       end
