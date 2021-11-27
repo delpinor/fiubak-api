@@ -29,7 +29,7 @@ describe Persistence::Repositories::UserRepository do
       expect(repo_usuario.all.count).to eq(0)
     end
 
-    xit 'Deber encontrar por el id' do
+    it 'Deber encontrar por el id' do
       usuario = repo_usuario.find(@id_usuario)
       expect(usuario.nombre).to eq(@nuevo_usuario.nombre)
     end
