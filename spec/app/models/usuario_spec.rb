@@ -19,8 +19,8 @@ describe 'Crear usuario' do
   end
 
   context 'Se crea con datos inválidos' do
-    xit 'Lanza un error cuando el DNI no es un numero' do
-      expect {Usuario.new('asd', 'Nicolas', 'nicoperez@gmail.com')
+    it 'Lanza un error cuando el DNI es negativo' do
+      expect {Usuario.new(-21, 'Nicolas', 'nicoperez@gmail.com')
       }.to raise_error(DniInvalidoError)
     end
   end
