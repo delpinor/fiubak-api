@@ -5,16 +5,16 @@ describe 'Crear usuario' do
     before(:each)  do
       @usuario = Usuario.new(33234543, 'Nicolas', 'nicoperez@gmail.com')
     end
-    xit 'Se crea con DNI' do
-      expected(@usuario.dni).to eq 33234543
+    it 'Se crea con DNI' do
+      expect(@usuario.dni).to eq 33234543
     end
 
-    xit 'Se crea con nombre' do
-      expected(@usuario.nombre).to eq 'Nicolas'
+    it 'Se crea con nombre' do
+      expect(@usuario.nombre).to eq 'Nicolas'
     end
 
-    xit 'Se crea con email' do
-      expected(@usuario.mail).to eq 'nicoperez@gmail.com'
+    it 'Se crea con email' do
+      expect(@usuario.email).to eq 'nicoperez@gmail.com'
     end
   end
 
