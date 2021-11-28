@@ -5,10 +5,10 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
       nuevo_usuario = crear_usuario(request.body.read)
       usuario_con_id = repositorio_de_usuarios.save(nuevo_usuario)
       status 201
-      usuario_a_json(usuario_con_id)
+      {mensaje: 'registro exitoso'}.to_json
     rescue StandardError => e
       status 400
-      {error: e.message}.to_json
+      {mensaje: 'se produjo un error', tipo: e.message.to_s}.to_json
     end
   end
 
