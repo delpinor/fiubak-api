@@ -4,6 +4,7 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
     begin
       nuevo_usuario = crear_usuario(request.body.read)
       usuario_con_id = repositorio_de_usuarios.save(nuevo_usuario)
+      status 201
       usuario_a_json(usuario_con_id)
     rescue StandardError => e
       status 400
