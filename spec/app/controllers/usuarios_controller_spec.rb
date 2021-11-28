@@ -9,11 +9,10 @@ describe 'Usuarios controller' do
     repo_usuario.delete_all
   end
 
-  xit 'La respuesta debe ser un JSON con el mismo nombre' do
+  it 'La respuesta debe ser un JSON con el mismo nombre' do
     headers = { "CONTENT_TYPE" => "application/json" }
     post '/usuarios', :params => datos_usuario.to_json, :headers => headers
-    json = JSON.parse(last_response.body)
-    expect(json['test']).to eq(datos_usuario[:nombre])
+    expect(last_response.body.include?(datos_usuario[:nombre])).to eq(true)
   end
 
   xit 'La respuesta debe tener un id' do
