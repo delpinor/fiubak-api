@@ -15,11 +15,10 @@ describe 'Usuarios controller' do
     expect(last_response.body.include?(datos_usuario[:nombre])).to eq(true)
   end
 
-  xit 'La respuesta debe tener un id' do
+  it 'La respuesta debe tener un DNI' do
     headers = { "CONTENT_TYPE" => "application/json" }
     post '/usuarios', :params => datos_usuario.to_json, :headers => headers
-    json = JSON.parse(last_response.body)
-    expect(json['id']).not_to be_nil
+    expect(last_response.body.include?(datos_usuario[:dni].to_s)).to eq(true)
   end
 
   xit 'La respuesta debe ser 201' do
