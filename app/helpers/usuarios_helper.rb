@@ -13,7 +13,7 @@ module WebTemplate
 
       def crear_usuario(data)
         data = JSON.parse(data)
-        Usuario.new(data['dni'], data['nombre'], data['email'])
+        Usuario.new(data['dni'].to_i, data['nombre'], data['email'])
       end
 
       private

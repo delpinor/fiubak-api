@@ -6,9 +6,9 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
       usuario_con_id = repositorio_de_usuarios.save(nuevo_usuario)
       status 201
       {mensaje: 'registro exitoso'}.to_json
-    rescue StandardError => e
+    rescue Exception => e
       status 400
-      {mensaje: 'se produjo un error', tipo: e.message.to_s}.to_json
+      {mensaje: 'se produjo un error'}.to_json
     end
   end
 
