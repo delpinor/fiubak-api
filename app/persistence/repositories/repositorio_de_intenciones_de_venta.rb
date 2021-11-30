@@ -6,8 +6,8 @@ module Persistence
 
         def encontrar_por_id_usuario(id_usuario)
           usuario = Usuario.new(33234543, 'Nicolas', 'nicoperez@gmail.com', 665)
-          auto = Auto.new("Fiat", "uno", 1940, "MFL200")
-          [IntencionDeVenta.new(auto, usuario, "en revision", 1)]
+          auto = Auto.new("Fiat", "uno", 1940, "MFS222")
+          [IntencionDeVenta.new(auto, usuario, "en revision")]
         end
   
         protected
