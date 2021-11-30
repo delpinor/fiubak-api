@@ -27,4 +27,18 @@ describe Persistence::Repositories::RepositorioDeIntencionesDeVenta do
     nueva_intencion_de_venta = repo_intenciones_de_venta.save(intencion_de_venta)
     expect(nueva_intencion_de_venta.id).to be_present
   end
+
+  context 'Cuando una intencion de venta existe' do
+    before :each do
+      repo_autos.save(auto)
+      repo_usuario.save(usuario)
+      @nueva_intencion_de_venta = repo_intenciones_de_venta.save(intencion_de_venta)
+      @id_intencion_de_venta = @nueva_intencion_de_venta.id
+    end
+
+    it 'No debería tener intenciones de venta al eliminar todas' do
+      repo_intenciones_de_venta.delete_all
+      expect(repo_intenciones_de_venta.all.count).to eq(0)
+    end
+  end
 end
