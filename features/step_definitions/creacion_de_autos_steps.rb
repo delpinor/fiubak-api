@@ -21,6 +21,6 @@ end
 Entonces('el auto se carga exitosamente con estado ‘en revisión’') do
   body = JSON.parse(@response.body)
   expect(body['mensaje']).to eq('intencion de venta registrada con exito')
-  expect(body['id']).to eq(1)
-  # TODO: llamar a consulta de venta para obtener el estado
+  expect(body['id']).to be_present
+  # TODO: llamar a consulta de venta para obtener el estado, y validar ids con caracteristicas del auto
 end
