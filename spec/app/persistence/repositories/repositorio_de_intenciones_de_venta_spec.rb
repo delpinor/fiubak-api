@@ -55,5 +55,10 @@ describe Persistence::Repositories::RepositorioDeIntencionesDeVenta do
       intencion_de_venta = repo_intenciones_de_venta.find(@id_intencion_de_venta)
       expect(intencion_de_venta.auto.id).to eq(auto.id)
     end
+
+    it 'Deber encontrar por el id y poder mapear el usuario' do
+      intencion_de_venta = repo_intenciones_de_venta.find(@id_intencion_de_venta)
+      expect(intencion_de_venta.usuario.id).to eq(usuario.id)
+    end
   end
 end
