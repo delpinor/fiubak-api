@@ -60,6 +60,10 @@ def reset_url
   "#{BASE_URL}/reset"
 end
 
+def registrar_usuario_url
+  "#{BASE_URL}/usuarios"
+end
+
 After do |_scenario|
   Faraday.post(reset_url)
 end
