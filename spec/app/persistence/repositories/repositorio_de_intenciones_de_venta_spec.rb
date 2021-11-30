@@ -4,9 +4,9 @@ describe Persistence::Repositories::RepositorioDeIntencionesDeVenta do
   let(:repo_autos) { Persistence::Repositories::RepositorioDeAutos.new }
   let(:repo_usuario) { Persistence::Repositories::RepositorioDeUsuarios.new }
   let(:repo_intenciones_de_venta) { Persistence::Repositories::RepositorioDeIntencionesDeVenta.new }
-  let(:auto) { Auto.new("fiat", 'uno', 1999, "MFS222", 1) }
-  let(:usuario) { Usuario.new(12323423, 'Jhon', 'jhon@gmail.com', 34212) }
-  let(:intencion_de_venta) { IntencionDeVenta.new(auto, usuario, "revision", 1) }
+  let(:auto) { Auto.new("fiat", 'uno', 1999, "MFS222") }
+  let(:usuario) { Usuario.new(12323423, 'Jhon', 'jhon@gmail.com', 3002) }
+  let(:intencion_de_venta) { IntencionDeVenta.new(auto, usuario, "en revision", 1) }
 
   before do
     repo_intenciones_de_venta.delete_all
@@ -39,6 +39,21 @@ describe Persistence::Repositories::RepositorioDeIntencionesDeVenta do
     it 'No debería tener intenciones de venta al eliminar todas' do
       repo_intenciones_de_venta.delete_all
       expect(repo_intenciones_de_venta.all.count).to eq(0)
+    end
+
+    it 'Deber encontrar por el id' do
+      intencion_de_venta = repo_intenciones_de_venta.find(@id_intencion_de_venta)
+      expect(intencion_de_venta.id).to eq(@nueva_intencion_de_venta.id)
+    end
+
+    it 'Deber encontrar por el id y poder mapear el estado' do
+      intencion_de_venta = repo_intenciones_de_venta.find(@id_intencion_de_venta)
+      expect(intencion_de_venta.estado).to eq("en revision")
+    end
+
+    it 'Deber encontrar por el id y poder mapear el auto' do
+      intencion_de_venta = repo_intenciones_de_venta.find(@id_intencion_de_venta)
+      expect(intencion_de_venta.auto.id).to eq(auto.id)
     end
   end
 end

@@ -8,8 +8,8 @@ module Persistence
   
         def load_object(a_hash)
             usuario =  Usuario.new(33234543, 'Nicolas', 'nicoperez@gmail.com', 665) #TODO RepositorioDeUsuarios.new.find(a_hash[:id_usuario])
-            auto = Auto.new("Fiat", "uno", 1940, "MFL200") #TODO RepositorioDeAutos.new.find(a_hash[:id_auto])
-            IntencionDeVenta.new(auto, usuario, a_hash["estado"], a_hash["id"])
+            auto = RepositorioDeAutos.new.find(a_hash[:id_auto])
+            IntencionDeVenta.new(auto, usuario, a_hash[:estado], a_hash[:id])
         end
   
   
