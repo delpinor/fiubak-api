@@ -68,6 +68,10 @@ def registrar_nueva_venta(id_usuario)
   "#{BASE_URL}/usuarios/#{id_usuario}/intenciones_de_venta"
 end
 
+def consultar_intenciones_de_venta(id_usuario)
+  "#{BASE_URL}/usuarios/#{id_usuario}/intenciones_de_venta"
+end
+
 After do |_scenario|
   Faraday.post(reset_url)
 end

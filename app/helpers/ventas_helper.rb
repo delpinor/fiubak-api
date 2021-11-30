@@ -22,7 +22,11 @@ module WebTemplate
 
       def recuperar_intenciones_de_venta(id_usuario)
         return repositorio_de_intencion_de_ventas.encontrar_por_id_usuario(id_usuario).map {
-           |intencion_de_venta| ResultadoConsultaIntencionDeVenta.new(intencion_de_venta.auto, intencion_de_venta.estado, intencion_de_venta.id) 
+           |intencion_de_venta| ResultadoConsultaIntencionDeVenta.new(
+                                          ResultadoConsultaAuto.new(intencion_de_venta.auto),
+                                          intencion_de_venta.estado, 
+                                          intencion_de_venta.id
+            ) 
           }
       end
 
