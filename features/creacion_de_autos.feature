@@ -1,5 +1,6 @@
 # language: es
 @wip
+
 Característica: US002 - Registro de auto para vender
   Como usuario vendedor quiero registrar un auto para vender con su marca, modelo, año y patente
 
