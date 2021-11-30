@@ -47,5 +47,18 @@ describe 'Ventas controller' do
       body = JSON.parse(last_response.body)
       expect(body['intenciones_de_venta'].size).to eq(1) 
     end
+
+    it 'Cuando creo dos intenciones de venta y consulto las intenciones de venta del usuario entonces recibo dos intenciones de venta con sus respectivos autos' do
+      post('/usuarios', datos_usuario_4.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      post('/usuarios/123312/intenciones_de_venta', datos_auto.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      post('/usuarios/123312/intenciones_de_venta', datos_auto.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      get('/usuarios/123312/intenciones_de_venta', datos_auto.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      body = JSON.parse(last_response.body)
+      expect(body['intenciones_de_venta'].size).to eq(2) 
+      expect(body['intenciones_de_venta'][0]['estado']).to eq('en revision')
+      expect(body['intenciones_de_venta'][0]['auto']['patente']).to eq('MHF200')
+      expect(body['intenciones_de_venta'][1]['estado']).to eq('en revision')
+      expect(body['intenciones_de_venta'][1]['auto']['patente']).to eq('MHF200')
+    end
   end
 end
