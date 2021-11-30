@@ -5,7 +5,9 @@ module WebTemplate
     module AutoHelper
 
       def crear_auto(data)
-        return
+        data = JSON.parse(data)
+        auto = Auto.new(data['marca'], data['anio'].to_i, data['patente'], data['id'])
+        return auto.id
       end
 
     end
