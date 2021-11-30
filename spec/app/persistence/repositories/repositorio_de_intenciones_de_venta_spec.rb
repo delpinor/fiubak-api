@@ -97,5 +97,12 @@ describe Persistence::Repositories::RepositorioDeIntencionesDeVenta do
       expect(intenciones_de_venta[1].estado).to eq('en revision')
       expect(intenciones_de_venta.size).to eq(2)
     end
+
+    it 'Entonces puedo encontrar por el id_usuario 2 y sus unica intencion' do
+      intenciones_de_venta = repo_intenciones_de_venta.encontrar_por_id_usuario(3006)
+      expect(intenciones_de_venta[0].auto.patente).to eq(auto3.patente)
+      expect(intenciones_de_venta[0].estado).to eq('en revision')
+      expect(intenciones_de_venta.size).to eq(1)
+    end
   end
 end
