@@ -15,7 +15,8 @@ module Persistence
         {
           dni: user.dni,
           nombre: user.nombre,
-          email: user.email
+          email: user.email,
+          id: user.id
         }
       end
 
