@@ -5,9 +5,18 @@ module Persistence
         self.model_class = 'IntencionDeVenta'
 
         def encontrar_por_id_usuario(id_usuario)
-          usuario = Usuario.new(33234543, 'Nicolas', 'nicoperez@gmail.com', 665)
-          auto = Auto.new("Fiat", "uno", 1940, "MFS222")
-          [IntencionDeVenta.new(auto, usuario, "en revision")]
+          dataset_intenciones_de_venta = DB[:intenciones_de_venta]
+          intenciones_de_venta = dataset_intenciones_de_venta.where(id_usuario: id_usuario)
+          intenciones_de_venta_buscadas = []
+          intenciones_de_venta.each do | intencion_de_venta |
+            intenciones_de_venta_buscadas << IntencionDeVenta.new(
+                RepositorioDeAutos.new.find(intencion_de_venta[:id_auto]),
+                nil, 
+                intencion_de_venta[:estado], 
+                intencion_de_venta[:id]
+              )
+          end
+          intenciones_de_venta_buscadas
         end
   
         protected
