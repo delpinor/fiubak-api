@@ -1,5 +1,6 @@
 class Auto
-  attr_reader :marca, :modelo, :anio, :patente, :id
+  attr_reader :marca, :modelo, :anio, :patente
+  attr_accessor :id
   def initialize(marca, modelo, anio, patente, id=nil)
     @marca = marca
     @modelo = modelo
