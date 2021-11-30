@@ -29,6 +29,7 @@ module WebTemplate
         task_repo.delete_all
         tag_repo.delete_all
         user_repo.delete_all
+        repositorio_de_usuarios.delete_all
 
         status 200
         {message: 'reset ok'}.to_json

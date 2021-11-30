@@ -1,7 +1,7 @@
 
 Cuando('me registro con con nombre {string}, dni {string} y email {string}') do |nombre, dni, email|
   body = {
-    'id': 2334,
+    'id': 23734,
     'nombre': nombre,
     'dni': dni,
     'email':email
