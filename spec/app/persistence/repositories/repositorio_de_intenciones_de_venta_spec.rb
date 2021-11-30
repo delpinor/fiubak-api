@@ -20,4 +20,11 @@ describe Persistence::Repositories::RepositorioDeIntencionesDeVenta do
     repo_intenciones_de_venta.save(intencion_de_venta)
     expect(repo_intenciones_de_venta.all.count).to eq(1)
   end
+
+  it 'Debería asignar un id' do
+    repo_autos.save(auto)
+    repo_usuario.save(usuario)
+    nueva_intencion_de_venta = repo_intenciones_de_venta.save(intencion_de_venta)
+    expect(nueva_intencion_de_venta.id).to be_present
+  end
 end
