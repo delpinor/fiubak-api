@@ -20,6 +20,10 @@ module WebTemplate
         return intencion_de_venta_con_id.id.to_i
       end
 
+      def recuperar_intenciones_de_venta(id_usuario)
+        return repositorio_de_intencion_de_ventas.encontrar_por_id_usuario(id_usuario)
+      end
+
     end
 
     helpers IntencionDeVentaHelper

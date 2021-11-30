@@ -3,6 +3,12 @@ module Persistence
       class RepositorioDeIntencionesDeVenta < AbstractRepository
         self.table_name = :intenciones_de_venta
         self.model_class = 'IntencionDeVenta'
+
+        def encontrar_por_id_usuario(id_usuario)
+          usuario = Usuario.new(33234543, 'Nicolas', 'nicoperez@gmail.com', 665)
+          auto = Auto.new("Fiat", "uno", 1940, "MFL200")
+          [IntencionDeVenta.new(auto, usuario, "en revision", 1)]
+        end
   
         protected
   
