@@ -21,12 +21,13 @@ module WebTemplate
       end
 
       def recuperar_intencion_de_venta(id_intencion_de_venta)
-      intencion_de_venta = repositorio_de_intencion_de_ventas.find(id_intencion_de_venta)
-      ResultadoConsultaIntencionDeVenta.new(
-        ResultadoConsultaAuto.new(intencion_de_venta.auto),
-        intencion_de_venta.estado, 
-        intencion_de_venta.id
-      )
+      atributos_json(repositorio_de_intencion_de_ventas.find(id_intencion_de_venta))
+      end
+
+      private
+
+      def atributos_json(intencion_de_venta)
+        { auto: { patente: intencion_de_venta.auto.patente, marca: intencion_de_venta.auto.marca, modelo: intencion_de_venta.auto.modelo, anio: intencion_de_venta.auto.anio, id: intencion_de_venta.auto.id}, estado: intencion_de_venta.estado, id: intencion_de_venta.id }
       end
 
     end
