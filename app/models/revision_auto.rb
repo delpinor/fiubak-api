@@ -1,9 +1,10 @@
 class RevisionAuto
-  def initialize
-    @resultado  = ResultadoRevision.new
+  def initialize(auto)
+    @partes= [ParteEstetica.new, ParteMotor.new, ParteNeumaticos.new]
+    @auto = auto
   end
 
-  def revisar_partes(_auto)
-    @resultado
+  def resultado
+    ResultadoRevision.new(@partes)
   end
 end
