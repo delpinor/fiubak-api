@@ -68,8 +68,8 @@ def registrar_nueva_venta(id_usuario)
   "#{BASE_URL}/usuarios/#{id_usuario}/intenciones_de_venta"
 end
 
-def consultar_intenciones_de_venta(id_usuario)
-  "#{BASE_URL}/usuarios/#{id_usuario}/intenciones_de_venta"
+def consultar_intenciones_de_venta(id_intencion_de_venta)
+  "#{BASE_URL}/intenciones_de_venta/#{id_intencion_de_venta}"
 end
 
 def obtener_publicaciones
