@@ -72,6 +72,10 @@ def consultar_intenciones_de_venta(id_intencion_de_venta)
   "#{BASE_URL}/intenciones_de_venta/#{id_intencion_de_venta}"
 end
 
+def obtener_publicaciones
+  "#{BASE_URL}/publicaciones"
+end
+
 After do |_scenario|
   Faraday.post(reset_url)
 end
