@@ -9,13 +9,11 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
     end
   end
 
-  get :show, :map => '/usuarios/:id/intenciones_de_venta' do
+  get :show, :map => '/intenciones_de_venta/:id' do
     begin
-      puts "xd"
-      puts params[:id]
-      intenciones_de_venta_buscadas = recuperar_intenciones_de_venta(params[:id])
+      intencion_de_venta_buscada = recuperar_intencion_de_venta(params[:id])
       status 201
-      {mensaje: 'intenciones de venta recuperadas con exito', intenciones_de_venta: intenciones_de_venta_buscadas }.to_json
+      {mensaje: 'intencion de venta recuperadas con exito', intencion_de_venta: intencion_de_venta_buscada }.to_json
     end
   end
 

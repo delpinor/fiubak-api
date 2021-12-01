@@ -20,8 +20,13 @@ module WebTemplate
         return intencion_de_venta_con_id.id.to_i
       end
 
-      def recuperar_intenciones_de_venta(id_usuario)
-        return repositorio_de_intencion_de_ventas.encontrar_por_id_usuario(id_usuario)
+      def recuperar_intencion_de_venta(id_intencion_de_venta)
+      intencion_de_venta = repositorio_de_intencion_de_ventas.find(id_intencion_de_venta)
+      ResultadoConsultaIntencionDeVenta.new(
+        ResultadoConsultaAuto.new(intencion_de_venta.auto),
+        intencion_de_venta.estado, 
+        intencion_de_venta.id
+      )
       end
 
     end
