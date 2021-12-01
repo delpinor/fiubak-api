@@ -22,10 +22,7 @@ module WebTemplate
 
       def recuperar_intencion_de_venta(id_intencion_de_venta)
         intencion_de_venta = repositorio_de_intencion_de_ventas.find(id_intencion_de_venta)
-        { auto: { patente: intencion_de_venta.auto.patente,
-                  marca: intencion_de_venta.auto.marca, modelo: intencion_de_venta.auto.modelo,
-                  anio: intencion_de_venta.auto.anio, id: intencion_de_venta.auto.id},
-          estado: intencion_de_venta.estado, id: intencion_de_venta.id }
+        { estado: intencion_de_venta.estado, id: intencion_de_venta.id }
 
       end
 
