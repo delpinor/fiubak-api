@@ -1,13 +1,24 @@
+Cuando('registro un auto para vender con marca {string}, modelo {string}, año {int} y patente {string} y guardo el id') do |marca, modelo, anio, patente|
+    body = {
+      'marca': marca,
+      'modelo': modelo,
+      'anio': anio,
+      'patente': patente
+    }
+    @response = Faraday.post(registrar_nueva_venta(1), body.to_json, header)
+  end
+
 Cuando('consulto por mis autos registrados') do
-    @response = Faraday.get(consultar_intenciones_de_venta(1), nil, header)
+    body = JSON.parse(@response.body)
+    @response = Faraday.get(consultar_intenciones_de_venta(body['id']), nil, header)
 end
   
 Entonces('puedo ver mi auto con marca {string}, modelo {string}, año {int} y patente {string} y estado {string}') do |marca, modelo, anio, patente, estado|
     body = JSON.parse(@response.body)
-    expect(body['mensaje']).to eq('intenciones de venta recuperadas con exito')
-    expect(body['intenciones_de_venta'][0]['estado']).to eq(estado)
-    expect(body['intenciones_de_venta'][0]['auto']['marca']).to eq(marca)
-    expect(body['intenciones_de_venta'][0]['auto']['modelo']).to eq(modelo)
-    expect(body['intenciones_de_venta'][0]['auto']['anio']).to eq(anio)
-    expect(body['intenciones_de_venta'][0]['auto']['patente']).to eq(patente)
+    expect(body['mensaje']).to eq('intencion de venta recuperadas con exito')
+    expect(body['intencion_de_venta']['estado']).to eq(estado)
+    expect(body['intencion_de_venta']['auto']['marca']).to eq(marca)
+    expect(body['intencion_de_venta']['auto']['modelo']).to eq(modelo)
+    expect(body['intencion_de_venta']['auto']['anio']).to eq(anio)
+    expect(body['intencion_de_venta']['auto']['patente']).to eq(patente)
 end
