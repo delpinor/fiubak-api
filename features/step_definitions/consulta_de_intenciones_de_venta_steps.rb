@@ -16,9 +16,9 @@ end
 Entonces('puedo ver mi auto con marca {string}, modelo {string}, año {int} y patente {string} y estado {string}') do |marca, modelo, anio, patente, estado|
     body = JSON.parse(@response.body)
     expect(body['mensaje']).to eq('intencion de venta recuperadas con exito')
-    expect(body['intencion_de_venta']['estado']).to eq(estado)
-    expect(body['intencion_de_venta']['auto']['marca']).to eq(marca)
-    expect(body['intencion_de_venta']['auto']['modelo']).to eq(modelo)
-    expect(body['intencion_de_venta']['auto']['anio']).to eq(anio)
-    expect(body['intencion_de_venta']['auto']['patente']).to eq(patente)
+    expect(body['valor']['estado']).to eq(estado)
+    expect(body['valor']['auto']['marca']).to eq(marca)
+    expect(body['valor']['auto']['modelo']).to eq(modelo)
+    expect(body['valor']['auto']['anio']).to eq(anio)
+    expect(body['valor']['auto']['patente']).to eq(patente)
 end
