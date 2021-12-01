@@ -29,6 +29,12 @@ module WebTemplate
       )
       end
 
+      def cambiar_a_vendido(id_intencion)
+        intencion_de_venta = repositorio_de_intencion_de_ventas.find(id_intencion)
+        intencion_de_venta.pasar_a_vendido
+        repositorio_de_intencion_de_ventas.save(intencion_de_venta)
+      end
+
     end
 
     helpers IntencionDeVentaHelper

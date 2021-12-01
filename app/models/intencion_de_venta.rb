@@ -9,6 +9,10 @@ class IntencionDeVenta
     validar_intencion_de_venta
   end
 
+  def pasar_a_vendido
+    @estado = 'vendido'
+  end
+
   def validar_intencion_de_venta
     return
   end

@@ -2,15 +2,15 @@ require 'integration_helper'
 
 describe 'Cotizacones controller' do
 
-  let(:usuario){Usuario.new(9999, 'test', 'test@gmail.com', 999)}
-  let(:auto){Auto.new('fiat', 'palio', 1988, nil)}
+  let(:usuario){Usuario.new(99999, 'test', 'test@gmail.com', 9999)}
+  let(:auto){Auto.new('fiat', 'palio', 1988, 'dfdsf23')}
   let(:intencion){IntencionDeVenta.new(auto, usuario, 'en revision')}
 
   before(:each) do
     Persistence::Repositories::RepositorioDeIntencionesDeVenta.new.delete_all
     Persistence::Repositories::RepositorioDeUsuarios.new.delete_all
     Persistence::Repositories::RepositorioDeAutos.new.delete_all
-    intencion_venta = IntencionDeVenta.new(auto, usuario, 'en revision')
+    intencion_venta = IntencionDeVenta.new(auto, usuario, 'en revisión')
     Persistence::Repositories::RepositorioDeUsuarios.new.save(usuario)
     Persistence::Repositories::RepositorioDeAutos.new.save(auto)
     @id_intencion = Persistence::Repositories::RepositorioDeIntencionesDeVenta.new.save(intencion_venta)
