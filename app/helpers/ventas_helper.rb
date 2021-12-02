@@ -13,6 +13,10 @@ module WebTemplate
         Persistence::Repositories::RepositorioDeIntencionesDeVenta.new
       end
 
+      def repositorio_de_publicaciones
+        Persistence::Repositories::RepositorioDePublicaciones.new
+      end
+
       def crear_intencion_de_venta(id_usuario, auto)
         usuario = repositorio_de_usuarios.find(id_usuario.to_i)
         intencion_venta = IntencionDeVenta.new(auto, usuario, 'en revision')
@@ -28,8 +32,9 @@ module WebTemplate
 
       def cambiar_a_vendido(id_intencion)
         intencion_de_venta = repositorio_de_intencion_de_ventas.find(id_intencion)
-        intencion_de_venta.concretar
+        publicacion = intencion_de_venta.concretar
         repositorio_de_intencion_de_ventas.save(intencion_de_venta)
+        repositorio_de_publicaciones.save(publicacion)
       end
 
     end

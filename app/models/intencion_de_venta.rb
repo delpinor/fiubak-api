@@ -11,6 +11,11 @@ class IntencionDeVenta
 
   def concretar
     @estado = 'vendido'
+    Publicacion.new(@usuario, @auto, 75000)
+  end
+
+  def revisado_y_cotizado
+    @estado = 'revisado y cotizado'
   end
 
   def validar_intencion_de_venta

@@ -12,7 +12,7 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
   get :show, :map => '/intenciones_de_venta/:id' do
     begin
       intencion_de_venta_buscada = recuperar_intencion_de_venta(params[:id])
-      status 201
+      status 200
       {mensaje: 'intencion de venta recuperadas con exito', valor: intencion_de_venta_buscada }.to_json
     end
   end
