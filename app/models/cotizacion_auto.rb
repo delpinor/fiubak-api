@@ -1,6 +1,6 @@
 class CotizacionAuto
   def initialize(auto)
-    @partes= []
+    @partes = []
     @auto = auto
   end
 
