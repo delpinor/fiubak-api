@@ -5,6 +5,6 @@ class RevisionAuto
   end
 
   def resultado
-    ResultadoRevision.new(@partes)
+    ResultadoRevision.new(@partes, 34)
   end
 end

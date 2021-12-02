@@ -14,4 +14,10 @@ class Auto
     return
   end
 
+  def ==(other)
+    return true if @marca == other.marca and @modelo == other.modelo and @anio == other.anio
+
+    false
+  end
+
 end
