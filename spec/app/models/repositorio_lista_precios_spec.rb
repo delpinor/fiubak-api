@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Repositori de lista de precios' do
+describe 'Repositorio de lista de precios' do
 
   let(:auto){Auto.new('fiat', 'duna', 2015, 'ABC-D')}
 

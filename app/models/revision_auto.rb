@@ -5,6 +5,7 @@ class RevisionAuto
   end
 
   def resultado
-    ResultadoRevision.new(@partes, 34)
+    precio = RepositorioListaPrecios.new.precio_de_lista(@auto)
+    ResultadoRevision.new(@partes, precio)
   end
 end

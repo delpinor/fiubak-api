@@ -18,7 +18,7 @@ describe 'Revision de auto' do
     expect(partes[2].estado).to eq(SinDanio.new)
   end
 
-  xit 'Dado que el auto no tiene fallas el precio es de lista' do
+  it 'Dado que el auto no tiene fallas el precio es de lista' do
     resultado = revision.resultado
     valor_lista = RepositorioListaPrecios.new.precio_de_lista(auto)
     expect(resultado.precio_de_lista).to eq(valor_lista)
