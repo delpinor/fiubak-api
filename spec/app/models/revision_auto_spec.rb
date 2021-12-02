@@ -20,7 +20,7 @@ describe 'Revision de auto' do
 
   xit 'Dado que el auto no tiene fallas el precio es de lista' do
     resultado = revision.resultado
-    valor_lista = RepositorioListaPrecios.new.precio_lista(auto)
-    expect(resultado.valor_cotizacion).to eq(valor_lista)
+    valor_lista = RepositorioListaPrecios.new.precio_de_lista(auto)
+    expect(resultado.precio_de_lista).to eq(valor_lista)
   end
 end
