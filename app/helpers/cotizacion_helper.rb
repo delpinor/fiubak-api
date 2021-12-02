@@ -16,6 +16,7 @@ module WebTemplate
         intencion_de_venta = repo.find(data['id_intencion'].to_i)
         cotizacion = calcular_cotizacion(intencion_de_venta.auto)
         intencion_de_venta.revisado_y_cotizado
+        repo.save(intencion_de_venta)
         enviar_cotizacion_por_email(cotizacion, intencion_de_venta)
       end
 

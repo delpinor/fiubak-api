@@ -76,6 +76,10 @@ def obtener_publicaciones
   "#{BASE_URL}/publicaciones"
 end
 
+def revisiones_url
+  "#{BASE_URL}/revisiones"
+end
+
 After do |_scenario|
   Faraday.post(reset_url)
 end
