@@ -19,5 +19,10 @@ describe 'Crear intencion de venta' do
       expect(@intencion_de_venta.usuario.id).to eq 665
     end
 
+    it 'Al concretar una intencion de venta su estado cambia a vendido y obtengo una publicacion con precio' do
+      publicacion = @intencion_de_venta.concretar
+      expect(publicacion.precio).to be_present
+    end
+
   end
 end
