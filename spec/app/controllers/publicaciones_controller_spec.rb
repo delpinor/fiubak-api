@@ -29,7 +29,6 @@ describe 'Publicaciones controller' do
 
     get('/publicaciones')
     body = JSON.parse(last_response.body)
-    debugger
     expect(body.length()).to eq(1)
     expect(body[0]['id']).to be_present
     expect(body[0]['marca']).to eq(auto.marca)
