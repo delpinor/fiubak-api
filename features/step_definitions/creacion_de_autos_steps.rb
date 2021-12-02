@@ -16,6 +16,8 @@ Cuando('registro un auto para vender con marca {string}, modelo {string}, año {
     'patente': patente
   }
   @response = Faraday.post(registrar_nueva_venta(1), body.to_json, header)
+  data = JSON.parse(@response.body)
+  @id_intencion = data['id']
 end
 
 Entonces('el auto se carga exitosamente con estado ‘en revisión’') do
