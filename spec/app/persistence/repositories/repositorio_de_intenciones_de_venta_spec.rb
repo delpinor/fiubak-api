@@ -4,6 +4,7 @@ describe Persistence::Repositories::RepositorioDeIntencionesDeVenta do
   let(:repo_autos) { Persistence::Repositories::RepositorioDeAutos.new }
   let(:repo_usuario) { Persistence::Repositories::RepositorioDeUsuarios.new }
   let(:repo_intenciones_de_venta) { Persistence::Repositories::RepositorioDeIntencionesDeVenta.new }
+  let(:repo_publicaciones) { Persistence::Repositories::RepositorioDePublicaciones.new }
   let(:auto) { Auto.new("fiat", 'uno', 1999, "MFS222") }
   let(:usuario) { Usuario.new(12323423, 'Jhon', 'jhon@gmail.com', 3002) }
   let(:intencion_de_venta) { IntencionDeVenta.new(auto, usuario, "en revision", 1) }
