@@ -11,5 +11,5 @@ end
 
 Entonces('me registro exitosamente') do
   body = JSON.parse(@response.body)
-  expect(body['mensaje']).to eq('registro exitoso')
+  expect(body['mensaje']).to eq('Registro exitoso bajo id: 23734')
 end

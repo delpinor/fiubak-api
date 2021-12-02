@@ -9,7 +9,7 @@ describe 'Usuarios controller' do
   it 'La respuesta debe ser un mensaje exitoso' do
     post('/usuarios', datos_usuario.to_json, { 'CONTENT_TYPE' => 'application/json' })
     body = JSON.parse(last_response.body)
-    expect(body['mensaje']).to eq('registro exitoso')
+    expect(body['mensaje']).to eq('Registro exitoso bajo id: 343')
   end
 
   it 'La respuesta debe ser un mensaje de error al cargar DNI duplicado' do

@@ -1,6 +1,7 @@
 # language: es
+
 @wip
-Característica: US002 - Registro de auto para vender
+Característica: US010 - Publicacion de auto para venta por fiubak
   Como usuario vendedor de auto, cuando confirmo la venta del auto a fiubak entonces observo el auto publicado con el valor asignado por fiubak
 
   Escenario: 1.1 – Auto sin fallas publicado exitosamente
