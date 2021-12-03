@@ -10,11 +10,11 @@ class EnviadorMails
     private
 
     def cuerpo_cotizacion(id_intencion_de_venta, patente, precio)
-        "Se registró la cotizacion de la intencion de venta con id: #{id_intencion_de_venta}, precio #{precio} para el auto con patente: #{patente}"
+        "Se registro la cotizacion de la intencion de venta con id: #{id_intencion_de_venta}, precio #{precio} para el auto con patente: #{patente}"
     end
 
     def enviar_mail(email, asunto, cuerpo)
-        WebTemplate::App.email(:from => 'FIUBAK <no_reply@fiubak.com>',
+        WebTemplate::App.email(:from => 'nairobitp2@gmail.com',
         :to => email,
         :subject => asunto,
         :body => cuerpo)
