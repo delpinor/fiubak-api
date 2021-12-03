@@ -4,21 +4,16 @@ module WebTemplate
   class App
     module CotizacionHelper
 
-      def crear_auto(data)
-        data = JSON.parse(data)
-        auto = Auto.new(data['marca'], data['modelo'], data['anio'].to_i, data['patente'])
-        auto_con_id = repositorio_de_autos.save(auto)
-        return auto_con_id
-      end
-
       def procesar_cotizacion(data)
         repo = Persistence::Repositories::RepositorioDeIntencionesDeVenta.new
         intencion_de_venta = repo.find(data['id_intencion'].to_i)
         cotizacion = calcular_cotizacion(intencion_de_venta.auto)
         intencion_de_venta.revisado_y_cotizado
-        repo.save(intencion_de_venta)
         enviar_cotizacion_por_email(cotizacion, intencion_de_venta)
+        repo.save(intencion_de_venta)
       end
+
+      private 
 
       def calcular_cotizacion(auto)
         cotizacion = CotizacionAuto.new(auto)
@@ -28,8 +23,8 @@ module WebTemplate
         cotizacion
       end
 
-      def enviar_cotizacion_por_email(_cotizacion, _intencion)
-        return
+      def enviar_cotizacion_por_email(cotizacion, intencion)
+        deliver(:notification, :email_cotizacion, intencion.usuario.email, intencion.id, cotizacion.valor_cotizado, intencion.auto.patente)
       end
 
     end

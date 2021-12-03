@@ -45,8 +45,8 @@ WebTemplate::App.mailer :notification do
     from 'FIUBAK <no_reply@fiubak.com>'
     to email
     subject 'Cotizacion recibida'
-    content_type :plain
     locals :id_intencion_de_venta => id_intencion_de_venta, :precio => precio, :patente => patente
-    render 'notificacion/email_cotizacion'
+    content_type :plain
+    body 'notificacion/email_cotizacion'
   end
 end
