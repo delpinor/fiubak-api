@@ -24,7 +24,7 @@ module WebTemplate
       end
 
       def enviar_cotizacion_por_email(cotizacion, intencion)
-        return
+        deliver(:notification, :email_cotizacion, intencion.usuario.email, intencion.id, cotizacion.valor_cotizado, intencion.auto.patente)
       end
 
     end
