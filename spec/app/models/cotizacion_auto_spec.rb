@@ -7,9 +7,9 @@ describe 'Revision de auto' do
 
   it 'Dado que el auto no tiene fallas el precio es de lista' do
     cotizacion.agregar_parte(ParteNeumaticos.new(SinDanio.new))
-    cotizacion.agregar_parte(ParteNeumaticos.new(SinDanio.new))
-    cotizacion.agregar_parte(ParteNeumaticos.new(SinDanio.new))
-    expect(cotizacion.valor_cotizado).to eq(300)
+    cotizacion.agregar_parte(ParteMotor.new(SinDanio.new))
+    cotizacion.agregar_parte(ParteEstetica.new(SinDanio.new))
+    expect(cotizacion.valor_cotizado).to eq(200)
   end
 
 end
