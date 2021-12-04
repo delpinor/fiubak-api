@@ -1,8 +1,6 @@
-class SinDanio < NiverlDanio
-  attr_reader :id
-
+class DanioMedio < NiverlDanio
   def initialize
-    @id = :sindanio
+    @id = :medio
   end
 
   def ==(other)
@@ -10,8 +8,7 @@ class SinDanio < NiverlDanio
 
     false
   end
-
   def penalizacion
-    0
+    0.08
   end
 end

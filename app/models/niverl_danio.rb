@@ -1,5 +1,5 @@
 class NiverlDanio
-  def penalizacion_por_falla
+  def penalizacion
     raise NotImplementedError
   end
 end

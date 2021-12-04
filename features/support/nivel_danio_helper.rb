@@ -1,5 +1,5 @@
 class NivelDanioHerlper
-  ESTADOS = {'sin daño' => 0, 'baja' => 1, 'media' => 2, 'alta' => 3}
+  ESTADOS = {'sin daño' => 0, 'bajo' => 1, 'medio' => 2, 'alto' => 3}
   def nivel_en_letra(nivel)
     ESTADOS[nivel]
   end

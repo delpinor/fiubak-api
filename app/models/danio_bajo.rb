@@ -8,7 +8,7 @@ class DanioBajo < NiverlDanio
 
     false
   end
-  def penalizacion_por_falla
+  def penalizacion
     0.03
   end
 end

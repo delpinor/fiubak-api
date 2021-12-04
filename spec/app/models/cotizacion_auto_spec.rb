@@ -19,4 +19,11 @@ describe 'Revision de auto' do
     expect(cotizacion.valor_cotizado).to eq(194000)
   end
 
+  xit 'Dado que el auto tiene una falla de neumaticos media, entonces se le descuenta 8%' do
+    cotizacion.agregar_parte(ParteNeumaticos.new(DanioMedio.new))
+    cotizacion.agregar_parte(ParteMotor.new(SinDanio.new))
+    cotizacion.agregar_parte(ParteEstetica.new(SinDanio.new))
+    expect(cotizacion.valor_cotizado).to eq(184000)
+  end
+
 end
