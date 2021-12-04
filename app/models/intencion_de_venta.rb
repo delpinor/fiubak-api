@@ -21,7 +21,8 @@ class IntencionDeVenta
   end
 
   def concretar_por_p2p(precio)
-    @estado = 'vendido'
+    @estado = 'vendido' # todo en vez de 'vendido' el estado podria ser 'concretada' ?
+    # Ya que publicacion va a ser 'vendido'
     Publicacion.new(@usuario, @auto, precio, "p2p")
   end
 

@@ -38,4 +38,16 @@ describe 'Publicaciones controller' do
   end
 
 
+  it 'Cuando publico por p2p obtengo el id de la publicacion, el precio y el id de la intencion de venta' do
+    datos = { id_intencion_de_venta: @intencion_con_id.id,
+             precio: 45000 }
+
+    post('/publicaciones', datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+    body = JSON.parse(last_response.body)
+    expect(body['valor']['id_publicacion']).to be_present
+    expect(body['valor']['precio']).to eq(45000)
+
+    expect(last_response.status).to eq(201)
+  end
+
 end
