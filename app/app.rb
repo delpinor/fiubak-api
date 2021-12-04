@@ -32,6 +32,7 @@ module WebTemplate
         repositorio_de_intencion_de_ventas.delete_all
         repositorio_de_autos.delete_all
         repositorio_de_usuarios.delete_all
+        repositorio_de_publicaciones.delete_all
 
         status 200
         {message: 'reset ok'}.to_json
