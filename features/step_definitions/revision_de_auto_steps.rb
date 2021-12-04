@@ -1,8 +1,8 @@
 Cuando('se recibe una revision sin fallas') do
   @request = {id_intencion: @id_intencion,
-              estado_motor: 'sin danio',
-              estado_estetica: 'sin danio',
-              estado_neumaticos: 'sin danio',
+              nivel_danio_motor: 0,
+              nivel_danio_estetica: 0,
+              nivel_danio_neumaticos: 0,
               precio_lista: 1000}.to_json
   @response = Faraday.post(revisiones_url, @request, header)
   expect(@response.status).to eq(201)
@@ -10,9 +10,9 @@ end
 
 Dado('se realizó la revisión sin fallas con precio de lista {int}') do |precio_lista|
   @request = {id_intencion: @id_intencion,
-              estado_motor: 'sin danio',
-              estado_estetica: 'sin danio',
-              estado_neumaticos: 'sin danio',
+              nivel_danio_motor: 0,
+              nivel_danio_estetica: 0,
+              nivel_danio_neumaticos: 0,
               precio_lista: precio_lista}.to_json
   @response = Faraday.post(revisiones_url, @request, header)
   expect(@response.status).to eq(201)
