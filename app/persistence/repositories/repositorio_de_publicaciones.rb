@@ -9,7 +9,7 @@ module Persistence
       def load_object(a_hash)
           usuario = RepositorioDeUsuarios.new.find(a_hash[:id_usuario])
           auto = RepositorioDeAutos.new.find(a_hash[:id_auto])
-          Publicacion.new(usuario, auto, a_hash[:precio], "todo", a_hash[:id])
+          Publicacion.new(usuario, auto, a_hash[:precio], a_hash[:tipo], a_hash[:id])
       end
 
 
@@ -17,7 +17,8 @@ module Persistence
         {
           id_auto: publicacion.auto.id,
           id_usuario: publicacion.usuario.id,
-          precio: publicacion.precio
+          precio: publicacion.precio,
+          tipo: publicacion.tipo
         }
       end
 

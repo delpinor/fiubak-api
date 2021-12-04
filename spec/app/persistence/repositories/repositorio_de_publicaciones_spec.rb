@@ -6,7 +6,7 @@ describe Persistence::Repositories::RepositorioDePublicaciones do
   let(:repo_publicaciones) { Persistence::Repositories::RepositorioDePublicaciones.new }
   let(:auto) { Auto.new("fiat", 'uno', 1999, "MFS222") }
   let(:usuario) { Usuario.new(12323423, 'Jhon', 'jhon@gmail.com', 3002) }
-  let(:publicacion) { Publicacion.new(usuario, auto, 75000, 1) }
+  let(:publicacion) { Publicacion.new(usuario, auto, 75000, "Fiubak", 1) }
 
   before do
     repo_autos.delete_all
@@ -54,6 +54,11 @@ describe Persistence::Repositories::RepositorioDePublicaciones do
     it 'Deber encontrar por el id y poder mapear el auto' do
       publicacion = repo_publicaciones.find(@id_publicacion)
       expect(publicacion.auto.id).to eq(auto.id)
+    end
+
+    it 'Deber tener el tipo' do
+      publicacion = repo_publicaciones.find(@id_publicacion)
+      expect(publicacion.tipo).to eq("Fiubak")
     end
 
     it 'Deber encontrar por el id y poder mapear el usuario' do
