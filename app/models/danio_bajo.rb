@@ -1,8 +1,6 @@
-class SinDanio < DanioAuto
-  attr_reader :id
-
+class DanioBajo < DanioAuto
   def initialize
-    @id = :sindanio
+    @id = :bajo
   end
 
   def ==(other)
@@ -10,8 +8,7 @@ class SinDanio < DanioAuto
 
     false
   end
-
   def penalizacion_por_falla
-    0
+    0.03
   end
 end
