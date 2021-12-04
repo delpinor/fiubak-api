@@ -16,7 +16,7 @@ class IntencionDeVenta
 
   def concretar
     @estado = 'vendido'
-    Publicacion.new(@usuario, @auto, @precio_cotizado)
+    Publicacion.new(@usuario, @auto, @precio_cotizado, "TODO")
   end
 
   def revisado_y_cotizado
