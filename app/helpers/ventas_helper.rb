@@ -32,7 +32,7 @@ module WebTemplate
 
       def cambiar_a_vendido(id_intencion)
         intencion_de_venta = repositorio_de_intencion_de_ventas.find(id_intencion)
-        publicacion = intencion_de_venta.concretar
+        publicacion = intencion_de_venta.concretar("Fiubak")
         repositorio_de_intencion_de_ventas.save(intencion_de_venta)
         repositorio_de_publicaciones.save(publicacion)
       end
