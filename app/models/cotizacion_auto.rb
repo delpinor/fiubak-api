@@ -1,4 +1,5 @@
 class CotizacionAuto
+  COMISION_POR_VENTA = 1.5
   def initialize(auto, precio_lista)
     @partes = []
     @auto = auto
@@ -14,7 +15,7 @@ class CotizacionAuto
     @partes.each do |parte|
       total_pct_descuento += parte.estado.penalizacion_por_falla
     end
-    @valor_lista *(1 - total_pct_descuento)
+    @valor_lista *(COMISION_POR_VENTA - total_pct_descuento)
   end
 
   private

@@ -9,7 +9,7 @@ describe 'Revision de auto' do
     cotizacion.agregar_parte(ParteNeumaticos.new(SinDanio.new))
     cotizacion.agregar_parte(ParteNeumaticos.new(SinDanio.new))
     cotizacion.agregar_parte(ParteNeumaticos.new(SinDanio.new))
-    expect(cotizacion.valor_cotizado).to eq(200)
+    expect(cotizacion.valor_cotizado).to eq(300)
   end
 
 end
