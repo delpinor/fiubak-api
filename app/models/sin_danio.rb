@@ -9,4 +9,8 @@ class SinDanio
 
     false
   end
+
+  def penalizacion_por_falla
+    0
+  end
 end

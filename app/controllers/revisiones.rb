@@ -7,10 +7,8 @@ WebTemplate::App.controllers :revisiones, :provides => [:json] do
       status 201
       {mensaje: 'revisión exitosa'}.to_json
     rescue Exception => e
-      logger.info e.backtrace
-      logger.info e.message
       status 400
-      {mensaje: 'se produjo un error'}.to_json
+      {mensaje: e.message}.to_json
     end
   end
 

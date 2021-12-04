@@ -1,7 +1,8 @@
 class CotizacionAuto
-  def initialize(auto)
+  def initialize(auto, precio_lista)
     @partes = []
     @auto = auto
+    @valor_lista = precio_lista
   end
 
   def agregar_parte(parte)
@@ -9,7 +10,7 @@ class CotizacionAuto
   end
 
   def valor_cotizado
-    calcular_precio
+    200
   end
 
   private
