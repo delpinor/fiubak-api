@@ -10,7 +10,11 @@ class CotizacionAuto
   end
 
   def valor_cotizado
-    200
+    total_pct_descuento = 0
+    @partes.each do |parte|
+      total_pct_descuento += parte.estado.penalizacion_por_falla
+    end
+    @valor_lista *(1 - total_pct_descuento)
   end
 
   private
