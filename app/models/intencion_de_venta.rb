@@ -22,7 +22,7 @@ class IntencionDeVenta
 
   def concretar_por_p2p(precio)
     @estado = 'vendido'
-    Publicacion.new(@usuario, @auto, @precio_cotizado, "p2p")
+    Publicacion.new(@usuario, @auto, precio, "p2p")
   end
 
   def revisado_y_cotizado
@@ -30,6 +30,8 @@ class IntencionDeVenta
   end
 
   def validar_intencion_de_venta
+    # todo validar tipos de estado
+    # todo validar precio que no sea negativo (y no sea decimal)
     nil
   end
 end

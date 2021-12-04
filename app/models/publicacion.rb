@@ -11,5 +11,9 @@ class Publicacion
     validar_publicacion
   end
 
-  def validar_publicacion; end
+  def validar_publicacion
+    # todo validar tipo de venta (solo 'Fiubak' y 'p2p')
+    # todo validar tipos de estado
+    # todo validar precio que no sea negativo (y no sea decimal)
+  end
 end
