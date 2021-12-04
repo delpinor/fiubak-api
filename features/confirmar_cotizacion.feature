@@ -7,5 +7,5 @@ Característica: US006 - Confirmar cotizacion
     Dado que soy usuario vendedor
     Cuando registro un auto para vender con marca "fiat", modelo "uno", año 1988 y patente "asd-457"
     Cuando se recibe una revision sin fallas
-    Entonces recibo un mail con la cotizacion 50000 por mi auto
+    Entonces recibo un mail con la cotizacion por mi auto
     Y el estado de mi auto sera ‘revisado y cotizado’

@@ -7,8 +7,13 @@ Cuando('se recibe una revision sin fallas') do
   expect(@response.status).to eq(201)
 end
 
-Entonces('recibo un mail con la cotizacion {int} por mi auto') do |int|
+@local
+Entonces('recibo un mail con la cotizacion por mi auto') do
   expect(true).to eq(true)
+  mail_store = "#{Padrino.root}/tmp/emails"
+  file = File.open("#{mail_store}/test@gmail.com", 'r')
+  content = file.read
+  content.include?(@patente).should be true
 end
 
 Entonces('el estado de mi auto sera ‘revisado y cotizado’') do
