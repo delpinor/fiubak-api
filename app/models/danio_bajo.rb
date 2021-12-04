@@ -1,4 +1,4 @@
-class DanioBajo < DanioAuto
+class DanioBajo < NiverlDanio
   def initialize
     @id = :bajo
   end

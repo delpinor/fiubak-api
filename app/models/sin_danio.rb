@@ -1,4 +1,4 @@
-class SinDanio < DanioAuto
+class SinDanio < NiverlDanio
   attr_reader :id
 
   def initialize
