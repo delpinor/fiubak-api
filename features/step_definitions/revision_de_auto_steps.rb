@@ -7,7 +7,6 @@ Cuando('se recibe una revision sin fallas') do
   expect(@response.status).to eq(201)
 end
 
-@local
 Entonces('recibo un mail con la cotizacion por mi auto') do
   expect(true).to eq(true)
   mail_store = "#{Padrino.root}/tmp/emails"
