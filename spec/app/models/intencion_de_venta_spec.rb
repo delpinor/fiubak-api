@@ -29,5 +29,10 @@ describe 'Crear intencion de venta' do
       expect(publicacion.tipo).to eq("Fiubak")
     end
 
+    it 'Al concretar una intencion de venta su estado cambia a vendido y obtengo una publicacion de tipo p2p' do
+      publicacion = @intencion_de_venta.concretar_por_p2p(45000)
+      expect(publicacion.tipo).to eq("p2p")
+    end
+
   end
 end

@@ -20,10 +20,10 @@ class IntencionDeVenta
     Publicacion.new(@usuario, @auto, @precio_cotizado, 'Fiubak')
   end
 
-  # def concretar_por_p2p(precio)
-  #  @estado = 'vendido'
-  #  Publicacion.new(@usuario, @auto, @precio_cotizado, "Fiubak")
-  # end
+  def concretar_por_p2p(precio)
+    @estado = 'vendido'
+    Publicacion.new(@usuario, @auto, @precio_cotizado, "p2p")
+  end
 
   def revisado_y_cotizado
     @estado = 'revisado y cotizado'
