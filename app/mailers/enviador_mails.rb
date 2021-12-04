@@ -10,16 +10,16 @@ class EnviadorMails
     private
 
     def cuerpo_cotizacion(id_intencion_de_venta, patente, precio)
-      titulo = 'Cotización FIUBAK' + "\n" + "\n"
-      cuerpo = 'A continuación le enviamos la cotización:' + "\n"
-      "Id. de intención de venta: #{id_intencion_de_venta} " + "\n"
-        "Precio cotizado en pesos($): #{precio}" + "\n"
+      titulo = 'FIUBAK' + "\n" + "\n"
+      cuerpo = 'Le enviamos el valor cotizado de su auto:' + "\n" +
+      "Id. de venta: #{id_intencion_de_venta} " + "\n" +
+        "Precio cotizado en pesos($): #{precio}" + "\n" +
         "Patente del auto cotizado: #{patente}" + "\n"
 
-      pie = 'Si desea aceptar la cotización en el bot debe ingresar:' + "\n"
-        "/aceptar_cotización #{id_intencion_de_venta}" + "\n" + "\n"
+      pie = 'Si desea aceptar el valor cotizado, en el bot debe ingresar:' + "\n" +
+        "/aceptar_cotizacion #{id_intencion_de_venta}" + "\n" + "\n"
 
-      saludos = 'Saludos, ' + "\n" + "\n"
+      saludos = 'Saludos, ' + "\n" + "\n" +
         'Equipo FIUBAK'
       
       titulo + cuerpo + pie + saludos
