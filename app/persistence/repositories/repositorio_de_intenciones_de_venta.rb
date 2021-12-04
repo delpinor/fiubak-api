@@ -9,7 +9,9 @@ module Persistence
         def load_object(a_hash)
             usuario = RepositorioDeUsuarios.new.find(a_hash[:id_usuario])
             auto = RepositorioDeAutos.new.find(a_hash[:id_auto])
-            IntencionDeVenta.new(auto, usuario, a_hash[:estado], a_hash[:id])
+            intencion = IntencionDeVenta.new(auto, usuario, a_hash[:estado], a_hash[:id])
+            intencion.set_valor_cotizado(a_hash[:precio_cotizado])
+            intencion
         end
   
   
@@ -17,7 +19,8 @@ module Persistence
           {
             id_auto: intencionDeVenta.auto.id,
             id_usuario: intencionDeVenta.usuario.id,
-            estado: intencionDeVenta.estado
+            estado: intencionDeVenta.estado,
+            precio_cotizado: intencionDeVenta.precio_cotizado
           }
         end
   

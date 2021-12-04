@@ -42,6 +42,14 @@ describe Persistence::Repositories::RepositorioDeIntencionesDeVenta do
       expect(repo_intenciones_de_venta.all.count).to eq(0)
     end
 
+    it 'Al actualizar le valor cotizacion debe actualizarse en el repositorio' do
+      intencion_de_venta.set_valor_cotizado(3343)
+      repo_intenciones_de_venta.save(intencion_de_venta)
+      intencion_de_recuperada = repo_intenciones_de_venta.find(@id_intencion_de_venta)
+      expect(intencion_de_recuperada.precio_cotizado).to eq(intencion_de_venta.precio_cotizado)
+    end
+
+
     it 'Deber encontrar por el id' do
       intencion_de_venta = repo_intenciones_de_venta.find(@id_intencion_de_venta)
       expect(intencion_de_venta.id).to eq(@nueva_intencion_de_venta.id)
