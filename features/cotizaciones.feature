@@ -13,7 +13,7 @@ Característica: US007 - Cotización con daños de neumáticos
     Y cuando termina la revision el estado tiene falla de neumaticos "bajo" y precio de lista 1000
     Entonces el precio de la cotización es 970
 
-  @local @wip
+  @local
   Escenario: 7.2 - Con daño de neumaticos medio
     Y cuando termina la revision el estado tiene falla de neumaticos "medio" y precio de lista 1000
     Entonces el precio de la cotización es 920

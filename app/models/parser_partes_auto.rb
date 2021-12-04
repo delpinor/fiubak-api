@@ -1,5 +1,5 @@
 class ParserPartesAuto
-  NIVEL_DANIO = {0 => SinDanio, 1 => DanioBajo}.freeze
+  NIVEL_DANIO = {0 => SinDanio, 1 => DanioBajo, 2 => DanioMedio}.freeze
 
   def json_a_parte_auto(parte, json_data)
     case parte
