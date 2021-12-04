@@ -26,4 +26,11 @@ describe 'Revision de auto' do
     expect(cotizacion.valor_cotizado).to eq(184000)
   end
 
+  xit 'Dado que el auto tiene una daño de neumaticos alto, entonces se le descuenta 15%' do
+    cotizacion.agregar_parte(ParteNeumaticos.new(DanioAlto.new))
+    cotizacion.agregar_parte(ParteMotor.new(SinDanio.new))
+    cotizacion.agregar_parte(ParteEstetica.new(SinDanio.new))
+    expect(cotizacion.valor_cotizado).to eq(170000)
+  end
+
 end

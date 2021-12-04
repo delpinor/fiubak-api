@@ -1,6 +1,6 @@
 #language: es
 
-Característica: US007 - Cotización con daños de neumáticos
+Característica: US007 - Cotización con daño de neumáticos
 
   Como usuario vendedor quiero recibir la cotización cuando tiene daño de neumaticos
 
