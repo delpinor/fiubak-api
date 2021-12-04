@@ -20,12 +20,12 @@ describe 'Crear intencion de venta' do
     end
 
     it 'Al concretar una intencion de venta su estado cambia a vendido y obtengo una publicacion con precio' do
-      publicacion = @intencion_de_venta.concretar("Fiubak")
+      publicacion = @intencion_de_venta.concretar_por_fiubak
       expect(publicacion.precio).to be_present
     end
 
     it 'Al concretar una intencion de venta su estado cambia a vendido y obtengo una publicacion de tipo Fiubak' do
-      publicacion = @intencion_de_venta.concretar("Fiubak")
+      publicacion = @intencion_de_venta.concretar_por_fiubak
       expect(publicacion.tipo).to eq("Fiubak")
     end
 

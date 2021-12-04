@@ -1,5 +1,4 @@
 WebTemplate::App.controllers :cotizaciones, :provides => [:json] do
-
   put :update, :map => '/aceptar_cotizacion' do
     begin
       data = JSON.parse(request.body.read)

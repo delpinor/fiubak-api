@@ -10,7 +10,6 @@ module Persistence
         Auto.new(a_hash[:marca], a_hash[:modelo], a_hash[:anio], a_hash[:patente], a_hash[:id])
       end
 
-
       def changeset(auto)
         {
           marca: auto.marca,
@@ -19,7 +18,6 @@ module Persistence
           patente: auto.patente
         }
       end
-
     end
   end
 end

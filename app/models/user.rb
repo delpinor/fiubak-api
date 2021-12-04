@@ -1,7 +1,7 @@
 class User
   attr_reader :name, :updated_on, :created_on
   attr_accessor :id
-  
+
   def initialize(name, id = nil)
     @name = name
     @id = id

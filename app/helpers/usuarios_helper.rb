@@ -21,7 +21,6 @@ module WebTemplate
       def atributos_json(usuario)
         {id: usuario.id, dni: usuario.dni, nombre: usuario.nombre, email: usuario.email}
       end
-
     end
 
     helpers UsuarioHelper

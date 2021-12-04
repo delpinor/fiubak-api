@@ -1,5 +1,6 @@
 class SinDanio
   attr_reader :id
+
   def initialize
     @id = :sindanio
   end

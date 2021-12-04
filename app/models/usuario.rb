@@ -3,6 +3,7 @@ require_relative '../models/errors/dni_invalido_error'
 class Usuario
   attr_reader :dni, :nombre, :email
   attr_accessor :id
+
   def initialize(dni, nombre, email, id)
     @dni = dni
     @nombre = nombre
@@ -12,7 +13,6 @@ class Usuario
   end
 
   def validar_usuario
-    raise DniInvalidoError if @dni < 0
+    raise DniInvalidoError if @dni.negative?
   end
-
 end

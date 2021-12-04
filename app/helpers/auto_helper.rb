@@ -3,7 +3,6 @@
 module WebTemplate
   class App
     module AutoHelper
-
       def repositorio_de_autos
         Persistence::Repositories::RepositorioDeAutos.new
       end
@@ -11,10 +10,8 @@ module WebTemplate
       def crear_auto(data)
         data = JSON.parse(data)
         auto = Auto.new(data['marca'], data['modelo'], data['anio'].to_i, data['patente'])
-        auto_con_id = repositorio_de_autos.save(auto)
-        return auto_con_id
+        repositorio_de_autos.save(auto)
       end
-
     end
 
     helpers AutoHelper

@@ -1,5 +1,4 @@
 WebTemplate::App.controllers :revisiones, :provides => [:json] do
-
   post :create, :map => '/revisiones' do
     begin
       data = JSON.parse(request.body.read)
@@ -11,5 +10,4 @@ WebTemplate::App.controllers :revisiones, :provides => [:json] do
       {mensaje: 'se produjo un error'}.to_json
     end
   end
-
 end

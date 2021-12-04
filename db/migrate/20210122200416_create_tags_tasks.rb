@@ -7,5 +7,3 @@ Sequel.migration do
     drop_table(:tags_tasks)
   end
 end
-
-

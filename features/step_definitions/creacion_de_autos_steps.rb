@@ -1,8 +1,8 @@
 Dado('que soy usuario vendedor') do
   body = {
-    'nombre': "nombre",
-    'dni': 35555555,
-    'email': "test@gmail.com",
+    'nombre': 'nombre',
+    'dni': 35_555_555,
+    'email': 'test@gmail.com',
     'id': 1
   }
   @response = Faraday.post(registrar_usuario_url, body.to_json, header)

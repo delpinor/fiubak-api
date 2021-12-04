@@ -1,6 +1,7 @@
 class IntencionDeVenta
   attr_reader :auto, :usuario, :estado, :precio_cotizado
   attr_accessor :id
+
   def initialize(auto, usuario, estado, id = nil)
     @auto = auto
     @usuario = usuario
@@ -14,10 +15,15 @@ class IntencionDeVenta
     @precio_cotizado = precio
   end
 
-  def concretar(tipo)
+  def concretar_por_fiubak
     @estado = 'vendido'
-    Publicacion.new(@usuario, @auto, @precio_cotizado, tipo)
+    Publicacion.new(@usuario, @auto, @precio_cotizado, 'Fiubak')
   end
+
+  # def concretar_por_p2p(precio)
+  #  @estado = 'vendido'
+  #  Publicacion.new(@usuario, @auto, @precio_cotizado, "Fiubak")
+  # end
 
   def revisado_y_cotizado
     @estado = 'revisado y cotizado'

@@ -24,7 +24,7 @@ describe 'Publicaciones controller' do
   end
 
   it 'Cuando el usuario confirma la venta y consulto las busquedas obtengo una nueva publicacion' do
-    publicacion = @intencion_con_id.concretar("Fiubak")
+    publicacion = @intencion_con_id.concretar_por_fiubak
     Persistence::Repositories::RepositorioDePublicaciones.new.save(publicacion)
 
     get('/publicaciones')

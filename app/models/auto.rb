@@ -1,7 +1,8 @@
 class Auto
   attr_reader :marca, :modelo, :anio, :patente
   attr_accessor :id
-  def initialize(marca, modelo, anio, patente, id=nil)
+
+  def initialize(marca, modelo, anio, patente, id = nil)
     @marca = marca
     @modelo = modelo
     @anio = anio
@@ -11,13 +12,12 @@ class Auto
   end
 
   def validar_auto
-    return
+    nil
   end
 
   def ==(other)
-    return true if @marca == other.marca and @modelo == other.modelo and @anio == other.anio
+    return true if (@marca == other.marca) && (@modelo == other.modelo) && (@anio == other.anio)
 
     false
   end
-
 end

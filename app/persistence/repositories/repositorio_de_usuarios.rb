@@ -10,7 +10,6 @@ module Persistence
         Usuario.new(a_hash[:dni], a_hash[:nombre], a_hash[:email], a_hash[:id])
       end
 
-
       def changeset(user)
         {
           dni: user.dni,
@@ -19,7 +18,6 @@ module Persistence
           id: user.id
         }
       end
-
     end
   end
 end
