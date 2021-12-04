@@ -1,5 +1,4 @@
 WebTemplate::App.controllers :usuarios, :provides => [:json] do
-
   post :create, :map => '/usuarios' do
     begin
       nuevo_usuario = crear_usuario(request.body.read)
@@ -11,5 +10,4 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
       {mensaje: 'se produjo un error'}.to_json
     end
   end
-
 end

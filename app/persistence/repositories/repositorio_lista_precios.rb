@@ -14,9 +14,9 @@ class RepositorioListaPrecios
   private
 
   def lista_inicial
-    @precios << {:auto => Auto.new('fiat', 'uno', 1988, 'ayd-455'), :precio => 50000}
-    @precios << {:auto => Auto.new('fiat', 'uno', 1989, 'add-447'), :precio => 50000}
-    @precios << {:auto => Auto.new('fiat', 'uno', 1990, 'ard-457'), :precio => 60000}
-    @precios << {:auto => Auto.new('fiat', 'duna', 2015, 'ABC-342'), :precio => 60000}
+    @precios << {:auto => Auto.new('fiat', 'uno', 1988, 'ayd-455'), :precio => 50_000}
+    @precios << {:auto => Auto.new('fiat', 'uno', 1989, 'add-447'), :precio => 50_000}
+    @precios << {:auto => Auto.new('fiat', 'uno', 1990, 'ard-457'), :precio => 60_000}
+    @precios << {:auto => Auto.new('fiat', 'duna', 2015, 'ABC-342'), :precio => 60_000}
   end
 end

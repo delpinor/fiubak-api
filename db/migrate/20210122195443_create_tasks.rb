@@ -13,4 +13,3 @@ Sequel.migration do
     drop_table(:tasks)
   end
 end
-

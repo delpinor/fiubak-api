@@ -2,9 +2,7 @@
 
 module WebTemplate
   class App
-
     module IntencionDeVentaHelper
-
       def repositorio_de_usuarios
         Persistence::Repositories::RepositorioDeUsuarios.new
       end
@@ -21,22 +19,20 @@ module WebTemplate
         usuario = repositorio_de_usuarios.find(id_usuario.to_i)
         intencion_venta = IntencionDeVenta.new(auto, usuario, 'en revision')
         intencion_de_venta_con_id = repositorio_de_intencion_de_ventas.save(intencion_venta)
-        return intencion_de_venta_con_id.id.to_i
+        intencion_de_venta_con_id.id.to_i
       end
 
       def recuperar_intencion_de_venta(id_intencion_de_venta)
         intencion_de_venta = repositorio_de_intencion_de_ventas.find(id_intencion_de_venta)
         { estado: intencion_de_venta.estado, id: intencion_de_venta.id }
-
       end
 
       def cambiar_a_vendido(id_intencion)
         intencion_de_venta = repositorio_de_intencion_de_ventas.find(id_intencion)
-        publicacion = intencion_de_venta.concretar
+        publicacion = intencion_de_venta.concretar_por_fiubak
         repositorio_de_intencion_de_ventas.save(intencion_de_venta)
         repositorio_de_publicaciones.save(publicacion)
       end
-
     end
 
     helpers IntencionDeVentaHelper

@@ -1,6 +1,7 @@
 class IntencionDeVenta
   attr_reader :auto, :usuario, :estado, :precio_cotizado
   attr_accessor :id
+
   def initialize(auto, usuario, estado, id = nil)
     @auto = auto
     @usuario = usuario
@@ -14,9 +15,14 @@ class IntencionDeVenta
     @precio_cotizado = precio
   end
 
-  def concretar
+  def concretar_por_fiubak
     @estado = 'vendido'
-    Publicacion.new(@usuario, @auto, @precio_cotizado)
+    Publicacion.new(@usuario, @auto, @precio_cotizado, 'Fiubak')
+  end
+
+  def concretar_por_p2p(precio)
+    @estado = 'vendido'
+    Publicacion.new(@usuario, @auto, precio, "p2p")
   end
 
   def revisado_y_cotizado
@@ -24,6 +30,8 @@ class IntencionDeVenta
   end
 
   def validar_intencion_de_venta
+    # todo validar tipos de estado
+    # todo validar precio que no sea negativo (y no sea decimal)
     nil
   end
 end

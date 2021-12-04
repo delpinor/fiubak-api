@@ -1,10 +1,9 @@
-
 Cuando('me registro con con nombre {string}, dni {string} y email {string}') do |nombre, dni, email|
   body = {
-    'id': 23734,
+    'id': 23_734,
     'nombre': nombre,
     'dni': dni,
-    'email':email
+    'email': email
   }
   @response = Faraday.post(registrar_usuario_url, body.to_json, header)
 end

@@ -2,9 +2,7 @@
 
 module WebTemplate
   class App
-
     module PublicacionesHelper
-
       def repositorio_de_publicaciones
         Persistence::Repositories::RepositorioDePublicaciones.new
       end
@@ -15,7 +13,7 @@ module WebTemplate
       end
 
       def publicaciones_a_json(publicaciones)
-        publicaciones.map { |publicacion| atributos_publicacion(publicacion)}.to_json
+        publicaciones.map { |publicacion| atributos_publicacion(publicacion) }.to_json
       end
 
       def atributos_publicacion(publicacion)

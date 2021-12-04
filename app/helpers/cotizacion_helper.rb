@@ -3,7 +3,6 @@
 module WebTemplate
   class App
     module CotizacionHelper
-
       def procesar_cotizacion(data)
         repo = Persistence::Repositories::RepositorioDeIntencionesDeVenta.new
         intencion_de_venta = repo.find(data['id_intencion'].to_i)
@@ -14,7 +13,7 @@ module WebTemplate
         repo.save(intencion_de_venta)
       end
 
-      private 
+      private
 
       def calcular_cotizacion(auto, data)
         cotizacion = CotizacionAuto.new(auto, data['precio_lista'].to_f)
@@ -27,7 +26,6 @@ module WebTemplate
       def enviar_cotizacion_por_email(cotizacion, intencion)
         EnviadorMails.new.notificar_revision(cotizacion, intencion)
       end
-
     end
     helpers CotizacionHelper
   end

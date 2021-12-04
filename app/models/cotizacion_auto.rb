@@ -15,7 +15,7 @@ class CotizacionAuto
     @partes.each do |parte|
       total_pct_descuento += parte.estado.penalizacion_por_falla
     end
-    @valor_lista *(COMISION_POR_VENTA - total_pct_descuento)
+    @valor_lista * (COMISION_POR_VENTA - total_pct_descuento)
   end
 
   private

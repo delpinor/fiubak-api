@@ -20,8 +20,23 @@ describe 'Crear intencion de venta' do
     end
 
     it 'Al concretar una intencion de venta su estado cambia a vendido y obtengo una publicacion con precio' do
-      publicacion = @intencion_de_venta.concretar
+      publicacion = @intencion_de_venta.concretar_por_fiubak
       expect(publicacion.precio).to be_present
+    end
+
+    it 'Al concretar una intencion de venta su estado cambia a vendido y obtengo una publicacion de tipo Fiubak' do
+      publicacion = @intencion_de_venta.concretar_por_fiubak
+      expect(publicacion.tipo).to eq("Fiubak")
+    end
+
+    it 'Al concretar una intencion de venta su estado cambia a vendido y obtengo una publicacion de tipo p2p' do
+      publicacion = @intencion_de_venta.concretar_por_p2p(45000)
+      expect(publicacion.tipo).to eq("p2p")
+    end
+
+    it 'Al concretar una intencion de venta su estado cambia a vendido y obtengo una publicacion de 45000 pesos' do
+      publicacion = @intencion_de_venta.concretar_por_p2p(45000)
+      expect(publicacion.precio).to eq(45000)
     end
 
   end

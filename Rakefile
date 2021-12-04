@@ -5,8 +5,8 @@ require 'English'
 ENV['RACK_ENV'] ||= 'test'
 RACK_ENV = ENV['RACK_ENV'] ||= ENV['RACK_ENV'] ||= 'test' unless defined?(RACK_ENV)
 
-#PadrinoTasks.use(:database)
-#PadrinoTasks.init
+# PadrinoTasks.use(:database)
+# PadrinoTasks.init
 PadrinoTasks.use(:database)
 PadrinoTasks.use(:sequel)
 PadrinoTasks.init
