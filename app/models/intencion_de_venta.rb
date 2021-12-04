@@ -1,17 +1,22 @@
 class IntencionDeVenta
-  attr_reader :auto, :usuario, :estado
+  attr_reader :auto, :usuario, :estado, :precio_cotizado
   attr_accessor :id
-  def initialize(auto, usuario, estado, id=nil)
+  def initialize(auto, usuario, estado, id = nil)
     @auto = auto
     @usuario = usuario
     @estado = estado
     @id = id
+    @precio_cotizado = 0
     validar_intencion_de_venta
+  end
+
+  def set_valor_cotizado(precio)
+    @precio_cotizado = precio
   end
 
   def concretar
     @estado = 'vendido'
-    Publicacion.new(@usuario, @auto, 75000)
+    Publicacion.new(@usuario, @auto, @precio_cotizado)
   end
 
   def revisado_y_cotizado
@@ -19,7 +24,6 @@ class IntencionDeVenta
   end
 
   def validar_intencion_de_venta
-    return
+    nil
   end
-
 end

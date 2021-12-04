@@ -34,7 +34,6 @@ describe 'Publicaciones controller' do
     expect(body[0]['marca']).to eq(auto.marca)
     expect(body[0]['modelo']).to eq(auto.modelo)
     expect(body[0]['anio']).to eq(auto.anio)
-    expect(body[0]['precio']).to eq(75000)
     expect(last_response.status).to eq(200)
   end
 
