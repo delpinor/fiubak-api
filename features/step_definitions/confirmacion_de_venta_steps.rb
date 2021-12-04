@@ -18,8 +18,9 @@ end
 Entonces('veo el auto publicado para venta a un valor de {int}') do |precio|
   @response = Faraday.get(obtener_publicaciones)
   publicaciones = JSON.parse(@response.body)
-  expect(publicaciones.size).to eq(1)
-  expect(publicaciones[0]['precio']).to eq(precio)
+  datos = {"anio"=>2015, "marca"=>"Renault", "modelo"=>"Kangoo", "precio"=>precio}
+  publicaciones.each { |pub| pub.delete("id") }
+  expect(publicaciones.include?(datos)).to eq(true)
 end
 
 Dado('la cotización del auto no fue rechazada') do
