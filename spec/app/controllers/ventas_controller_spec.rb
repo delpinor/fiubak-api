@@ -12,7 +12,8 @@ describe 'Ventas controller' do
     post('/usuarios', datos_usuario.to_json, { 'CONTENT_TYPE' => 'application/json' })
     post('/usuarios/343/intenciones_de_venta', datos_auto.to_json, { 'CONTENT_TYPE' => 'application/json' })
     body = JSON.parse(last_response.body)
-    expect(body['mensaje']).to eq('intencion de venta registrada con exito')
+    id_venta = body['id']
+    expect(body['mensaje']).to eq("Intención de venta registrada bajo el nro. #{id_venta}")
     expect(body['id']).to be_present
   end
 
@@ -28,7 +29,8 @@ describe 'Ventas controller' do
     post('/usuarios/343/intenciones_de_venta', datos_auto.to_json, { 'CONTENT_TYPE' => 'application/json' })
     post('/usuarios/400/intenciones_de_venta', datos_auto_2.to_json, { 'CONTENT_TYPE' => 'application/json' })
     body = JSON.parse(last_response.body)
-    expect(body['mensaje']).to eq('intencion de venta registrada con exito')
+    id_venta = body['id']
+    expect(body['mensaje']).to eq("Intención de venta registrada bajo el nro. #{id_venta}")
     expect(body['id']).to be_present
   end
 
@@ -39,7 +41,8 @@ describe 'Ventas controller' do
     primer_intencion_de_venta_id = JSON.parse(last_response.body)['id']
     post('/usuarios/400/intenciones_de_venta', datos_auto_2.to_json, { 'CONTENT_TYPE' => 'application/json' })
     body = JSON.parse(last_response.body)
-    expect(body['mensaje']).to eq('intencion de venta registrada con exito')
+    id_venta = body['id']
+    expect(body['mensaje']).to eq("Intención de venta registrada bajo el nro. #{id_venta}")
     expect(body['id']).not_to eq primer_intencion_de_venta_id
   end
 
@@ -52,7 +55,7 @@ describe 'Ventas controller' do
       get('/intenciones_de_venta/' + id_intencion_de_venta.to_s, datos_auto.to_json, { 'CONTENT_TYPE' => 'application/json' })
       body = JSON.parse(last_response.body)
       expect(body['valor']['id']).to be_present
-      expect(body['valor']['estado']).to eq('en revision') 
+      expect(body['valor']['estado']).to eq('en revisión')
     end
   end
 end

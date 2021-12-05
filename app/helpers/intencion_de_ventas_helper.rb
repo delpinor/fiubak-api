@@ -17,7 +17,7 @@ module WebTemplate
 
       def crear_intencion_de_venta(id_usuario, auto)
         usuario = repositorio_de_usuarios.find(id_usuario.to_i)
-        intencion_venta = IntencionDeVenta.new(auto, usuario, 'en revision')
+        intencion_venta = IntencionDeVenta.new(auto, usuario, 'en revisión')
         intencion_de_venta_con_id = repositorio_de_intencion_de_ventas.save(intencion_venta)
         intencion_de_venta_con_id.id.to_i
       end

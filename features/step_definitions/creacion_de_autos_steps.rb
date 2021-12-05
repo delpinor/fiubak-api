@@ -22,8 +22,6 @@ Cuando('registro un auto para vender con marca {string}, modelo {string}, año {
 end
 
 Entonces('el auto se carga exitosamente con estado ‘en revisión’') do
-  body = JSON.parse(@response.body)
-  expect(body['mensaje']).to eq('intencion de venta registrada con exito')
-  expect(body['id']).to be_present
-  # TODO: llamar a consulta de venta para obtener el estado, y validar ids con caracteristicas del auto
+  step 'consulto por mis autos registrados'
+  step 'puedo ver mi intencion de venta con id y estado "en revisión"'
 end
