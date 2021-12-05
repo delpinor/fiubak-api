@@ -24,6 +24,20 @@ describe 'Crear publicacion' do
     end
 
   end
+
+  context 'Ofertas de la publicacion' do
+    before(:each)  do
+      @auto = Auto.new("Fiat", "uno", 1940, "MFL200", 1)
+      @usuario = Usuario.new(33234543, 'Nicolas', 'nicoperez@gmail.com', 665)
+      @publicacion = Publicacion.new(@usuario, @auto, 75000, "Fiubak",1)
+    end
+
+    it 'Al consultar las ofertas de una publicacion obtengo vacio' do
+      ofertas = @publicacion.obtener_ofertas
+      expect(ofertas.length).to eq(0)
+    end
+
+  end
 end
 
 

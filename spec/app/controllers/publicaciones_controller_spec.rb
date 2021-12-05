@@ -61,6 +61,16 @@ describe 'Publicaciones controller' do
       expect(body['mensaje']).to eq("Generaste la oferta #{id_oferta} con un monto de $#{datos[:monto_a_ofertar]}")
       expect(last_response.status).to eq(201)
     end
+
+    xit 'Al crear otra oferta recibo un mensaje exitoso' do
+      datos = { monto_a_ofertar: 400 }
+      post("/publicaciones/#{@publicacion.id}/ofertas", datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      body = JSON.parse(last_response.body)
+      expect(body['valor']['id']).to be_present
+      id_oferta = body['valor']['id']
+      expect(body['mensaje']).to eq("Generaste la oferta #{id_oferta} con un monto de $#{datos[:monto_a_ofertar]}")
+      expect(last_response.status).to eq(201)
+    end
   end
 
 end

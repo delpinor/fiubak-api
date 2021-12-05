@@ -23,4 +23,8 @@ class Publicacion
     # todo validar tipos de estado
     # todo validar precio que no sea negativo (y no sea decimal)
   end
+
+  def obtener_ofertas
+    []
+  end
 end
