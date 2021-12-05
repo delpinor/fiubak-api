@@ -31,6 +31,7 @@ describe 'Crear publicacion' do
       @usuario_vendedor = Usuario.new(33234543, 'Nicolas', 'nicoperez@gmail.com', 665)
       @publicacion = Publicacion.new(@usuario_vendedor, @auto, 75000, "Fiubak",1)
       @usuario_comprador = Usuario.new(33234542, 'Juuan', 'juan@gmail.com', 666)
+      @oferta = Oferta.new(@usuario_comprador, 45000)
     end
 
     it 'Al consultar las ofertas de una publicacion obtengo vacio' do
@@ -39,19 +40,18 @@ describe 'Crear publicacion' do
     end
 
     it 'Al agregar una oferta luego la cantidad de ofertas es uno' do
-      oferta = @publicacion.agregar_oferta(@usuario_comprador, 45000)
+      oferta = @publicacion.agregar_oferta(@oferta)
       ofertas = @publicacion.obtener_ofertas
       expect(ofertas.length).to eq(1)
     end
 
-    xit 'Al agregar una oferta y luego obtener las ofertas puedo ver sus datos' do
-      oferta = @publicacion.agregar_oferta(@usuario_comprador, 45000)
+    it 'Al agregar una oferta y luego obtener las ofertas puedo ver sus datos' do
+      oferta = @publicacion.agregar_oferta(@oferta)
       todas_las_ofertas = @publicacion.obtener_ofertas()
       expect(todas_las_ofertas.length).to eq(1)
       expect(todas_las_ofertas[0].usuario).to be_present
       expect(todas_las_ofertas[0].usuario.id).to be_present
-      expect(todas_las_ofertas[0].precio).to be_present
-      expect(todas_las_ofertas[0].publicacion).to be_present
+      expect(todas_las_ofertas[0].valor).to be_present
     end
 
   end

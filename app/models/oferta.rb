@@ -1,10 +1,9 @@
 class Oferta
-  attr_reader :usuario_comprador, :publicacion, :valor
+  attr_reader :usuario, :valor
   attr_accessor :id
 
-  def initialize(usuario_comprador, publicacion, valor, id = nil)
-    @usuario_comprador = usuario_comprador
-    @publicacion = publicacion
+  def initialize(usuario, valor, id = nil)
+    @usuario = usuario
     @valor = valor
     validar_oferta
   end
