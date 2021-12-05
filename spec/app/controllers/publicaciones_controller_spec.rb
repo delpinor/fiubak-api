@@ -14,6 +14,7 @@ describe 'Publicaciones controller' do
     Persistence::Repositories::RepositorioDeUsuarios.new.save(usuario)
     Persistence::Repositories::RepositorioDeAutos.new.save(auto)
     @intencion_con_id = Persistence::Repositories::RepositorioDeIntencionesDeVenta.new.save(intencion_venta)
+    @publicacion = Publicacion.new(usuario, auto, 75000, "Fiubak", 1)
   end
 
   it 'La respuesta debe ser un mensaje exitoso' do
@@ -48,6 +49,18 @@ describe 'Publicaciones controller' do
     expect(body['valor']['precio']).to eq(45000)
 
     expect(last_response.status).to eq(201)
+  end
+
+  context 'Ofertas' do
+    it 'Al crear una oferta recibo un mensaje exitoso' do
+      datos = { monto_a_ofertar: 150 }
+      post("/publicaciones/#{@publicacion.id}/ofertas", datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      body = JSON.parse(last_response.body)
+      expect(body['valor']['id']).to be_present
+      id_oferta = body['valor']['id']
+      expect(body['mensaje']).to eq("Generaste la oferta #{id_oferta} con un monto de $#{datos[:monto_a_ofertar]}")
+      expect(last_response.status).to eq(201)
+    end
   end
 
 end

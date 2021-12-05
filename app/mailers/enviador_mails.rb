@@ -34,7 +34,7 @@ class EnviadorMails
 
   def cuerpo_venta_exitosa(id_intencion_de_venta, patente)
     titulo = "FIUBAK\n\n"
-    cuerpo = 'Felicidades! Su auto con patente #{patente} fue vendido con exito' + "\n" \
+    cuerpo = "Felicidades! Su auto con patente #{patente} fue vendido con exito" + "\n" \
              "Id. de venta: #{id_intencion_de_venta} " + "\n"
 
     pie = 'Si desea revisar la información de la misma, en el bot debe ingresar:' + "\n" \

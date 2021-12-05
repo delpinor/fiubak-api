@@ -19,4 +19,14 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       {mensaje: 'se produjo un error'}.to_json
     end
   end
+
+  post :create, :map => '/publicaciones/:id/ofertas' do
+    status 201
+    {
+      mensaje: "Generaste la oferta 1 con un monto de $150",
+      valor: {
+        id: 1
+      }
+    }.to_json
+  end
 end

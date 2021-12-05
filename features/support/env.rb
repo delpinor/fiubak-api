@@ -88,6 +88,10 @@ def revisiones_url
   "#{BASE_URL}/revisiones"
 end
 
+def registrar_nueva_oferta(id_publicacion)
+  "#{BASE_URL}/publicaciones/#{id_publicacion}/ofertas"
+end
+
 After do |_scenario|
   Faraday.post(reset_url)
 end
