@@ -12,5 +12,8 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
     intencion_de_venta_buscada = recuperar_intencion_de_venta(params[:id])
     status 200
     {mensaje: 'intencion de venta recuperadas con exito', valor: intencion_de_venta_buscada }.to_json
+  rescue ObjectNotFound => e
+    status 404
+    {mensaje: 'Intención de venta inexistente.'}.to_json
   end
 end

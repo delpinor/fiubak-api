@@ -57,5 +57,11 @@ describe 'Ventas controller' do
       expect(body['valor']['id']).to be_present
       expect(body['valor']['estado']).to eq('en revisión')
     end
+
+    it 'Cuando consulto el estado de una intencion de venta inexistente, entonces veo un mensaje de venta inexistente' do
+      get('/intenciones_de_venta/-1', { 'CONTENT_TYPE' => 'application/json' })
+      body = JSON.parse(last_response.body)
+      expect(body['mensaje']).to eq('Intención de venta inexistente.')
+    end
   end
 end
