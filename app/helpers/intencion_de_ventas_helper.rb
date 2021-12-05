@@ -15,8 +15,9 @@ module WebTemplate
         Persistence::Repositories::RepositorioDePublicaciones.new
       end
 
-      def crear_intencion_de_venta(id_usuario, auto)
+      def crear_intencion_de_venta(id_usuario, data)
         usuario = repositorio_de_usuarios.find(id_usuario.to_i)
+        auto = crear_auto(data)
         intencion_venta = IntencionDeVenta.new(auto, usuario, 'en revisión')
         intencion_de_venta_con_id = repositorio_de_intencion_de_ventas.save(intencion_venta)
         intencion_de_venta_con_id.id.to_i
