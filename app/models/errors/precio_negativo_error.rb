@@ -1,0 +1,2 @@
+class PrecioNegativoError < StandardError
+end
