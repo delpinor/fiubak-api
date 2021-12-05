@@ -29,7 +29,7 @@ class Publicacion
     @ofertas
   end
 
-  def agregar_oferta(usuario_comprador, precio)
-    @ofertas << 1
+  def agregar_oferta(oferta)
+    @ofertas << oferta
   end
 end
