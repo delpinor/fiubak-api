@@ -36,5 +36,9 @@ describe 'Crear publicacion invalida' do
     it 'Publicacion de tipo invalida levanta error de tipo' do
       expect{Publicacion.new(@usuario, @auto, 75000, "caca",1)}.to raise_error TipoInvalidoError
     end
+
+    it 'Publicacion con precio negativo levanta error' do
+      expect{Publicacion.new(@usuario, @auto, -75000, "Fiubak",1)}.to raise_error PrecioNegativoError
+    end
   end
 end
