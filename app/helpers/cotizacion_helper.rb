@@ -3,7 +3,7 @@
 module WebTemplate
   class App
     module CotizacionHelper
-      def procesar_cotizacion(data)
+      def procesar_revision(data)
         repo = Persistence::Repositories::RepositorioDeIntencionesDeVenta.new
         intencion_de_venta = repo.find(data['id_intencion'].to_i)
         cotizacion = calcular_cotizacion(intencion_de_venta.auto, data)

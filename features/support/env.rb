@@ -76,6 +76,10 @@ def obtener_publicaciones
   "#{BASE_URL}/publicaciones"
 end
 
+def crear_publicaciones
+  "#{BASE_URL}/publicaciones"
+end
+
 def aceptar_cotizacion_url
   "#{BASE_URL}/aceptar_cotizacion"
 end

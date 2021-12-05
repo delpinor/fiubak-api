@@ -18,15 +18,15 @@ describe 'Revision controller' do
   end
 
   it 'Cuando recibo una revision me devuelve 200 OK' do
-    datos = {id_intencion: @intencion_con_id.id, estado_motor: "sin danio",
-             estado_estetica: "sin danio",estado_neumaticos: "sin danio", precio_lista: 1000 }
+    datos = {id_intencion: @intencion_con_id.id, nivel_danio_motor: 0,
+             nivel_danio_estetica: 0, nivel_danio_neumaticos: 0, precio_lista: 1000 }
     post('/revisiones', datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
     expect(last_response.status).to eq(201)
   end
 
   it 'La respuesta debe ser un mensaje exitoso' do
-    datos = {id_intencion: @intencion_con_id.id, estado_motor: "sin danio",
-             estado_estetica: "sin danio", estado_neumaticos: "sin danio", precio_lista: 1000 }
+    datos = {id_intencion: @intencion_con_id.id, nivel_danio_motor: 0,
+             nivel_danio_estetica: 0, nivel_danio_neumaticos: 0, precio_lista: 1000 }
     post('/revisiones', datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
     body = JSON.parse(last_response.body)
     expect(body['mensaje']).to eq('revisión exitosa')
