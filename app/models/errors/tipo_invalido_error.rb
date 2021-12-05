@@ -1,0 +1,2 @@
+class TipoInvalidoError < StandardError
+end

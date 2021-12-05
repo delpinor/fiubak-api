@@ -25,3 +25,16 @@ describe 'Crear publicacion' do
 
   end
 end
+
+
+describe 'Crear publicacion invalida' do
+  context 'Se crea con datos válidos' do
+    before(:each)  do
+      @auto = Auto.new("Fiat", "uno", 1940, "MFL200", 1)
+      @usuario = Usuario.new(33234543, 'Nicolas', 'nicoperez@gmail.com', 665)
+    end
+    it 'Publicacion de tipo invalida levanta error de tipo' do
+      expect{Publicacion.new(@usuario, @auto, 75000, "caca",1)}.to raise_error TipoInvalidoError
+    end
+  end
+end
