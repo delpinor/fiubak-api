@@ -39,8 +39,19 @@ describe 'Crear publicacion' do
     end
 
     it 'Al agregar una oferta luego la cantidad de ofertas es uno' do
-      ofertas = @publicacion.agregar_oferta(@usuario_comprador, 45000)
+      oferta = @publicacion.agregar_oferta(@usuario_comprador, 45000)
+      ofertas = @publicacion.obtener_ofertas
       expect(ofertas.length).to eq(1)
+    end
+
+    xit 'Al agregar una oferta y luego obtener las ofertas puedo ver sus datos' do
+      oferta = @publicacion.agregar_oferta(@usuario_comprador, 45000)
+      todas_las_ofertas = @publicacion.obtener_ofertas()
+      expect(todas_las_ofertas.length).to eq(1)
+      expect(todas_las_ofertas[0].usuario).to be_present
+      expect(todas_las_ofertas[0].usuario.id).to be_present
+      expect(todas_las_ofertas[0].precio).to be_present
+      expect(todas_las_ofertas[0].publicacion).to be_present
     end
 
   end
