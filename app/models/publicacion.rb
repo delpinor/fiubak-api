@@ -15,6 +15,7 @@ class Publicacion
     raise TipoInvalidoError unless CATEGORIAS.include? tipo
     raise PrecioNegativoError if precio.negative?
     @tipo = tipo
+    @ofertas = []
     validar_publicacion
   end
 
@@ -25,6 +26,10 @@ class Publicacion
   end
 
   def obtener_ofertas
-    []
+    @ofertas
+  end
+
+  def agregar_oferta(usuario_comprador, precio)
+    @ofertas << 1
   end
 end

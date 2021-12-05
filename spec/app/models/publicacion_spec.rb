@@ -28,13 +28,19 @@ describe 'Crear publicacion' do
   context 'Ofertas de la publicacion' do
     before(:each)  do
       @auto = Auto.new("Fiat", "uno", 1940, "MFL200", 1)
-      @usuario = Usuario.new(33234543, 'Nicolas', 'nicoperez@gmail.com', 665)
-      @publicacion = Publicacion.new(@usuario, @auto, 75000, "Fiubak",1)
+      @usuario_vendedor = Usuario.new(33234543, 'Nicolas', 'nicoperez@gmail.com', 665)
+      @publicacion = Publicacion.new(@usuario_vendedor, @auto, 75000, "Fiubak",1)
+      @usuario_comprador = Usuario.new(33234542, 'Juuan', 'juan@gmail.com', 666)
     end
 
     it 'Al consultar las ofertas de una publicacion obtengo vacio' do
       ofertas = @publicacion.obtener_ofertas
       expect(ofertas.length).to eq(0)
+    end
+
+    it 'Al agregar una oferta luego la cantidad de ofertas es uno' do
+      ofertas = @publicacion.agregar_oferta(@usuario_comprador, 45000)
+      expect(ofertas.length).to eq(1)
     end
 
   end
