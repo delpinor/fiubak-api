@@ -15,4 +15,3 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
     {mensaje: 'intencion de venta recuperadas con exito', valor: intencion_de_venta_buscada }.to_json
   end
 end
-rcr
