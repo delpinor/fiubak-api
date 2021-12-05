@@ -7,7 +7,6 @@ Característica: Como usuario vendedor quiero ver el estado de mis intenciones d
     Cuando consulto por mis autos registrados
     Entonces puedo ver mi intencion de venta con id y estado "en revisión"
 
-    @wip
     Escenario: 1.2 – Consulta de estado de intencion de venta inexistente
     Dado que soy usuario vendedor
     Cuando consulto por el estado de la intención de venta con id -1
