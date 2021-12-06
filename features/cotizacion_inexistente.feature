@@ -1,6 +1,5 @@
 # language: es
 
-  @wip
 Característica: US31.2 - Error al aceptar cotización de auto inexistente
 Como usuario quiero que me indiquen con un error si la intención de venta no existe al aceptar cotización
 
