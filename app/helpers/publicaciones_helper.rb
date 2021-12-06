@@ -7,6 +7,10 @@ module WebTemplate
         Persistence::Repositories::RepositorioDePublicaciones.new
       end
 
+      def repositorio_de_ofertas
+        Persistence::Repositories::RepositorioDeOfertas.new
+      end
+
       def repositorio_de_intencion_de_ventas
         Persistence::Repositories::RepositorioDeIntencionesDeVenta.new
       end
@@ -22,6 +26,21 @@ module WebTemplate
           precio: publicacion_creada.precio,
           id_intencion_de_venta: intencion_de_venta.id
         }
+      end
+
+      def nueva_oferta_a_json(oferta)
+        {
+          mensaje: "Generaste la oferta #{oferta.id} con un monto de $#{oferta.valor}",
+          valor: {
+            id: oferta.id,
+            valor: oferta.valor
+          }
+        }.to_json
+      end
+
+      def oferta_params
+        @body ||= request.body.read
+        JSON.parse(@body).symbolize_keys
       end
 
       def obtener_publicaciones

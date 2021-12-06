@@ -15,6 +15,7 @@ module Persistence
       def load_object(a_hash)
         usuario = RepositorioDeUsuarios.new.find(a_hash[:id_usuario])
         publicacion = RepositorioDePublicaciones.new.find(a_hash[:id_publicacion])
+        puts a_hash
         Oferta.new(usuario, a_hash[:valor], nil, publicacion.id)
       end
 

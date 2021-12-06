@@ -21,12 +21,27 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
   end
 
   post :create, :map => '/publicaciones/:id/ofertas' do
+    data = oferta_params
+
+    usuario = repositorio_de_usuarios.find(data[:id_usuario])
+    oferta = Oferta.new(usuario, data[:valor], nil, params[:id])
+    nueva_oferta = repositorio_de_ofertas.save(oferta)
+
     status 201
-    {
-      mensaje: "Generaste la oferta 1 con un monto de $150",
-      valor: {
-        id: 1
-      }
-    }.to_json
+    nueva_oferta_a_json nueva_oferta
+  end
+
+  post :create, :map => '/tasks' do
+    begin
+      user = user_repo.find(task_params[:user_id])
+      task = Task.new(user, task_params[:title])
+      new_task = task_repo.save(task)
+
+      status 201
+      task_to_json new_task
+    rescue InvalidTask => e
+      status 400
+      {error: e.message}.to_json
+    end
   end
 end
