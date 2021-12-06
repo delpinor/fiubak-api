@@ -23,4 +23,9 @@ describe 'Crear oferta' do
 
   end
 
+  it 'Cuando ejecuto rechazar_oferta, cambia al estado Rechazada' do
+    oferta = Oferta.new(@usuario_comprador, 75000, "Creada")
+    oferta.rechazar_oferta
+    expect(oferta.estado).to eq 'Rechazada'
+  end
 end

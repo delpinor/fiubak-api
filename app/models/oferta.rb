@@ -11,6 +11,10 @@ class Oferta
     validar_oferta
   end
 
+  def rechazar_oferta
+    @estado = "Rechazada"
+  end
+
   def validar_oferta
     #Validar estados: creada, aceptada, rechazada
     nil
