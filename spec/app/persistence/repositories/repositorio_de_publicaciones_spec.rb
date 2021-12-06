@@ -7,6 +7,7 @@ describe Persistence::Repositories::RepositorioDePublicaciones do
   let(:auto) { Auto.new("fiat", 'uno', 1999, "MFS222") }
   let(:usuario) { Usuario.new(12323423, 'Jhon', 'jhon@gmail.com', 3002) }
   let(:publicacion) { Publicacion.new(usuario, auto, 75000, "Fiubak", 1) }
+  let(:usuario_comprador) { Usuario.new(123234233, 'Jhon2', 'jhon2@gmail.com', 30022) }
 
   before do
     repo_autos.delete_all
@@ -64,6 +65,21 @@ describe Persistence::Repositories::RepositorioDePublicaciones do
     it 'Deber encontrar por el id y poder mapear el usuario' do
       publicacion = repo_publicaciones.find(@id_publicacion)
       expect(publicacion.usuario.id).to eq(usuario.id)
+    end
+
+    it 'Deberia no tener ofertas' do
+      publicacion = repo_publicaciones.find(@id_publicacion)
+      expect(publicacion.ofertas.length).to eq(0)
+    end
+
+    it 'Deberia tener 1 oferta al agregarsela' do
+      repo_publicaciones.save(publicacion)
+      oferta = Oferta.new(usuario_comprador, 45000, nil, publicacion.id)
+      repo_usuario.save(usuario_comprador)
+      publicacion.ofertas << oferta
+      repo_publicaciones.save(publicacion)
+      publicacion_desde_db = repo_publicaciones.find(@id_publicacion)
+      expect(publicacion_desde_db.ofertas.length).to eq(1)
     end
   end
 end
