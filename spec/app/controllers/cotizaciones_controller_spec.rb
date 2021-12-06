@@ -30,4 +30,9 @@ describe 'Cotizacones controller' do
     expect(last_response.status).to eq(200)
   end
 
+  it 'Cuando busco por un id invalido obtengo un error' do
+    datos = {id_intencion: -1}
+    @response = put('/aceptar_cotizacion', datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+    expect(last_response.status).to eq(404)
+  end
 end
