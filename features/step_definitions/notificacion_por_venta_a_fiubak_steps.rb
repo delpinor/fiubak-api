@@ -6,4 +6,5 @@ Entonces('recibo un email con la información de compra') do
   content.include?(@patente).should be true
   content.include?('Felicidades! Su auto con patente').should be true
   content.include?('fue vendido con exito').should be true
+  File.write("#{mail_store}/test@gmail.com", '')
 end

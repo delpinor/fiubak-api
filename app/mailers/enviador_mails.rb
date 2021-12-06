@@ -14,6 +14,12 @@ class EnviadorMails
     enviar_mail(email, 'Venta exitosa', cuerpo_venta_exitosa(intencion_de_venta.id, patente))
   end
 
+  def notificar_oferta(publicacion, oferta, usuario_ofertador)
+    email = publicacion.usuario.email
+
+    enviar_mail(email, 'Oferta Recibida', cuerpo_oferta(publicacion.id, oferta.id, oferta.valor, usuario_ofertador.id))
+  end
+
   private
 
   def cuerpo_cotizacion(id_intencion_de_venta, patente, precio)
@@ -39,6 +45,21 @@ class EnviadorMails
 
     pie = 'Si desea revisar la información de la misma, en el bot debe ingresar:' + "\n" \
           "/consultar_estado #{id_intencion_de_venta}" + "\n" + "\n"
+
+    saludos = 'Saludos, ' + "\n" + "\n" \
+              'Equipo FIUBAK'
+
+    titulo + cuerpo + pie + saludos
+  end
+
+  def cuerpo_oferta(id_publicacion, id_oferta, precio, id_usuario)
+    titulo = "FIUBAK\n\n"
+    cuerpo = "Le notificamos que su publicación con id: #{id_publicacion} " + "\n" \
+             "fue ofertada por un valor de pesos($): #{precio}" + "\n" \
+             "por el usuario con id: #{id_usuario}" + "\n"
+
+    pie = 'Si desea aceptar la oferta, en el bot debe ingresar:' + "\n" \
+          "/aceptar_oferta #{id_oferta}" + "\n" + "\n"
 
     saludos = 'Saludos, ' + "\n" + "\n" \
               'Equipo FIUBAK'

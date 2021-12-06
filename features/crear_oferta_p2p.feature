@@ -12,3 +12,4 @@ Característica: US020 - Oferta de comprador p2p
   Escenario: 20.1 - Oferta exitosa por auto p2p
     Cuando hago una oferta por el auto publicado
     Entonces recibo un mensaje de que la oferta se generó correctamente
+    Y recibo un email con la información de la oferta

@@ -24,6 +24,7 @@ Entonces('recibo un mail con la cotizacion por mi auto') do
   file = File.open("#{mail_store}/test@gmail.com", 'r')
   content = file.read
   content.include?(@patente).should be true
+  File.write("#{mail_store}/test@gmail.com", '')
 end
 
 Entonces('el estado de mi auto sera ‘revisado y cotizado’') do
