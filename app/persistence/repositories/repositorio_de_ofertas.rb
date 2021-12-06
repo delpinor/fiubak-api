@@ -15,15 +15,15 @@ module Persistence
       def load_object(a_hash)
         usuario = RepositorioDeUsuarios.new.find(a_hash[:id_usuario])
         publicacion = RepositorioDePublicaciones.new.find(a_hash[:id_publicacion])
-        puts a_hash
-        Oferta.new(usuario, a_hash[:valor], nil, publicacion.id)
+        Oferta.new(usuario, a_hash[:valor], a_hash[:estado], a_hash[:id], publicacion.id)
       end
 
       def changeset(oferta)
         {
           id_usuario: oferta.usuario.id,
           id_publicacion: oferta.id_publicacion,
-          valor: oferta.valor
+          valor: oferta.valor,
+          estado: oferta.estado
         }
       end
     end

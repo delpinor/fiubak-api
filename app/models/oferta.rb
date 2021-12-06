@@ -7,6 +7,7 @@ class Oferta
     @valor = valor
     @id_publicacion = id_publicacion
     @estado = estado
+    @id = id
     validar_oferta
   end
 
