@@ -3,6 +3,7 @@ require 'byebug'
 describe 'Publicaciones controller' do
 
   let(:usuario){Usuario.new(99999, 'test', 'test@gmail.com', 9999)}
+  let(:usuario_comprador){Usuario.new(999999, 'test2', 'test2@gmail.com', 99999)}
   let(:auto){Auto.new('fiat', 'palio', 1988, 'dfdsf23')}
 
   before(:each) do
@@ -14,6 +15,7 @@ describe 'Publicaciones controller' do
     Persistence::Repositories::RepositorioDeUsuarios.new.save(usuario)
     Persistence::Repositories::RepositorioDeAutos.new.save(auto)
     @intencion_con_id = Persistence::Repositories::RepositorioDeIntencionesDeVenta.new.save(intencion_venta)
+    @usuario_comprador_con_id = Persistence::Repositories::RepositorioDeUsuarios.new.save(usuario_comprador)
     @publicacion = Publicacion.new(usuario, auto, 75000, "Fiubak", 1)
   end
 
@@ -53,22 +55,24 @@ describe 'Publicaciones controller' do
 
   context 'Ofertas' do
     it 'Al crear una oferta recibo un mensaje exitoso' do
-      datos = { monto_a_ofertar: 150 }
-      post("/publicaciones/#{@publicacion.id}/ofertas", datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
+      datos = { id_usuario: @usuario_comprador_con_id.id.to_i, valor: 150 }
+      post("/publicaciones/#{pub.id}/ofertas", datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
       body = JSON.parse(last_response.body)
       expect(body['valor']['id']).to be_present
       id_oferta = body['valor']['id']
-      expect(body['mensaje']).to eq("Generaste la oferta #{id_oferta} con un monto de $#{datos[:monto_a_ofertar]}")
+      expect(body['mensaje']).to eq("Generaste la oferta #{id_oferta} con un monto de $#{datos[:valor]}")
       expect(last_response.status).to eq(201)
     end
 
-    xit 'Al crear otra oferta recibo un mensaje exitoso' do
-      datos = { monto_a_ofertar: 400 }
-      post("/publicaciones/#{@publicacion.id}/ofertas", datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+    it 'Al crear otra oferta recibo un mensaje exitoso' do
+      pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
+      datos = { id_usuario: @usuario_comprador_con_id.id.to_i, valor: 400 }
+      post("/publicaciones/#{pub.id}/ofertas", datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
       body = JSON.parse(last_response.body)
       expect(body['valor']['id']).to be_present
       id_oferta = body['valor']['id']
-      expect(body['mensaje']).to eq("Generaste la oferta #{id_oferta} con un monto de $#{datos[:monto_a_ofertar]}")
+      expect(body['mensaje']).to eq("Generaste la oferta #{id_oferta} con un monto de $#{datos[:valor]}")
       expect(last_response.status).to eq(201)
     end
   end

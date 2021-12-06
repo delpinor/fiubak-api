@@ -2,7 +2,7 @@ require_relative 'errors/tipo_invalido_error.rb'
 require_relative 'errors/precio_negativo_error.rb'
 
 class Publicacion
-  attr_reader :auto, :usuario, :precio, :tipo
+  attr_reader :auto, :usuario, :precio, :ofertas, :tipo
   attr_accessor :id
 
   CATEGORIAS = ["Fiubak", "p2p"]
