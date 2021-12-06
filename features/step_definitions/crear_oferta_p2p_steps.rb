@@ -1,15 +1,16 @@
 Cuando('hago una oferta por el auto publicado') do
   @precio = 150
   body = {
-    'precio': @precio
+    'valor': @precio,
+    'id_usuario': 1
   }
-  @response = Faraday.post(registrar_nueva_oferta(1), body.to_json, header)
+  @response = Faraday.post(registrar_nueva_oferta(@id_publicacion), body.to_json, header)
   data = JSON.parse(@response.body)
-  @id_intencion = data['id']
-  @patente = patente
+  @id_oferta = data['valor']['id']
+  @precio = data['valor']['valor']
+  @mensaje = data['mensaje']
 end
 
 Entonces('recibo un mensaje de que la oferta se generó correctamente') do
-  data = JSON.parse(@response.body)
-  expect(body['mensaje']).to eq("Generaste la oferta #{data['id']} con un monto de $#{@precio}}")
+  expect(@mensaje).to eq("Generaste la oferta #{@id_oferta} con un monto de $#{@precio}")
 end
