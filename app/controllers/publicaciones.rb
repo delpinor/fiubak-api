@@ -30,18 +30,4 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
     status 201
     nueva_oferta_a_json nueva_oferta
   end
-
-  post :create, :map => '/tasks' do
-    begin
-      user = user_repo.find(task_params[:user_id])
-      task = Task.new(user, task_params[:title])
-      new_task = task_repo.save(task)
-
-      status 201
-      task_to_json new_task
-    rescue InvalidTask => e
-      status 400
-      {error: e.message}.to_json
-    end
-  end
 end
