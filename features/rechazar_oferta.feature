@@ -1,6 +1,5 @@
 # language: es
 
-@wip
 Característica: US018 - Rechazar oferta de comprador
   Como usuario vendedor quiero rechazar una oferta por un auto propio publicado
 
