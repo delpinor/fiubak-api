@@ -33,17 +33,22 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
   end
 
   post :create, :map => '/publicaciones/:id/ofertas' do
-    data = oferta_params
+    begin
+      data = oferta_params
 
-    usuario = repositorio_de_usuarios.find(data[:id_usuario])
-    publicacion = repositorio_de_publicaciones.find(params[:id])
-    oferta = Oferta.new(usuario, data[:valor], "pendiente", nil, params[:id])
-    #TODO Validar que el usuario no oferto mas de una vez a la misma publicacion
-    nueva_oferta = repositorio_de_ofertas.save(oferta)
-    EnviadorMails.new.notificar_oferta(publicacion, oferta, usuario)
+      usuario = repositorio_de_usuarios.find(data[:id_usuario])
+      publicacion = repositorio_de_publicaciones.find(params[:id])
+      oferta = Oferta.new(usuario, data[:valor], "pendiente", nil, params[:id])
+      #TODO Validar que el usuario no oferto mas de una vez a la misma publicacion
+      nueva_oferta = repositorio_de_ofertas.save(oferta)
+      EnviadorMails.new.notificar_oferta(publicacion, oferta, usuario)
 
-    status 201
-    nueva_oferta_a_json nueva_oferta
+      status 201
+      nueva_oferta_a_json nueva_oferta
+    rescue ObjectNotFound => e
+      status 404
+      {mensaje: 'Usted debe registrarse y buscar una publiación valida!'}.to_json
+    end
   end
 
   post :create, :map => '/ofertas/:id_oferta/rechazar' do

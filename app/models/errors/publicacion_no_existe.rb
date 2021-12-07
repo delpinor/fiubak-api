@@ -1,0 +1,2 @@
+class PublicacionInexistente < StandardError
+end

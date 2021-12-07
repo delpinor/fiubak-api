@@ -62,7 +62,7 @@ module WebTemplate
       end
 
       def atributos_oferta(oferta)
-        {id: oferta[:id], valor: oferta[:valor]}
+        {id: oferta.id, valor: oferta.valor, nombre_comprador: oferta.usuario.nombre}
       end
     end
 
