@@ -5,11 +5,15 @@ services:
     image: postgres
     environment:
       POSTGRES_PASSWORD: example
+    networks:
+      - some-net
 
   dev_db:
     image: postgres
     environment:
       POSTGRES_PASSWORD: example
+    networks:
+      - some-net
 
   webapp:
     build: 
@@ -24,6 +28,8 @@ services:
       - 3000
     volumes:
         - .:/app
+    networks:
+      - some-net
     environment:
         RACK_ENV: "development"
         TEST_DB_URL: "postgres://postgres:example@test_db:5432/postgres"
@@ -31,3 +37,7 @@ services:
     depends_on:
       - test_db
       - dev_db
+
+networks:
+  some-net:
+    driver: bridge

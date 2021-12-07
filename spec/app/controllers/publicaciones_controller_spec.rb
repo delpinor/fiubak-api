@@ -96,6 +96,25 @@ describe 'Publicaciones controller' do
       expect(body['mensaje']).to eq("Generaste la oferta #{id_oferta} con un monto de $#{datos[:valor]}")
       expect(last_response.status).to eq(201)
     end
+
+    it 'Al una oferta con publicacion inexistente recibo un error' do
+      pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
+      datos = { id_usuario: @usuario_comprador_con_id.id.to_i, valor: 400 }
+      post("/publicaciones/2222/ofertas", datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      body = JSON.parse(last_response.body)
+      expect(body['mensaje']).to eq("Usted debe registrarse y buscar una publiación valida!")
+      expect(last_response.status).to eq(404)
+    end
+
+    it 'Al una oferta con usuario inexistente recibo un error' do
+      pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
+      datos = { id_usuario: 41242141, valor: 400 }
+      post("/publicaciones/2222/ofertas", datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      body = JSON.parse(last_response.body)
+      expect(body['mensaje']).to eq("Usted debe registrarse y buscar una publiación valida!")
+      expect(last_response.status).to eq(404)
+    end
+    
   end
 
   context 'Detalle de publicacion' do
@@ -123,6 +142,7 @@ describe 'Publicaciones controller' do
       expect(body['anio']).to eq(pub.auto.anio)
       expect(body['ofertas'][0]['valor']).to eq(400)
       expect(body['ofertas'][0]['id']).to eq(id_oferta)
+      expect(body['ofertas'][0]['nombre_comprador']).to eq(@usuario_comprador_con_id.nombre)
       expect(last_response.status).to eq(200)
     end
   end

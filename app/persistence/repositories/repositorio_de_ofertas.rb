@@ -7,7 +7,13 @@ module Persistence
       def find_by_publicacion(id_publicacion)
         ofertas_dataset = DB[:ofertas]
         ofertas = ofertas_dataset.where(id_publicacion: id_publicacion)
-        ofertas
+        ofertas_models = []
+        ofertas.each do |oferta|
+          usuario = RepositorioDeUsuarios.new.find(oferta[:id_usuario])
+          oferta = Oferta.new(usuario, oferta[:valor], "pendiente", oferta[:id], oferta[:id_publicacion])
+          ofertas_models << oferta
+        end
+        ofertas_models
       end
 
       protected
