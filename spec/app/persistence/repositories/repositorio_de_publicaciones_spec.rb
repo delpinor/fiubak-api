@@ -74,7 +74,7 @@ describe Persistence::Repositories::RepositorioDePublicaciones do
 
     it 'Deberia tener 1 oferta al agregarsela' do
       repo_publicaciones.save(publicacion)
-      oferta = Oferta.new(usuario_comprador, 45000, "Creada", nil, publicacion.id)
+      oferta = Oferta.new(usuario_comprador, 45000, "pendiente", nil, publicacion.id)
       repo_usuario.save(usuario_comprador)
       publicacion.ofertas << oferta
       publicacion_con_id = repo_publicaciones.save(publicacion)

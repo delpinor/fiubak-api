@@ -8,7 +8,7 @@ describe Persistence::Repositories::RepositorioDeOfertas do
   let(:auto) { Auto.new("fiat", 'uno', 1999, "MFS222", 1) }
   let(:publicacion) { Publicacion.new(usuario, auto, 75000, "Fiubak", 1) }
   let(:usuario) { Usuario.new(12323423, 'Jhon', 'jhon@gmail.com', 34212) }
-  let(:oferta) { Oferta.new(usuario, 45000, "Creada", nil, publicacion.id) }
+  let(:oferta) { Oferta.new(usuario, 45000, "pendiente", nil, publicacion.id) }
 
   before do
     repo_usuario.delete_all

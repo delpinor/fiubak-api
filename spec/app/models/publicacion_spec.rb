@@ -31,7 +31,7 @@ describe 'Crear publicacion' do
       @usuario_vendedor = Usuario.new(33234543, 'Nicolas', 'nicoperez@gmail.com', 665)
       @publicacion = Publicacion.new(@usuario_vendedor, @auto, 75000, "Fiubak",1)
       @usuario_comprador = Usuario.new(33234542, 'Juuan', 'juan@gmail.com', 666)
-      @oferta = Oferta.new(@usuario_comprador, 45000, 'Creada')
+      @oferta = Oferta.new(@usuario_comprador, 45000, 'pendiente')
     end
 
     it 'Al consultar las ofertas de una publicacion obtengo vacio' do
