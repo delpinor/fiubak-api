@@ -50,8 +50,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
     repo_ofertas = Persistence::Repositories::RepositorioDeOfertas.new
     oferta = repo_ofertas.find(params[:id_oferta].to_i)
 
-    oferta.rechazar_oferta
-    repo_ofertas.save(oferta)
+    repo_ofertas.destroy(oferta)
     repo_publicaciones = Persistence::Repositories::RepositorioDePublicaciones.new
     publicacion = repo_publicaciones.find(oferta.id_publicacion)
     EnviadorMails.new.notificar_rechazo(oferta.id, publicacion.auto, oferta.valor, oferta.usuario)
