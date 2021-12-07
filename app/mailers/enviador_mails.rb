@@ -20,6 +20,12 @@ class EnviadorMails
     enviar_mail(email, 'Oferta Recibida', cuerpo_oferta(publicacion.id, oferta.id, oferta.valor, usuario_ofertador.id))
   end
 
+  def notificar_rechazo(id_oferta, auto, precio, usuario)
+    email = usuario.email
+
+    enviar_mail(email, 'Oferta rechazada', cuerpo_rechazo(id_oferta, auto, precio))
+  end
+
   private
 
   def cuerpo_cotizacion(id_intencion_de_venta, patente, precio)
@@ -36,6 +42,19 @@ class EnviadorMails
               'Equipo FIUBAK'
 
     titulo + cuerpo + pie + saludos
+  end
+
+  def cuerpo_rechazo(id_oferta, auto, precio)
+    titulo = "FIUBAK\n\n"
+    cuerpo = 'Le informamos que su oferta fue rechazada' + "\n" \
+             "Id. de oferta: #{id_oferta} " + "\n" \
+             "Precio de la oferta en pesos($): #{precio}" + "\n" \
+             "Patente del auto publicado: #{auto.patente}" + "\n"
+
+    saludos = 'Saludos, ' + "\n" + "\n" \
+              'Equipo FIUBAK'
+
+    titulo + cuerpo + saludos
   end
 
   def cuerpo_venta_exitosa(id_intencion_de_venta, patente)

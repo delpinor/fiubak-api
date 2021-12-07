@@ -80,6 +80,10 @@ def crear_publicaciones
   "#{BASE_URL}/publicaciones"
 end
 
+def rechazar_oferta(id_oferta)
+  "#{BASE_URL}/ofertas/#{id_oferta}/rechazar"
+end
+
 def aceptar_cotizacion_url
   "#{BASE_URL}/aceptar_cotizacion"
 end

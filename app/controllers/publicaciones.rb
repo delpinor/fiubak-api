@@ -48,6 +48,9 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
     oferta.rechazar_oferta
     repo_ofertas.save(oferta)
+    repo_publicaciones = Persistence::Repositories::RepositorioDePublicaciones.new
+    publicacion = repo_publicaciones.find(oferta.id_publicacion)
+    EnviadorMails.new.notificar_rechazo(oferta.id, publicacion.auto, oferta.valor, oferta.usuario)
     status 201
     {mensaje: 'oferta rechazada con exito'}.to_json
   end
