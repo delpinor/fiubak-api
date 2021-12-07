@@ -10,7 +10,8 @@ Característica: US018 - Rechazar oferta de comprador
     Y se realizó la revisión sin fallas con precio de lista 100
     Y rechazo la cotización de Fiubak y publico por p2p con precio 200
 
+  @local
   Escenario: 18.1 - Oferta rechazada por usuario vendedor
     Cuando hago una oferta por el auto publicado
     Y rechazo la oferta
-    Entonces la oferta queda en estado "Rechazada"
+    Entonces envio un mail rechazando la oferta
