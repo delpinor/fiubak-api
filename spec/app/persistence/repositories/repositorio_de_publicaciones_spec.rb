@@ -77,9 +77,8 @@ describe Persistence::Repositories::RepositorioDePublicaciones do
       oferta = Oferta.new(usuario_comprador, 45000, "Creada", nil, publicacion.id)
       repo_usuario.save(usuario_comprador)
       publicacion.ofertas << oferta
-      repo_publicaciones.save(publicacion)
-      publicacion_desde_db = repo_publicaciones.find(@id_publicacion)
-      expect(publicacion_desde_db.ofertas.length).to eq(1)
+      publicacion_con_id = repo_publicaciones.save(publicacion)
+      expect(publicacion_con_id.ofertas.length).to eq(1)
     end
   end
 end

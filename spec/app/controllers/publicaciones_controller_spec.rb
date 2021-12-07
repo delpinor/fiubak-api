@@ -92,10 +92,30 @@ describe 'Publicaciones controller' do
 
   context 'Detalle de publicacion' do
     it 'Al consultar el detalle de una publicacion que no existe obtengo un error' do
-      get('/publicaciones/1')
+      get('/publicaciones/4242')
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq("La publicacion no existe")
       expect(last_response.status).to eq(404)
+    end
+
+    it 'Al consultar el detalle de una publicacion obtengo sus datos incluyendo oferta' do
+      # Genero la publicacion y la oferta
+      pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
+      datos = { id_usuario: @usuario_comprador_con_id.id.to_i, valor: 400 }
+      post("/publicaciones/#{pub.id}/ofertas", datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      body = JSON.parse(last_response.body)
+      id_oferta = body['valor']['id']
+
+      # Obtengo los datos
+      get("/publicaciones/#{pub.id}")
+      body = JSON.parse(last_response.body)
+      expect(body['id']).to eq(pub.id)
+      expect(body['patente']).to eq(pub.auto.patente)
+      expect(body['modelo']).to eq(pub.auto.modelo)
+      expect(body['anio']).to eq(pub.auto.anio)
+      expect(body['ofertas'][0]['valor']).to eq(400)
+      expect(body['ofertas'][0]['id']).to eq(id_oferta)
+      expect(last_response.status).to eq(200)
     end
   end
 

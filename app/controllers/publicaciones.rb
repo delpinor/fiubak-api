@@ -6,11 +6,15 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
   end
 
   get :show, :map => '/publicaciones/:id' do
-    id_publicacion = params[:id]
-    status 404
-    {
-      mensaje: "La publicacion no existe"
-    }.to_json
+    begin
+      id_publicacion = params[:id].to_i
+      publicacion = repositorio_de_publicaciones.find(id_publicacion)
+      status 200
+      publicacion_a_json publicacion
+    rescue ObjectNotFound => e
+      status 404
+      {mensaje: 'La publicacion no existe'}.to_json
+    end
   end
 
   post :create, :map => '/publicaciones' do
@@ -33,7 +37,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
     usuario = repositorio_de_usuarios.find(data[:id_usuario])
     publicacion = repositorio_de_publicaciones.find(params[:id])
-    oferta = Oferta.new(usuario, data[:valor], nil, params[:id])
+    oferta = Oferta.new(usuario, data[:valor], "Creada", nil, params[:id])
     #TODO Validar que el usuario no oferto mas de una vez a la misma publicacion
     nueva_oferta = repositorio_de_ofertas.save(oferta)
     EnviadorMails.new.notificar_oferta(publicacion, oferta, usuario)
