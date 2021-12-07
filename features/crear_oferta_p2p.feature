@@ -1,6 +1,5 @@
 # language: es
 
-@wip
 Característica: US020 - Oferta de comprador p2p
   Como usuario comprador quiero hacer una oferta por un auto publicado(p2p)
 
