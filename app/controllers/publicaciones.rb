@@ -5,6 +5,14 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
     publicaciones_a_json publicaciones
   end
 
+  get :show, :map => '/publicaciones/:id' do
+    id_publicacion = params[:id]
+    status 404
+    {
+      mensaje: "La publicacion no existe"
+    }.to_json
+  end
+
   post :create, :map => '/publicaciones' do
     begin
       publicacion = publicar_p2p(request.body.read)

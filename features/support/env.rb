@@ -92,6 +92,10 @@ def registrar_nueva_oferta(id_publicacion)
   "#{BASE_URL}/publicaciones/#{id_publicacion}/ofertas"
 end
 
+def consultar_detalle_publicacion(id_publicacion)
+  "#{BASE_URL}/publicaciones/#{id_publicacion}"
+end
+
 After do |_scenario|
   Faraday.post(reset_url)
 end

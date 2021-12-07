@@ -52,9 +52,14 @@ module WebTemplate
         publicaciones.map { |publicacion| atributos_publicacion(publicacion) }.to_json
       end
 
+      def publicacion_a_json(publicacion)
+        {id: publicacion.id, marca: publicacion.auto.marca, modelo: publicacion.auto.modelo, anio: publicacion.auto.anio, precio: publicacion.precio}.to_json
+      end
+
       def atributos_publicacion(publicacion)
         {id: publicacion.id, marca: publicacion.auto.marca, modelo: publicacion.auto.modelo, anio: publicacion.auto.anio, precio: publicacion.precio}
       end
+
     end
 
     helpers PublicacionesHelper
