@@ -77,4 +77,13 @@ describe 'Publicaciones controller' do
     end
   end
 
+  context 'Detalle de publicacion' do
+    it 'Al consultar el detalle de una publicacion que no existe obtengo un error' do
+      get('/publicaciones/1')
+      body = JSON.parse(last_response.body)
+      expect(body['mensaje']).to eq("La publicacion no existe")
+      expect(last_response.status).to eq(404)
+    end
+  end
+
 end

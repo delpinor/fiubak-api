@@ -14,3 +14,13 @@ end
 Entonces('recibo un mensaje de que la oferta se generó correctamente') do
   expect(@mensaje).to eq("Generaste la oferta #{@id_oferta} con un monto de $#{@precio}")
 end
+
+
+Entonces('el vendedor es capaz de visualizar las ofertas consultando su publicacion') do
+  @response = Faraday.get(consultar_detalle_publicacion(@id_publicacion), nil, header)
+  body = JSON.parse(@response.body)
+  expect(body['mensaje']).to eq('detalle de publicacion recuperado con exito')
+  expect(body['valor']['id']).to eq(@id_publicacion)
+  expect(body['valor']['ofertas']).to be_present
+  expect(body['valor']['ofertas'][0]['valor']).to be_present
+end
