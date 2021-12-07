@@ -66,14 +66,22 @@ describe 'Publicaciones controller' do
     end
 
     it 'Cuando envio una oferta, espero un mensaje de oferta rechazada con exito' do
-      datos = { id_intencion_de_venta: @intencion_con_id.id,
-                precio: 45000 }
+      datos_venta = { id_intencion_de_venta: @intencion_con_id.id,
+                      precio: 45000 }
 
-      post('/publicaciones', datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      post('/publicaciones', datos_venta.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      expect(last_response.status).to eq 201
       body = JSON.parse(last_response.body)
       pub_id = body['valor']['id_publicacion']
-      datos = {id_comprador: 99999}
-      post("/publicaciones/#{pub_id}/ofertas/rechazar", datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+
+      datos_oferta = { id_usuario: @usuario_comprador_con_id.id.to_i, valor: 150 }
+      post("/publicaciones/#{pub_id}/ofertas", datos_oferta.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      expect(last_response.status).to eq 201
+      body = JSON.parse(last_response.body)
+
+      id_oferta = body['valor']['id']
+      post("/ofertas/#{id_oferta}/rechazar")
+
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq('oferta rechazada con exito')
     end

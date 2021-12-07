@@ -46,8 +46,12 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
     nueva_oferta_a_json nueva_oferta
   end
 
-  post :create, :map => '/publicaciones/:pub_id/ofertas/rechazar' do
+  post :create, :map => '/ofertas/:id_oferta/rechazar' do
+    repo_ofertas = Persistence::Repositories::RepositorioDeOfertas.new
+    oferta = repo_ofertas.find(params[:id_oferta].to_i)
 
+    oferta.rechazar_oferta
+    repo_ofertas.save(oferta)
     status 201
     {mensaje: 'oferta rechazada con exito'}.to_json
   end
