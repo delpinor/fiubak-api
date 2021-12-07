@@ -3,6 +3,17 @@ class IntencionDeVenta
   attr_accessor :id
   COMISION_POR_VENTA = 1.5
 
+  ESTADOS = {
+    :vendido => "vendido",
+    :revisado_y_cotizado => "revisado y cotizado",
+    :publicado => "publicado"
+  }.freeze
+
+  TIPOS_VENTA = {
+    :peer_to_peer => "p2p",
+    :fiubak => "Fiubak"
+  }
+
   def initialize(auto, usuario, estado, id = nil)
     @auto = auto
     @usuario = usuario
@@ -17,18 +28,17 @@ class IntencionDeVenta
   end
 
   def concretar_por_fiubak
-    @estado = 'vendido'
-    Publicacion.new(@usuario, @auto, @precio_cotizado*COMISION_POR_VENTA, 'Fiubak')
+    @estado = ESTADOS[:vendido]
+    Publicacion.new(@usuario, @auto, @precio_cotizado*COMISION_POR_VENTA, TIPOS_VENTA[:fiubak])
   end
 
   def concretar_por_p2p(precio)
-    @estado = 'vendido' # todo en vez de 'vendido' el estado podria ser 'concretada' ?
-    # Ya que publicacion va a ser 'vendido'
-    Publicacion.new(@usuario, @auto, precio, "p2p")
+    @estado = ESTADOS[:publicado]
+    Publicacion.new(@usuario, @auto, precio, TIPOS_VENTA[:peer_to_peer])
   end
 
   def revisado_y_cotizado
-    @estado = 'revisado y cotizado'
+    @estado = ESTADOS[:revisado_y_cotizado]
   end
 
   def validar_intencion_de_venta
