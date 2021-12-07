@@ -41,4 +41,10 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
     status 201
     nueva_oferta_a_json nueva_oferta
   end
+
+  post :create, :map => '/publicaciones/:pub_id/ofertas/rechazar' do
+
+    status 201
+    {mensaje: 'oferta rechazada con exito'}.to_json
+  end
 end
