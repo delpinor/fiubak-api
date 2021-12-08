@@ -86,6 +86,27 @@ describe 'Publicaciones controller' do
       expect(body['mensaje']).to eq('oferta rechazada con exito')
     end
 
+    it 'Cuando envio una oferta y luego acepto, espero un mensaje de oferta aceptada con exito' do
+      datos_venta = { id_intencion_de_venta: @intencion_con_id.id,
+                      precio: 45000 }
+
+      post('/publicaciones', datos_venta.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      expect(last_response.status).to eq 201
+      body = JSON.parse(last_response.body)
+      pub_id = body['valor']['id_publicacion']
+
+      datos_oferta = { id_usuario: @usuario_comprador_con_id.id.to_i, valor: 150 }
+      post("/publicaciones/#{pub_id}/ofertas", datos_oferta.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      expect(last_response.status).to eq 201
+      body = JSON.parse(last_response.body)
+
+      id_oferta = body['valor']['id']
+      post("/ofertas/#{id_oferta}/aceptar")
+
+      body = JSON.parse(last_response.body)
+      expect(body['mensaje']).to eq('oferta aceptada con exito')
+    end
+
     it 'Al crear otra oferta recibo un mensaje exitoso' do
       pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
       datos = { id_usuario: @usuario_comprador_con_id.id.to_i, valor: 400 }
