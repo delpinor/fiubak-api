@@ -106,6 +106,14 @@ describe 'Publicaciones controller' do
       expect(body['mensaje']).to eq('oferta aceptada con exito')
     end
 
+
+    it 'Cuando trato de aceptar una oferta inexistente obtengo un error' do
+      post("/ofertas/22/aceptar")
+      body = JSON.parse(last_response.body)
+      expect(last_response.status).to eq 404
+      expect(body['mensaje']).to eq('oferta no encontrada')
+    end
+
     it 'Cuando envio una oferta y luego acepto, al consultar las publicaciones la misma no debe estar presente' do
       datos_venta = { id_intencion_de_venta: @intencion_con_id.id,
                       precio: 45000 }
