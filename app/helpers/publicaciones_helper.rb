@@ -58,7 +58,7 @@ module WebTemplate
       end
 
       def atributos_publicacion(publicacion)
-        {id: publicacion.id, marca: publicacion.auto.marca, modelo: publicacion.auto.modelo, anio: publicacion.auto.anio, precio: publicacion.precio}
+        {id: publicacion.id, marca: publicacion.auto.marca, modelo: publicacion.auto.modelo, anio: publicacion.auto.anio, precio: publicacion.precio, tipo: publicacion.tipo}
       end
 
       def atributos_oferta(oferta)
