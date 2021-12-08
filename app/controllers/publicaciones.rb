@@ -35,9 +35,8 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
   post :create, :map => '/publicaciones/:id/ofertas' do
     begin
       data = oferta_params
-
-      usuario = repositorio_de_usuarios.find(data[:id_usuario])
       publicacion = repositorio_de_publicaciones.find(params[:id])
+      usuario = repositorio_de_usuarios.find(data[:id_usuario])
       oferta = Oferta.new(usuario, data[:valor], nil, params[:id])
       #TODO Validar que el usuario no oferto mas de una vez a la misma publicacion
       nueva_oferta = repositorio_de_ofertas.save(oferta)
@@ -45,9 +44,12 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
       status 201
       nueva_oferta_a_json nueva_oferta
-    rescue ObjectNotFound => e
+    rescue UsuarioNoEncontradoError => e
       status 404
-      {mensaje: 'Usted debe registrarse y buscar una publiación valida!'}.to_json
+      {mensaje: 'Para realizar esta operacion debe registrarse'}.to_json
+    rescue PublicacionNoEncontradaError => e
+      status 404
+      {mensaje: 'La publicacion no existe'}.to_json
     end
   end
 

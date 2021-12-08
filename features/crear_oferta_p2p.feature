@@ -20,3 +20,8 @@ Característica: US020 - Oferta de comprador p2p
     Cuando hago una oferta por el auto publicado
     Entonces recibo un mensaje de que la oferta se generó correctamente
     Y recibo un email con la información de la oferta
+  
+  @local
+  Escenario: 20.3 - Oferta exitosa por auto p2p
+    Cuando alguien no registrado me hace una oferta
+    Entonces recibo un mensaje "Para realizar esta operacion debe registrarse"

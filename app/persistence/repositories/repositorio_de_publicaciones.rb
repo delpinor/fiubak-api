@@ -15,6 +15,13 @@ module Persistence
         publicacion
       end
 
+      def find(id)
+        found_record = dataset.first(pk_column => id)
+        raise PublicacionNoEncontradaError.new(self.class.model_class, id) if found_record.nil?
+
+        load_object dataset.first(found_record)
+      end
+
       protected
 
       def load_object(a_hash)

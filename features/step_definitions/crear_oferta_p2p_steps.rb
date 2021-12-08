@@ -11,8 +11,23 @@ Cuando('hago una oferta por el auto publicado') do
   @mensaje = data['mensaje']
 end
 
+Cuando("alguien no registrado me hace una oferta") do
+@precio = 150
+  body = {
+    'valor': @precio,
+    'id_usuario': 69399393
+  }
+  @response = Faraday.post(registrar_nueva_oferta(@id_publicacion), body.to_json, header)
+end
+
 Entonces('recibo un mensaje de que la oferta se generó correctamente') do
   expect(@mensaje).to eq("Generaste la oferta #{@id_oferta} con un monto de $#{@precio}")
+end
+
+Entonces('recibo un mensaje {string}') do |mensaje|
+  data = JSON.parse(@response.body)
+  mensaje = data['mensaje']
+  expect(mensaje).to eq("Para realizar esta operacion debe registrarse")
 end
 
 

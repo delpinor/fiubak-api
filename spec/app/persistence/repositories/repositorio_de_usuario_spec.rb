@@ -38,6 +38,6 @@ describe Persistence::Repositories::UserRepository do
   it 'Debería lanzar un error cuando el usuario no existe' do
     expect do
       repo_usuario.find(99999)
-    end.to raise_error(ObjectNotFound)
+    end.to raise_error(UsuarioNoEncontradoError)
   end
 end

@@ -4,6 +4,13 @@ module Persistence
       self.table_name = :usuarios
       self.model_class = 'Usuario'
 
+      def find(id)
+        found_record = dataset.first(pk_column => id)
+        raise UsuarioNoEncontradoError.new(self.class.model_class, id) if found_record.nil?
+
+        load_object dataset.first(found_record)
+      end
+
       protected
 
       def load_object(a_hash)

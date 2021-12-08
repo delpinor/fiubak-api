@@ -20,7 +20,7 @@ describe 'Ventas controller' do
   it 'Al intentar registrar un auto sin registrar el usuario recibo un mensaje de error' do
     post('/usuarios/1/intenciones_de_venta', datos_auto.to_json, { 'CONTENT_TYPE' => 'application/json' })
     body = JSON.parse(last_response.body)
-    expect(body['mensaje']).to eq('Para realizar esta operación debe registrarse')
+    expect(body['mensaje']).to eq('Para realizar esta operacion debe registrarse')
   end
 
   it 'cuando creamos 2 intenciones de venta la respuesta es exitosa' do

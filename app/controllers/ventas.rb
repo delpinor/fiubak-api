@@ -5,7 +5,7 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
     {mensaje: "Intención de venta registrada bajo el nro. #{id_venta}", id: id_venta }.to_json
   rescue ObjectNotFound
     status 404
-    {mensaje: 'Para realizar esta operación debe registrarse'}.to_json
+    {mensaje: 'Para realizar esta operacion debe registrarse'}.to_json
   end
 
   get :show, :map => '/intenciones_de_venta/:id' do

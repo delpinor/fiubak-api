@@ -1,0 +1,2 @@
+class UsuarioNoEncontradoError < ObjectNotFound
+end
