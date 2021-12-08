@@ -84,6 +84,10 @@ def rechazar_oferta(id_oferta)
   "#{BASE_URL}/ofertas/#{id_oferta}/rechazar"
 end
 
+def aceptar_oferta(id_oferta)
+  "#{BASE_URL}/ofertas/#{id_oferta}/aceptar"
+end
+
 def aceptar_cotizacion_url
   "#{BASE_URL}/aceptar_cotizacion"
 end
