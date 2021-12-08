@@ -64,7 +64,23 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
   end
 
   post :create, :map => '/ofertas/:id_oferta/aceptar' do
-    status 201
-    {mensaje: 'oferta aceptada con exito'}.to_json
+    begin
+      repo_ofertas = Persistence::Repositories::RepositorioDeOfertas.new
+      oferta = repo_ofertas.find(params[:id_oferta].to_i)
+
+      repo_ofertas.destroy(oferta)
+      repo_publicaciones = Persistence::Repositories::RepositorioDePublicaciones.new
+      publicacion = repo_publicaciones.find(oferta.id_publicacion)
+      intencion_de_venta = repositorio_de_intencion_de_ventas.find_by_id_auto(publicacion.auto.id)
+      intencion_de_venta.a_vendido()
+      repositorio_de_intencion_de_ventas.save(intencion_de_venta)
+      EnviadorMails.new.notificar_aceptacion(oferta.id, publicacion.auto, oferta.valor, oferta.usuario)
+      repo_publicaciones.destroy(publicacion)
+      status 201
+      {mensaje: 'oferta aceptada con exito'}.to_json
+    rescue ObjectNotFound => e
+      status 404
+      {mensaje: 'oferta no encontrada'}.to_json
+    end
   end
 end

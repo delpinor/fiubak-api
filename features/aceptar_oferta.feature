@@ -1,6 +1,5 @@
 # language: es
 
-@wip
 Característica: US017 - Aceptar oferta de comprador
   Como usuario vendedor quiero aceptar una oferta p2p de mi auto publicado
 
@@ -26,4 +25,4 @@ Característica: US017 - Aceptar oferta de comprador
   Escenario: 18.3 - Oferta aceptada por usuario vendedor y auto vendido
     Cuando hago una oferta por el auto publicado
     Y acepto la oferta
-    Entonces figura en estado "vendido"
+    Entonces el auto figura en estado "vendido"

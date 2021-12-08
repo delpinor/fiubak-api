@@ -14,3 +14,8 @@ Entonces('la publicacion no existe mas') do
   publicaciones = JSON.parse(@response.body)
   expect(publicaciones.any?{ |publicacion| publicacion['id'] == @id_publicacion}).to eq(false)
 end
+
+Entonces('el auto figura en estado "vendido"') do
+  step 'consulto el estado de mis autos'
+  step 'figura en estado "vendido"'
+end
