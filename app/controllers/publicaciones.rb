@@ -38,7 +38,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
       usuario = repositorio_de_usuarios.find(data[:id_usuario])
       publicacion = repositorio_de_publicaciones.find(params[:id])
-      oferta = Oferta.new(usuario, data[:valor], "pendiente", nil, params[:id])
+      oferta = Oferta.new(usuario, data[:valor], nil, params[:id])
       #TODO Validar que el usuario no oferto mas de una vez a la misma publicacion
       nueva_oferta = repositorio_de_ofertas.save(oferta)
       EnviadorMails.new.notificar_oferta(publicacion, oferta, usuario)

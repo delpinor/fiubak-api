@@ -10,7 +10,7 @@ module Persistence
         ofertas_models = []
         ofertas.each do |oferta|
           usuario = RepositorioDeUsuarios.new.find(oferta[:id_usuario])
-          oferta = Oferta.new(usuario, oferta[:valor], "pendiente", oferta[:id], oferta[:id_publicacion])
+          oferta = Oferta.new(usuario, oferta[:valor], oferta[:id], oferta[:id_publicacion])
           ofertas_models << oferta
         end
         ofertas_models
@@ -21,15 +21,14 @@ module Persistence
       def load_object(a_hash)
         usuario = RepositorioDeUsuarios.new.find(a_hash[:id_usuario])
         publicacion = RepositorioDePublicaciones.new.find(a_hash[:id_publicacion])
-        Oferta.new(usuario, a_hash[:valor], a_hash[:estado], a_hash[:id], a_hash[:id_publicacion])
+        Oferta.new(usuario, a_hash[:valor], a_hash[:id], a_hash[:id_publicacion])
       end
 
       def changeset(oferta)
         {
           id_usuario: oferta.usuario.id,
           id_publicacion: oferta.id_publicacion,
-          valor: oferta.valor,
-          estado: oferta.estado
+          valor: oferta.valor
         }
       end
     end
