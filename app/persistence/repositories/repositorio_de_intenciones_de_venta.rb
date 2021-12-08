@@ -4,6 +4,11 @@ module Persistence
       self.table_name = :intenciones_de_venta
       self.model_class = 'IntencionDeVenta'
 
+      def find_by_id_auto(id_auto)
+        intencion = dataset.first(id_auto: id_auto)
+        load_object(intencion)
+      end
+
       protected
 
       def load_object(a_hash)

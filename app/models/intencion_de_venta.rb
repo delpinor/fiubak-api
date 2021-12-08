@@ -28,13 +28,21 @@ class IntencionDeVenta
   end
 
   def concretar_por_fiubak
-    @estado = ESTADOS[:vendido]
+    a_vendido
     Publicacion.new(@usuario, @auto, @precio_cotizado*COMISION_POR_VENTA, TIPOS_VENTA[:fiubak])
   end
 
   def concretar_por_p2p(precio)
-    @estado = ESTADOS[:publicado]
+    a_publicado
     Publicacion.new(@usuario, @auto, precio, TIPOS_VENTA[:peer_to_peer])
+  end
+
+  def a_vendido
+    @estado = ESTADOS[:vendido]
+  end
+
+  def a_publicado
+    @estado = ESTADOS[:publicado]
   end
 
   def revisado_y_cotizado

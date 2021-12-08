@@ -1,5 +1,4 @@
 require 'integration_helper'
-require 'byebug'
 describe 'Publicaciones controller' do
 
   let(:usuario){Usuario.new(99999, 'test', 'test@gmail.com', 9999)}
@@ -105,6 +104,28 @@ describe 'Publicaciones controller' do
 
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq('oferta aceptada con exito')
+    end
+
+    it 'Cuando envio una oferta y luego acepto, al consultar las publicaciones la misma no debe estar presente' do
+      datos_venta = { id_intencion_de_venta: @intencion_con_id.id,
+                      precio: 45000 }
+
+      post('/publicaciones', datos_venta.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      expect(last_response.status).to eq 201
+      body = JSON.parse(last_response.body)
+      pub_id = body['valor']['id_publicacion']
+
+      datos_oferta = { id_usuario: @usuario_comprador_con_id.id.to_i, valor: 150 }
+      post("/publicaciones/#{pub_id}/ofertas", datos_oferta.to_json, { 'CONTENT_TYPE' => 'application/json' })
+      expect(last_response.status).to eq 201
+      body = JSON.parse(last_response.body)
+
+      id_oferta = body['valor']['id']
+      post("/ofertas/#{id_oferta}/aceptar")
+
+      get('/publicaciones')
+      body = JSON.parse(last_response.body)
+      expect(body.length()).to eq(0)
     end
 
     it 'Al crear otra oferta recibo un mensaje exitoso' do
