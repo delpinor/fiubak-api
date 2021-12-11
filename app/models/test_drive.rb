@@ -6,4 +6,8 @@ class TestDrive
     @fecha = fecha
   end
 
+  def obtener_costo()
+    return 8
+  end
+
 end
