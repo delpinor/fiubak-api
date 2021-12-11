@@ -20,4 +20,8 @@ describe 'Validador por token' do
   it 'Cuando es valido para revision' do
     expect{validador.validar_para_revision(ENV['HTTP_REV_TOKEN'])}.not_to raise_error(NoAutorizadoError)
   end
+
+  it 'Lanza exception si le' do
+    expect{ValidadorDeToken.new}.not_to raise_error(VariablesNoCreadasError)
+  end
 end
