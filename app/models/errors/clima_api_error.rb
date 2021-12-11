@@ -1,0 +1,2 @@
+class ClimaApiError < StandardError
+end
