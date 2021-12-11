@@ -1,6 +1,6 @@
 # language: es
 
-
+@wip
 Característica: US027 - Contratacion de test-drive
   Como usuario comprador quiero contratar un test-drive para definir mi intención de compra
 
