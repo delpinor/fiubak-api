@@ -7,7 +7,7 @@ describe 'Crear ProveedorDeClima' do
     
     it 'Se crea con clima' do
       api_key = ENV['CLIMA_API_KEY']
-      url = ENV['CLIMA_API_URL']
+      url = "https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid="
       stub = stub_request(:get, url + api_key)
         .to_return(body: {"weather": [{"main": "Cold"}, {"main": "Hot"}]}.to_json)
       proveedor = ProveedorDeClima.new
