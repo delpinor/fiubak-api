@@ -19,12 +19,16 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
   post :create, :map => '/publicaciones' do
     begin
+      ValidadorDeToken.new.validar_para_revision(request.env['HTTP_REV_TOKEN'])
       publicacion = publicar_p2p(request.body.read)
       status 201
       {
         mensaje: "Registro exitoso de publicacion con id: #{publicacion[:id_publicacion]}",
         valor: publicacion
       }.to_json
+    rescue NoAutorizadoError
+      status 401
+      {mensaje: 'No autorizado'}.to_json
     rescue Exception => e
       logger.error e.message
       status 400
