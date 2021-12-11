@@ -19,6 +19,6 @@ class ValidadorDeToken
   private
 
   def validar_que_existan
-    raise VariablesNoDefinidasError if @token_rev == nil or @token_bot == nil
+    raise VariablesNoCreadasError if @token_rev == nil or @token_bot == nil
   end
 end
