@@ -37,6 +37,7 @@ gem 'padrino', '0.15.0'
 
 group :development, :test do
   gem 'byebug'
+  gem 'dotenv'
   gem 'cucumber'
   gem 'faraday'
   gem 'rack-test', require: 'rack/test'

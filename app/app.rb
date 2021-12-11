@@ -1,3 +1,5 @@
+require 'dotenv/load'
+
 module WebTemplate
   class App < Padrino::Application
     register Padrino::Mailer

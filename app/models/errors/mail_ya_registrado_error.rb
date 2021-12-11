@@ -1,0 +1,2 @@
+class MailYaRegistradoError < StandardError
+end
