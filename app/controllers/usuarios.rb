@@ -2,11 +2,10 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
   post :create, :map => '/usuarios' do
     begin
       ValidadorDeToken.new.validar_para_bot(request.env['HTTP_BOT_TOKEN'])
-      nuevo_usuario = crear_usuario(request.body.read)
-      repositorio_de_usuarios.find_by_email(nuevo_usuario.email)
-      usuario_con_id = repositorio_de_usuarios.save(nuevo_usuario)
+      data = JSON.parse(request.body.read)
+      nuevo_usuario = CreadorUsuario.new.crear_usuario(data['dni'].to_i, data['nombre'], data['email'], data['id'])
       status 201
-      {mensaje: "Registro exitoso bajo id: #{usuario_con_id.id}"}.to_json
+      {mensaje: "Registro exitoso bajo id: #{nuevo_usuario.id}"}.to_json
     rescue NoAutorizadoError
       status 401
       {mensaje: 'No autorizado'}.to_json

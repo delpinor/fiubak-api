@@ -11,10 +11,15 @@ module Persistence
         load_object dataset.first(found_record)
       end
 
-      def find_by_email(email)
+      def check_by_email(email)
         email = email.downcase
         row = dataset.first(email: email)
-        raise MailYaRegistradoError.new if row.nil? == false
+        return row.nil? == false
+      end
+
+      def load_by_email(email)
+        email = email.downcase
+        row = dataset.first(email: email)
         load_object(row) unless row.nil?
       end
 
