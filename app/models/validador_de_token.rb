@@ -1,5 +1,4 @@
 require_relative '../../app/models/errors/no_autorizado_error'
-require_relative '../../app/models/errors/variables_no_definidas_error'
 
 class ValidadorDeToken
   def initialize
@@ -8,12 +7,10 @@ class ValidadorDeToken
   end
 
   def validar_para_revision(token)
-    raise VariablesNoDefinidasError if token == nil
-    raise NoAutorizadoError if @token_rev != token
+    raise NoAutorizadoError if @token_rev != token or token == nil
   end
 
   def validar_para_bot(token)
-    raise VariablesNoDefinidasError if token == nil
-    raise NoAutorizadoError if @token_bot != token
+    raise NoAutorizadoError if @token_bot != token or token == nil
   end
 end
