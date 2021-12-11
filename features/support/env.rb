@@ -17,7 +17,9 @@ else
 end
 
 def header
-  {'Content-Type' => 'application/json'}
+  { 'CONTENT_TYPE' => 'application/json',
+    'HTTP_BOT_TOKEN' => ENV['HTTP_BOT_TOKEN'],
+    'HTTP_REV_TOKEN' => ENV['HTTP_REV_TOKEN'] }
 end
 
 def find_user_url(user_id)
@@ -102,6 +104,14 @@ end
 
 def consultar_detalle_publicacion(id_publicacion)
   "#{BASE_URL}/publicaciones/#{id_publicacion}"
+end
+
+def solicitar_test_drive(id_publicacion)
+  "#{BASE_URL}/publicaciones/#{id_publicacion}/test_drives"
+end
+
+def fijar_clima
+  "#{BASE_URL}/clima"
 end
 
 After do |_scenario|
