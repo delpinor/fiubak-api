@@ -20,16 +20,16 @@ describe 'Revision controller' do
   it 'Cuando recibo una revision me devuelve 200 OK' do
     datos = {id_intencion: @intencion_con_id.id, nivel_danio_motor: 0,
              nivel_danio_estetica: 0, nivel_danio_neumaticos: 0, precio_lista: 1000 }
-    post('/revisiones', datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+    post('/revisiones', datos.to_json, header_con_token)
     expect(last_response.status).to eq(201)
   end
 
   it 'La respuesta debe ser un mensaje exitoso' do
     datos = {id_intencion: @intencion_con_id.id, nivel_danio_motor: 0,
              nivel_danio_estetica: 0, nivel_danio_neumaticos: 0, precio_lista: 1000 }
-    post('/revisiones', datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+    post('/revisiones', datos.to_json, header_con_token)
     body = JSON.parse(last_response.body)
-    expect(body['mensaje']).to eq('revisión exitosa')
+    expect(body['mensaje']).to eq('Revisión exitosa')
   end
 
 end
