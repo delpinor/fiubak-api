@@ -11,7 +11,7 @@ describe 'Crear ProveedorDeClima' do
       stub = stub_request(:get, url + api_key)
         .to_return(body: {"weather": [{"main": "Cold"}, {"main": "Hot"}]}.to_json)
       proveedor = ProveedorDeClima.new
-      expect(proveedor.obtener_climas).to be_present
+      expect(proveedor.obtener_clima).to eq("no lluvioso")
     end
 
   end
