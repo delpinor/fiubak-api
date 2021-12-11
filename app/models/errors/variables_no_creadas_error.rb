@@ -1,2 +1,0 @@
-class VariablesNoCreadasError < StandardError
-end
