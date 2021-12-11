@@ -32,7 +32,7 @@ describe 'Usuarios controller' do
     expect(last_response.status).to eq(201)
   end
 
-  it 'El estado debe ser 401 al  dado que no estoy autorizado' do
+  xit 'El estado debe ser 401 al  dado que no estoy autorizado' do
     post('/usuarios', datos_usuario.to_json, header_sin_token)
     expect(last_response.status).to eq(401)
   end
