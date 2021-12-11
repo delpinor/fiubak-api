@@ -19,20 +19,20 @@ describe 'Cotizacones controller' do
 
   it 'Cuando acepto la cotizacion obtengo el mensaje  de aceptacion' do
     datos = {id_usuario: usuario.id, id_intencion: @intencion_con_id.id}
-    put('/aceptar_cotizacion', datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+    put('/aceptar_cotizacion', datos.to_json, header_con_token)
     body = JSON.parse(last_response.body)
     expect(body['mensaje']).to eq("La intención de venta fue concretada con éxito")
   end
 
   it 'Cuando acepto la cotizacion obtengo un 200 OK' do
     datos = {id_usuario: usuario.id, id_intencion: @intencion_con_id.id}
-    put('/aceptar_cotizacion', datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+    put('/aceptar_cotizacion', datos.to_json, header_con_token)
     expect(last_response.status).to eq(200)
   end
 
   it 'Cuando busco por un id invalido obtengo un error' do
     datos = {id_intencion: -1}
-    @response = put('/aceptar_cotizacion', datos.to_json, { 'CONTENT_TYPE' => 'application/json' })
+    @response = put('/aceptar_cotizacion', datos.to_json, header_con_token)
     expect(last_response.status).to eq(404)
   end
 end
