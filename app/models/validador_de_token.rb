@@ -1,4 +1,5 @@
 require_relative '../../app/models/errors/no_autorizado_error'
+require_relative '../../app/models/errors/variables_no_creadas_error'
 
 class ValidadorDeToken
   def initialize
