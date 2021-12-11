@@ -34,8 +34,6 @@ services:
         RACK_ENV: "development"
         TEST_DB_URL: "postgres://postgres:example@test_db:5432/postgres"
         DEV_DB_URL: "postgres://postgres:example@dev_db:5432/postgres"
-        CLIMA_API_KEY: "becc712cf6a8687f4d3f123d3d5a381c"
-        CLIMA_API_URL: "https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid="
     depends_on:
       - test_db
       - dev_db
