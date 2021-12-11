@@ -1,14 +1,16 @@
+require_relative '../../app/models/errors/no_autorizado_error'
+
 class ValidadorDeToken
   def initialize
     @token_bot = ENV['HTTP_BOT_TOKEN']
     @token_rev = ENV['HTTP_REV_TOKEN']
   end
 
-  def valido_para_revision?(token)
-    @token_rev == token
+  def validar_para_revision(token)
+    raise NoAutorizadoError if @token_rev != token
   end
 
-  def valido_para_bot?(token)
-    @token_bot == token
+  def validar_para_bot(token)
+    raise NoAutorizadoError if @token_bot != token
   end
 end
