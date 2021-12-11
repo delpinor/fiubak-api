@@ -59,7 +59,7 @@ describe 'Ventas controller' do
     end
 
     it 'Cuando consulto el estado de una intencion de venta inexistente, entonces veo un mensaje de venta inexistente' do
-      get('/intenciones_de_venta/-1', header_con_token)
+      get('/intenciones_de_venta/-1',nil, header_con_token)
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq('Intención de venta inexistente.')
     end

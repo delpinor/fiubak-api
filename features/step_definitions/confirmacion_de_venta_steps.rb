@@ -20,13 +20,13 @@ Entonces('veo el auto publicado para venta a un valor de {int}') do |precio|
 end
 
 Dado('la cotización del auto no fue rechazada') do
-  @response = Faraday.get(consultar_intenciones_de_venta(@id_intencion))
+  @response = Faraday.get(consultar_intenciones_de_venta(@id_intencion), nil, header)
   data = JSON.parse(@response.body)
   expect(data['valor']['estado']).not_to eq('rechazada')
 end
 
 Cuando('consulto el estado de mis autos') do
-  @response = Faraday.get(consultar_intenciones_de_venta(@id_intencion))
+  @response = Faraday.get(consultar_intenciones_de_venta(@id_intencion), nil, header)
   @data = JSON.parse(@response.body)
   expect(@response.status).to eq(200)
 end
