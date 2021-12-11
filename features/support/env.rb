@@ -106,6 +106,14 @@ def consultar_detalle_publicacion(id_publicacion)
   "#{BASE_URL}/publicaciones/#{id_publicacion}"
 end
 
+def solicitar_test_drive(id_publicacion)
+  "#{BASE_URL}/publicaciones/#{id_publicacion}/test_drives"
+end
+
+def fijar_clima
+  "#{BASE_URL}/clima"
+end
+
 After do |_scenario|
   Faraday.post(reset_url)
 end
