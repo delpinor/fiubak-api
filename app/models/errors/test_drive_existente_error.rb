@@ -1,0 +1,2 @@
+class TestDriveExistenteEnFecha < StandardError
+end

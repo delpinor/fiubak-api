@@ -123,7 +123,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       ValidadorDeToken.new.validar_para_bot(token)
 
       publicacion = repositorio_de_publicaciones.find(params[:id])
-      test_drive = TestDrive.new(publicacion, Date.today, ProveedorDeClima.new)
+      test_drive = CreadorTestDrive.new.crear_test_drive(publicacion, ProveedorDeClima.new)
       nuevo_test_drive = repositorio_de_test_drives.save(test_drive)
       precio = nuevo_test_drive.obtener_costo()
       #EnviadorMails.new.notificar_test_drive(publicacion, oferta, usuario)
@@ -133,6 +133,9 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
     rescue NoAutorizadoError
       status 401
       {mensaje: 'No autorizado'}.to_json
+    rescue TestDriveExistenteEnFecha
+      status 409
+      {mensaje: 'Contratacion fallida: Ya existe un test-drive asociado al dia de hoy'}.to_json
     rescue PublicacionNoEncontradaError => e
       status 404
       {mensaje: 'La publicacion no existe'}.to_json

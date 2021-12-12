@@ -4,11 +4,9 @@ module Persistence
       self.table_name = :test_drives
       self.model_class = 'TestDrive'
 
-      def find_by_publicacion_y_fecha(id_publicacion, fecha)
-        test_drive_dataset = DB[:test_drives]
-        test_drive = test_drives_dataset.first(id_publicacion: id_publicacion, fecha: fecha)
-        publicacion = RepositorioDePublicaciones.new.find(id_publicacion)
-        TestDrive.new(publicacion, test_drive[:fecha], ProveedorDeClima.new, test_drive[:id])
+      def chequear_por_publicacion_y_fecha(id_publicacion, fecha)
+        row = dataset.first(id_publicacion: id_publicacion, fecha: fecha)
+        return row.nil? == false
       end
 
       protected
