@@ -14,6 +14,7 @@ class TestDrive
   protected
   def calcular_precio(precio, proveedor_de_clima)
     clima = proveedor_de_clima.obtener_clima
+    
     return precio * 0.008 if clima == "lluvioso" else precio * 0.01
   end
 
