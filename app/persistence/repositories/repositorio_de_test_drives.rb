@@ -13,7 +13,7 @@ module Persistence
 
       def load_object(a_hash)
         publicacion = RepositorioDePublicaciones.new.find(a_hash[:id_publicacion])
-        TestDrive.new(publicacion, a_hash[:fecha], ProveedorDeClima.new, a_hash[:id])
+        TestDrive.new(publicacion, a_hash[:fecha], a_hash[:id])
       end
 
       def changeset(test_drive)

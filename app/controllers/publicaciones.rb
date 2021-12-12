@@ -1,4 +1,5 @@
 WebTemplate::App.controllers :publicaciones, :provides => [:json] do
+
   get :show, :map => '/publicaciones' do
     begin
       token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
@@ -123,9 +124,9 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       ValidadorDeToken.new.validar_para_bot(token)
 
       publicacion = repositorio_de_publicaciones.find(params[:id])
-      test_drive = CreadorTestDrive.new.crear_test_drive(publicacion, ProveedorDeClima.new)
+      test_drive = CreadorTestDrive.new.crear_test_drive(publicacion)
       nuevo_test_drive = repositorio_de_test_drives.save(test_drive)
-      precio = nuevo_test_drive.obtener_costo()
+      precio = nuevo_test_drive.obtener_costo(ProveedorDeClima.new)
       #EnviadorMails.new.notificar_test_drive(publicacion, oferta, usuario)
 
       status 201

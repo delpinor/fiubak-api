@@ -20,7 +20,6 @@ end
 
 Cuando('solicito el test-drive en un dia con lluvia') do
   Faraday.post(fijar_clima(), {:clima => "lluvioso"}.to_json)
-  
   request = {id_usuario: @id_usuario}.to_json
   @response = Faraday.post(solicitar_test_drive(@id_publicacion), request, header)
 end

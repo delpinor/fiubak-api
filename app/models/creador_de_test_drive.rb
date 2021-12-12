@@ -3,8 +3,8 @@ class CreadorTestDrive
     @repo = Persistence::Repositories::RepositorioDeTestDrives.new
   end
 
-  def crear_test_drive(publicacion, proveedor)
-    test_drive = TestDrive.new(publicacion, Date.today, proveedor)
+  def crear_test_drive(publicacion)
+    test_drive = TestDrive.new(publicacion, Date.today)
     validar_test_drive(test_drive)
     test_drive_con_id = @repo.save(test_drive)
     test_drive_con_id
