@@ -1,15 +1,15 @@
-Dado('que existe una publicación de Fiubak con valor {int}') do |int|
+Dado('que existe una publicación de Fiubak con valor {int}') do |precio|
   step 'que soy usuario vendedor'
   step 'registro un auto para vender con marca "fiat", modelo "uno", año 1988 y patente "asd-457"'
-  step 'se realizó la revisión sin fallas con precio de lista 100'
+  step "se realizó la revisión sin fallas con precio de lista #{precio}"
   step 'acepto la cotización de Fiubak'
 end
 
-Dado('existe una publicacion p2p') do
+Dado('existe una publicacion p2p con valor {int}') do |precio|
   step 'que soy usuario vendedor'
   step 'registro un auto para vender con marca "fiat", modelo "uno", año 1988 y patente "asd-457"'
   step 'se realizó la revisión sin fallas con precio de lista 100'
-  step 'rechazo la cotización de Fiubak y publico por p2p con precio 200'
+  step "rechazo la cotización de Fiubak y publico por p2p con precio #{precio}"
 end
 
 Cuando('solicito el test-drive en un dia sin lluvia') do
