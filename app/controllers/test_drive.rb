@@ -11,7 +11,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       test_drive = CreadorTestDrive.new.crear_test_drive(publicacion)
       nuevo_test_drive = repositorio_de_test_drives.save(test_drive)
       precio = nuevo_test_drive.obtener_costo(ProveedorDeClima.new(@@clima))
-      #EnviadorMails.new.notificar_test_drive(publicacion, oferta, usuario)
+      EnviadorMails.new.notificar_test_drive(test_drive, precio)
 
       status 201
       {mensaje: "Test-drive para el día de hoy contratado con éxito. Deberá abonar una suma de $#{precio.round}"}.to_json
@@ -21,6 +21,9 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
     rescue TestDriveExistenteEnFecha
       status 409
       {mensaje: 'Contratacion fallida: Ya existe un test-drive asociado al dia de hoy'}.to_json
+    rescue TipoInvalidoError
+      status 409
+      {mensaje: "Solo puede contratar test-drive para autos de Fiubak"}.to_json
     rescue PublicacionNoEncontradaError => e
       status 404
       {mensaje: 'La publicacion no existe'}.to_json

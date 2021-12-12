@@ -32,7 +32,26 @@ class EnviadorMails
     enviar_mail(email, 'Oferta aceptada', cuerpo_aceptacion(id_oferta, auto, precio))
   end
 
+  def notificar_test_drive(test_drive, precio)
+    email = test_drive.publicacion.usuario.email
+    nombre = test_drive.publicacion.usuario.nombre
+    enviar_mail(email, 'Test drive contratado', cuerpo_test_drive(nombre, test_drive.publicacion.auto.marca, test_drive.publicacion.auto.modelo, precio))
+  end
+
   private
+
+  def cuerpo_test_drive(nombre_usuario, marca, modelo, precio)
+    titulo = "FIUBAK\n\n"
+    cuerpo = "Muchas gracias #{nombre_usuario} por confiar en nosotros." + "\n" \
+              "La reserva de un test-drive para el auto:" + "\n" \
+             "Marca: #{marca},  Patente: #{modelo} fue realizada con exito." + "\n" \
+             "Recuerde que deberá abonar por la misma: #{precio}" + "\n"
+
+    saludos = 'Saludos, ' + "\n" + "\n" \
+              'Equipo FIUBAK'
+
+    titulo + cuerpo + saludos
+  end
 
   def cuerpo_cotizacion(id_intencion_de_venta, patente, precio)
     titulo = "FIUBAK\n\n"

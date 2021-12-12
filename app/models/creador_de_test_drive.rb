@@ -12,5 +12,6 @@ class CreadorTestDrive
 
   def validar_test_drive(test_drive)
     raise TestDriveExistenteEnFecha.new if @repo.chequear_por_publicacion_y_fecha(test_drive.publicacion.id, test_drive.fecha)
+    raise TipoInvalidoError.new if test_drive.publicacion.tipo != 'Fiubak'
   end
 end
