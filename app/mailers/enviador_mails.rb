@@ -127,7 +127,7 @@ class EnviadorMails
 
 
   def enviar_mail(email, asunto, cuerpo)
-    WebTemplate::App.email(:from => 'nairobitp2@gmail.com',
+    WebTemplate::App.email(:from => 'rdelpino@fi.uba.ar',
                            :to => email,
                            :subject => asunto,
                            :body => cuerpo)
