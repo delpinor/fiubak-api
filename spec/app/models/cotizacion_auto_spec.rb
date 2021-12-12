@@ -39,4 +39,18 @@ describe 'Revision de auto' do
     cotizacion.agregar_parte(ParteEstetica.new(DanioAlto.new))
     expect(cotizacion.valor_cotizado).to eq(0)
   end
+
+  it 'Dado que el auto tiene falla de motor medio, entonces se descuenta el 100%' do
+    cotizacion.agregar_parte(ParteNeumaticos.new(SinDanio.new))
+    cotizacion.agregar_parte(ParteMotor.new(DanioMedio.new))
+    cotizacion.agregar_parte(ParteEstetica.new(SinDanio.new))
+    expect(cotizacion.valor_cotizado).to eq(0)
+  end
+
+  it 'Dado que el auto tiene falla de motor alta, entonces se descuenta el 100%' do
+    cotizacion.agregar_parte(ParteNeumaticos.new(SinDanio.new))
+    cotizacion.agregar_parte(ParteMotor.new(DanioAlto.new))
+    cotizacion.agregar_parte(ParteEstetica.new(SinDanio.new))
+    expect(cotizacion.valor_cotizado).to eq(0)
+  end
 end
