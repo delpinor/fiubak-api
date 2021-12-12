@@ -7,6 +7,7 @@ Característica: US027 - Contratacion de test-drive
     Dado que existe una publicación de Fiubak con valor 1500
     Y existe una publicacion p2p con valor 1000
 
+  @local
   Escenario: 27.1 - Test drive exitoso en un dia sin lluvia
     Cuando solicito el test-drive en un dia sin lluvia
     Entonces obtengo un mensaje "Test-drive para el día de hoy contratado con éxito. Deberá abonar una suma de $15"
