@@ -1,10 +1,12 @@
 class TestDrive
-  attr_reader :publicacion, :fecha
+  attr_reader :publicacion, :fecha, :id_publicacion
+  attr_accessor :id
 
-  def initialize(publicacion, fecha, proveedor_de_clima)
+  def initialize(publicacion, fecha, proveedor_de_clima, id=nil)
     @publicacion = publicacion
     @fecha = fecha
     @precio = calcular_precio(publicacion.precio, proveedor_de_clima)
+    @id = id
   end
 
   def obtener_costo()
