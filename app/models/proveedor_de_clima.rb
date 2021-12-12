@@ -7,7 +7,6 @@ class ProveedorDeClima
   end
 
   def obtener_clima_desde_api
-    require 'byebug'
     api_key = ENV['CLIMA_API_KEY']
     response = Faraday.get(CLIMA_API_URL + api_key)
     raise ClimaApiError if response.status != 200
