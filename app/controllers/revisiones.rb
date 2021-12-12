@@ -12,7 +12,7 @@ WebTemplate::App.controllers :revisiones, :provides => [:json] do
       {mensaje: 'No autorizado'}.to_json
     rescue Exception => e
       status 400
-      {mensaje: 'se produjo un error'}.to_json
+      {mensaje: e.message}.to_json
     end
   end
 end
