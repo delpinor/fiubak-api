@@ -15,6 +15,10 @@ module WebTemplate
         Persistence::Repositories::RepositorioDeIntencionesDeVenta.new
       end
 
+      def repositorio_de_test_drives
+        Persistence::Repositories::RepositorioDeTestDrives.new
+      end
+
       def publicar_p2p(data_json)
         data = JSON.parse(data_json)
         intencion_de_venta = repositorio_de_intencion_de_ventas.find(data['id_intencion_de_venta'])

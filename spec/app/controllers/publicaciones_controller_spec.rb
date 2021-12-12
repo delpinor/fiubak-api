@@ -10,6 +10,7 @@ describe 'Publicaciones controller' do
     Persistence::Repositories::RepositorioDePublicaciones.new.delete_all
     Persistence::Repositories::RepositorioDeUsuarios.new.delete_all
     Persistence::Repositories::RepositorioDeAutos.new.delete_all
+    Persistence::Repositories::RepositorioDeTestDrives.new.delete_all
     intencion_venta = IntencionDeVenta.new(auto, usuario, 'en revisión')
     Persistence::Repositories::RepositorioDeUsuarios.new.save(usuario)
     Persistence::Repositories::RepositorioDeAutos.new.save(auto)
@@ -194,6 +195,20 @@ describe 'Publicaciones controller' do
       expect(body['ofertas'][0]['id']).to eq(id_oferta)
       expect(body['ofertas'][0]['nombre_comprador']).to eq(@usuario_comprador_con_id.nombre)
       expect(last_response.status).to eq(200)
+    end
+  end
+
+  context 'contratacion de test drives' do
+    it 'Al contratar un test drive recibo un mensaje exitoso con el costo' do
+      pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
+      api_key = ENV['CLIMA_API_KEY']
+      url = "https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid="
+      stub = stub_request(:get, url + api_key)
+        .to_return(body: {"weather": [{"main": "Rain"}, {"main": "Hot"}]}.to_json)
+      post("/publicaciones/#{pub.id}/test_drives", header_con_token)
+      body = JSON.parse(last_response.body)
+      expect(body['mensaje']).to eq("Test-drive para el día de hoy contratado con éxito. Deberá abonar una suma de $600")
+      expect(last_response.status).to eq(201)
     end
   end
 

@@ -8,6 +8,6 @@ Sequel.migration do
   end
 
   down do
-    drop_table(:ofertas)
+    drop_table(:test_drives)
   end
 end

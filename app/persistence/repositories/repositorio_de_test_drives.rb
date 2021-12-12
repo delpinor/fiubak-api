@@ -21,8 +21,7 @@ module Persistence
       def changeset(test_drive)
         {
           fecha: test_drive.fecha,
-          id_publicacion: test_drive.publicacion.id,
-          id: test_drive.id
+          id_publicacion: test_drive.publicacion.id
         }
       end
     end
