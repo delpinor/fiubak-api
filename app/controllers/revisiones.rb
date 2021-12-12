@@ -11,6 +11,7 @@ WebTemplate::App.controllers :revisiones, :provides => [:json] do
       intencion = repositorio_de_intencion_de_ventas.find(data['id_intencion'].to_i)
       intencion.a_rechazado
       repositorio_de_intencion_de_ventas.save(intencion)
+      notificar_rechazo_cotizacion_por_email(intencion)
       status 200
       {mensaje: 'El auto no se encontraba en buen estado y no logró pasar la revisión'}.to_json
     rescue NoAutorizadoError

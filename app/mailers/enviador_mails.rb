@@ -7,6 +7,13 @@ class EnviadorMails
     enviar_mail(email, 'Cotización', cuerpo_cotizacion(intencion_de_venta.id, patente, precio))
   end
 
+  def notificar_revision_desaprobada(intencion_de_venta)
+    email = intencion_de_venta.usuario.email
+    patente = intencion_de_venta.auto.patente
+
+    enviar_mail(email, 'Revisión fallida', cuerpo_revision_fallida(intencion_de_venta.id, patente))
+  end
+
   def notificar_venta_exitosa(intencion_de_venta)
     email = intencion_de_venta.usuario.email
     patente = intencion_de_venta.auto.patente
@@ -67,6 +74,17 @@ class EnviadorMails
               'Equipo FIUBAK'
 
     titulo + cuerpo + pie + saludos
+  end
+
+  def cuerpo_revision_fallida(id_intencion_de_venta, patente)
+    titulo = "FIUBAK\n\n"
+    cuerpo = "Le informamos que debido al mal estado de su auto con patente #{patente}:" + "\n" \
+             "no pasó la revisión y por ende no será tenido en cuenta para ser comercializado por Fiubak" + "\n"
+
+    saludos = 'Saludos, ' + "\n" + "\n" \
+              'Equipo FIUBAK'
+
+    titulo + cuerpo + saludos
   end
 
   def cuerpo_rechazo(id_oferta, auto, precio)
