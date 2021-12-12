@@ -1,0 +1,29 @@
+require 'spec_helper'
+
+describe 'Validador de propiedad' do
+
+  let(:validador){ValidadorDePropiedad.new}
+
+
+  let(:usuario){Usuario.new(99999, 'test', 'test@gmail.com', 9999)}
+  let(:auto){Auto.new('fiat', 'palio', 1988, 'dfdsf23')}
+
+  before(:each) do
+    Persistence::Repositories::RepositorioDeIntencionesDeVenta.new.delete_all
+    Persistence::Repositories::RepositorioDePublicaciones.new.delete_all
+    Persistence::Repositories::RepositorioDeUsuarios.new.delete_all
+    Persistence::Repositories::RepositorioDeAutos.new.delete_all
+    #Guarda
+    Persistence::Repositories::RepositorioDeUsuarios.new.save(usuario)
+    Persistence::Repositories::RepositorioDeAutos.new.save(auto)
+    intencion_venta = IntencionDeVenta.new(auto, usuario, 'en revisión')
+    @intencion_con_id = Persistence::Repositories::RepositorioDeIntencionesDeVenta.new.save(intencion_venta)
+  end
+
+
+  it 'Cuando un usuario consulta una intencion de venta que no le pertenece, levanta excepcion' do
+    id_usuario = 20
+    expect{validador.validar_intencion_de_venta(id_usuario, @intencion_con_id.id)}.to raise_error(UsuarioInvalidoError)
+  end
+
+end

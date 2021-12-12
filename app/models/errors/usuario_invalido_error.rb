@@ -1,0 +1,1 @@
+class UsuarioInvalidoError < StandardError; end
