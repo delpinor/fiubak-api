@@ -1,7 +1,7 @@
 WebTemplate::App.controllers :revisiones, :provides => [:json] do
   post :create, :map => '/revisiones' do
     begin
-      token = (request.env['HTTP_REV_TOKEN'] or request.env['REV_TOKEN'])
+      token = obtener_token_rev(request)
       ValidadorDeToken.new.validar_para_revision(token)
       data = JSON.parse(request.body.read)
       procesar_revision(data)

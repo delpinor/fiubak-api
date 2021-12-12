@@ -4,7 +4,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
   post :create, :map => '/publicaciones/:id/test_drives' do
     begin
-      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
 
       publicacion = repositorio_de_publicaciones.find(params[:id])
@@ -31,9 +31,16 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
   end
 
   post :create, :map => '/clima' do
-    data = JSON.parse(request.body.read)
-    @@clima = data['clima']
-    status 200
-    {mensaje: "Clima seteado con exito"}.to_json
+    begin
+      token = obtener_token_api(request)
+      ValidadorDeToken.new.validar_para_bot(token)
+      data = JSON.parse(request.body.read)
+      @@clima = data['clima']
+      status 200
+      {mensaje: "Clima seteado con exito"}.to_json
+    rescue NoAutorizadoError
+      status 401
+      {mensaje: 'No autorizado'}.to_json
+    end
   end
 end

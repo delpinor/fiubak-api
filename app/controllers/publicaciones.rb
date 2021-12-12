@@ -4,7 +4,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
   get :show, :map => '/publicaciones' do
     begin
-      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
       publicaciones = repositorio_de_publicaciones.all
       status 200
@@ -17,7 +17,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
   get :show, :map => '/publicaciones/:id' do
     begin
-      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
       id_publicacion = params[:id].to_i
       publicacion = repositorio_de_publicaciones.find(id_publicacion)
@@ -34,7 +34,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
   post :create, :map => '/publicaciones' do
     begin
-      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
       publicacion = publicar_p2p(request.body.read)
       status 201
@@ -53,7 +53,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
   post :create, :map => '/publicaciones/:id/ofertas' do
     begin
-      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
       data = oferta_params
       publicacion = repositorio_de_publicaciones.find(params[:id])
@@ -79,7 +79,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
   post :create, :map => '/ofertas/:id_oferta/rechazar' do
     begin
-      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
       repo_ofertas = Persistence::Repositories::RepositorioDeOfertas.new
       oferta = repo_ofertas.find(params[:id_oferta].to_i)
@@ -97,7 +97,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
   post :create, :map => '/ofertas/:id_oferta/aceptar' do
     begin
-      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
       repo_ofertas = Persistence::Repositories::RepositorioDeOfertas.new
       oferta = repo_ofertas.find(params[:id_oferta].to_i)

@@ -13,7 +13,7 @@ describe 'Validador por token' do
   end
 
   it 'Cuando es valido para bot' do
-    expect{validador.validar_para_bot(ENV['BOT_TOKEN'])}.not_to raise_error(NoAutorizadoError)
+    expect{validador.validar_para_bot(ENV['API_TOKEN'])}.not_to raise_error(NoAutorizadoError)
 
   end
 

@@ -18,7 +18,7 @@ end
 
 def header
   { 'CONTENT_TYPE' => 'application/json',
-    'BOT_TOKEN' => ENV['BOT_TOKEN'],
+    'API_TOKEN' => ENV['API_TOKEN'],
     'REV_TOKEN' => ENV['REV_TOKEN'] }
 end
 

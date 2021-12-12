@@ -2,7 +2,7 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
   post :create, :map => '/usuarios' do
     begin
 
-      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
       data = JSON.parse(request.body.read)
       nuevo_usuario = CreadorUsuario.new.crear_usuario(data['dni'].to_i, data['nombre'], data['email'], data['id'])

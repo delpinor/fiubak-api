@@ -1,7 +1,7 @@
 WebTemplate::App.controllers :usuarios, :provides => [:json] do
   post :create, :map => '/usuarios/:id/intenciones_de_venta' do
     begin
-      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
       id_venta = crear_intencion_de_venta(params[:id], request.body.read)
       status 201
@@ -17,7 +17,7 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
 
   get :show, :map => '/intenciones_de_venta/:id' do
     begin
-      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
       intencion_de_venta_buscada = recuperar_intencion_de_venta(params[:id])
       status 200
