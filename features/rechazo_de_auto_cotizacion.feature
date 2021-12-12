@@ -1,6 +1,5 @@
 #language: es
 
-@wip
 Característica: US008 - Rechazo de auto por fallas
 
   Como usuario vendedor quiero saber si mi auto fue rechazado por fallas
