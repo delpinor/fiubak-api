@@ -2,8 +2,12 @@ class ProveedorDeClima
 
   CLIMA_API_URL = "https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid="
 
-  def initialize()
-    @clima = obtener_clima_desde_api()
+  def initialize(clima="")
+    if clima.empty?
+      @clima = obtener_clima_desde_api()
+    else
+      @clima = clima
+    end
   end
 
   def obtener_clima_desde_api
