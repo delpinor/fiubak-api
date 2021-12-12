@@ -13,5 +13,6 @@ class CreadorUsuario
 
   def validar_usuario(usuario)
     raise MailYaRegistradoError.new if @repo.check_by_email(usuario.email)
+    raise DniInvalidoError.new if @repo.check_by_dni(usuario.dni)
   end
 end

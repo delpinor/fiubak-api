@@ -18,7 +18,7 @@ describe 'Usuarios controller' do
     post('/usuarios', datos_usuario.to_json, header_con_token)
     post('/usuarios', datos_usuario2.to_json, header_con_token)
     body = JSON.parse(last_response.body)
-    expect(body['mensaje']).to eq('Se produjo un error')
+    expect(body['mensaje']).to eq('El número de DNI ya está registrado.')
   end
 
   it 'La respuesta debe ser un mensaje de email duplicado al cargar email duplicado' do
