@@ -1,6 +1,5 @@
 # language: es
 
-  @wip
 Característica: US034 - DNI único al registrarse
 Como usuario quiero que me indiquen si existe un usuario con mi DNI al registrarme
 
