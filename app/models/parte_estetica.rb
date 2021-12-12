@@ -4,4 +4,8 @@ class ParteEstetica
   def initialize(estado)
     @estado = estado
   end
+
+  def obtener_penalizacion()
+    @estado.penalizacion
+  end
 end
