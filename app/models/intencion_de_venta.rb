@@ -6,7 +6,8 @@ class IntencionDeVenta
   ESTADOS = {
     :vendido => "vendido",
     :revisado_y_cotizado => "revisado y cotizado",
-    :publicado => "publicado"
+    :publicado => "publicado",
+    :rechazado => "rechazado"
   }.freeze
 
   TIPOS_VENTA = {
@@ -47,6 +48,10 @@ class IntencionDeVenta
 
   def revisado_y_cotizado
     @estado = ESTADOS[:revisado_y_cotizado]
+  end
+
+  def a_rechazado
+    @estado = ESTADOS[:rechazado]
   end
 
   def validar_intencion_de_venta

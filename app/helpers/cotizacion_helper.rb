@@ -27,6 +27,10 @@ module WebTemplate
       def enviar_cotizacion_por_email(cotizacion, intencion)
         EnviadorMails.new.notificar_revision(cotizacion, intencion)
       end
+
+      def notificar_rechazo_cotizacion_por_email(intencion)
+        EnviadorMails.new.notificar_revision_desaprobada(intencion)
+      end
     end
     helpers CotizacionHelper
   end
