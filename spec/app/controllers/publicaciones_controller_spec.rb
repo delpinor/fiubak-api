@@ -184,7 +184,7 @@ describe 'Publicaciones controller' do
       id_oferta = body['valor']['id']
 
       # Obtengo los datos
-      get("/publicaciones/#{pub.id}")
+      get("/publicaciones/#{pub.id}", nil, header_con_token)
       body = JSON.parse(last_response.body)
       expect(body['id']).to eq(pub.id)
       expect(body['patente']).to eq(pub.auto.patente)

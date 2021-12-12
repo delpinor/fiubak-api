@@ -13,11 +13,11 @@ describe 'Validador por token' do
   end
 
   it 'Cuando es valido para bot' do
-    expect{validador.validar_para_bot(ENV['HTTP_BOT_TOKEN'])}.not_to raise_error(NoAutorizadoError)
+    expect{validador.validar_para_bot(ENV['BOT_TOKEN'])}.not_to raise_error(NoAutorizadoError)
 
   end
 
   it 'Cuando es valido para revision' do
-    expect{validador.validar_para_revision(ENV['HTTP_REV_TOKEN'])}.not_to raise_error(NoAutorizadoError)
+    expect{validador.validar_para_revision(ENV['REV_TOKEN'])}.not_to raise_error(NoAutorizadoError)
   end
 end

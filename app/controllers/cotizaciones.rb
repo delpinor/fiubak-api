@@ -1,7 +1,8 @@
 WebTemplate::App.controllers :cotizaciones, :provides => [:json] do
   put :update, :map => '/aceptar_cotizacion' do
     begin
-      ValidadorDeToken.new.validar_para_bot(request.env['HTTP_BOT_TOKEN'])
+      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      ValidadorDeToken.new.validar_para_bot(token)
       data = JSON.parse(request.body.read)
       cambiar_a_vendido(data['id_intencion'])
       {mensaje: 'La intención de venta fue concretada con éxito'}.to_json

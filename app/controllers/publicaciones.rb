@@ -1,16 +1,28 @@
 WebTemplate::App.controllers :publicaciones, :provides => [:json] do
   get :show, :map => '/publicaciones' do
-    publicaciones = repositorio_de_publicaciones.all
-    status 200
-    publicaciones_a_json publicaciones
+    begin
+      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      ValidadorDeToken.new.validar_para_bot(token)
+      publicaciones = repositorio_de_publicaciones.all
+      status 200
+      publicaciones_a_json publicaciones
+    rescue NoAutorizadoError
+      status 401
+      {mensaje: 'No autorizado'}.to_json
+    end
   end
 
   get :show, :map => '/publicaciones/:id' do
     begin
+      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      ValidadorDeToken.new.validar_para_bot(token)
       id_publicacion = params[:id].to_i
       publicacion = repositorio_de_publicaciones.find(id_publicacion)
       status 200
       publicacion_a_json publicacion
+    rescue NoAutorizadoError
+      status 401
+      {mensaje: 'No autorizado'}.to_json
     rescue ObjectNotFound => e
       status 404
       {mensaje: 'La publicacion no existe'}.to_json
@@ -19,7 +31,8 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
   post :create, :map => '/publicaciones' do
     begin
-      ValidadorDeToken.new.validar_para_revision(request.env['HTTP_REV_TOKEN'])
+      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      ValidadorDeToken.new.validar_para_bot(token)
       publicacion = publicar_p2p(request.body.read)
       status 201
       {
@@ -30,7 +43,6 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       status 401
       {mensaje: 'No autorizado'}.to_json
     rescue Exception => e
-      logger.error e.message
       status 400
       {mensaje: 'se produjo un error'}.to_json
     end
@@ -38,6 +50,8 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
   post :create, :map => '/publicaciones/:id/ofertas' do
     begin
+      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      ValidadorDeToken.new.validar_para_bot(token)
       data = oferta_params
       publicacion = repositorio_de_publicaciones.find(params[:id])
       usuario = repositorio_de_usuarios.find(data[:id_usuario])
@@ -48,6 +62,9 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
       status 201
       nueva_oferta_a_json nueva_oferta
+    rescue NoAutorizadoError
+      status 401
+      {mensaje: 'No autorizado'}.to_json
     rescue UsuarioNoEncontradoError => e
       status 404
       {mensaje: 'Para realizar esta operacion debe registrarse'}.to_json
@@ -58,22 +75,29 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
   end
 
   post :create, :map => '/ofertas/:id_oferta/rechazar' do
-    repo_ofertas = Persistence::Repositories::RepositorioDeOfertas.new
-    oferta = repo_ofertas.find(params[:id_oferta].to_i)
-
-    repo_ofertas.destroy(oferta)
-    repo_publicaciones = Persistence::Repositories::RepositorioDePublicaciones.new
-    publicacion = repo_publicaciones.find(oferta.id_publicacion)
-    EnviadorMails.new.notificar_rechazo(oferta.id, publicacion.auto, oferta.valor, oferta.usuario)
-    status 201
-    {mensaje: 'oferta rechazada con exito'}.to_json
+    begin
+      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      ValidadorDeToken.new.validar_para_bot(token)
+      repo_ofertas = Persistence::Repositories::RepositorioDeOfertas.new
+      oferta = repo_ofertas.find(params[:id_oferta].to_i)
+      repo_ofertas.destroy(oferta)
+      repo_publicaciones = Persistence::Repositories::RepositorioDePublicaciones.new
+      publicacion = repo_publicaciones.find(oferta.id_publicacion)
+      EnviadorMails.new.notificar_rechazo(oferta.id, publicacion.auto, oferta.valor, oferta.usuario)
+      status 201
+      {mensaje: 'oferta rechazada con exito'}.to_json
+    rescue NoAutorizadoError
+      status 401
+      {mensaje: 'No autorizado'}.to_json
+    end
   end
 
   post :create, :map => '/ofertas/:id_oferta/aceptar' do
     begin
+      token = (request.env['HTTP_BOT_TOKEN'] or request.env['BOT_TOKEN'])
+      ValidadorDeToken.new.validar_para_bot(token)
       repo_ofertas = Persistence::Repositories::RepositorioDeOfertas.new
       oferta = repo_ofertas.find(params[:id_oferta].to_i)
-
       repo_ofertas.destroy(oferta)
       repo_publicaciones = Persistence::Repositories::RepositorioDePublicaciones.new
       publicacion = repo_publicaciones.find(oferta.id_publicacion)
@@ -84,6 +108,9 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       repo_publicaciones.destroy(publicacion)
       status 201
       {mensaje: 'oferta aceptada con exito'}.to_json
+    rescue NoAutorizadoError
+      status 401
+      {mensaje: 'No autorizado'}.to_json
     rescue ObjectNotFound => e
       status 404
       {mensaje: 'oferta no encontrada'}.to_json
