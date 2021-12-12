@@ -1,0 +1,2 @@
+class CotizacionFallida < StandardError
+end

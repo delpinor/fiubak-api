@@ -17,7 +17,7 @@ class CotizacionAuto
       fallas_graves += 1 if parte.estado == DanioAlto.new
       total_pct_descuento += penalizacion
     end
-    return 0 if (total_pct_descuento >= 1 || fallas_graves >=2)
+    raise CotizacionFallida if (total_pct_descuento >= 1 || fallas_graves >=2)
     @precio_lista * (1 - total_pct_descuento)
   end
 

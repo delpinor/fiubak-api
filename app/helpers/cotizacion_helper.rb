@@ -7,6 +7,7 @@ module WebTemplate
         repo = Persistence::Repositories::RepositorioDeIntencionesDeVenta.new
         intencion_de_venta = repo.find(data['id_intencion'].to_i)
         cotizacion = calcular_cotizacion(intencion_de_venta.auto, data)
+        valor_cotizado = cotizacion.valor_cotizado
         intencion_de_venta.set_valor_cotizado(cotizacion.valor_cotizado)
         intencion_de_venta.revisado_y_cotizado
         enviar_cotizacion_por_email(cotizacion, intencion_de_venta)
