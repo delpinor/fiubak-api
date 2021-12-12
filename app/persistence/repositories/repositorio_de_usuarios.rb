@@ -17,6 +17,11 @@ module Persistence
         return row.nil? == false
       end
 
+      def check_by_dni(dni)
+        row = dataset.first(dni: dni)
+        return row.nil? == false
+      end
+
       def load_by_email(email)
         email = email.downcase
         row = dataset.first(email: email)

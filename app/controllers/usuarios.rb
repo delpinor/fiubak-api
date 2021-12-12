@@ -11,6 +11,9 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
     rescue NoAutorizadoError
       status 401
       {mensaje: 'No autorizado'}.to_json
+    rescue DniInvalidoError
+      status 404
+      {mensaje: 'El número de DNI ya está registrado.'}.to_json
     rescue MailYaRegistradoError
       status 404
       {mensaje: 'El email ya se encuentra registrado'}.to_json
