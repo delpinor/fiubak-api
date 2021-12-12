@@ -32,4 +32,13 @@ describe 'Revision controller' do
     expect(body['mensaje']).to eq('Revisión exitosa')
   end
 
+  it 'Cuando recibo una revision con partes defectuosas, la misma no es aprobada' do
+    datos = {id_intencion: @intencion_con_id.id, nivel_danio_motor: 3,
+             nivel_danio_estetica: 3, nivel_danio_neumaticos: 3, precio_lista: 1000 }
+    post('/revisiones', datos.to_json, header_con_token)
+    body = JSON.parse(last_response.body)
+    expect(body['mensaje']).to eq('El auto no se encontraba en buen estado y no logró pasar la revisión')
+    expect(last_response.status).to eq(200)
+  end
+
 end
