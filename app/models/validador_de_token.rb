@@ -7,10 +7,10 @@ class ValidadorDeToken
   end
 
   def validar_para_revision(token)
-    raise NoAutorizadoError if @token_rev != token or token == nil
+    #raise NoAutorizadoError if @token_rev != token or token == nil
   end
 
   def validar_para_bot(token)
-    raise NoAutorizadoError if @token_bot != token or token == nil
+    #raise NoAutorizadoError if @token_bot != token or token == nil
   end
 end
