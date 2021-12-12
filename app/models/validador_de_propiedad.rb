@@ -4,6 +4,7 @@ class ValidadorDePropiedad
   def initialize
     @repo_intencion_venta = Persistence::Repositories::RepositorioDeIntencionesDeVenta.new
     @repo_publicaciones = Persistence::Repositories::RepositorioDePublicaciones.new
+    @repo_ofertas = Persistence::Repositories::RepositorioDeOfertas.new
   end
 
   def validar_intencion_de_venta(id_usuario, id_intencion_de_venta)
@@ -13,6 +14,12 @@ class ValidadorDePropiedad
 
   def validar_publicacion(id_usuario, id_publicacion)
     id_publicacion = @repo_publicaciones.find(id_publicacion)
+    raise UsuarioInvalidoError if id_usuario != id_publicacion.usuario.id
+  end
+
+  def validar_oferta(id_usuario, id_oferta)
+    oferta = @repo_ofertas.find(id_oferta)
+    id_publicacion = @repo_publicaciones.find(oferta.id_publicacion)
     raise UsuarioInvalidoError if id_usuario != id_publicacion.usuario.id
   end
 
