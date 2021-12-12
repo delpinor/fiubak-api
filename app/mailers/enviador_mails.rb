@@ -78,8 +78,8 @@ class EnviadorMails
 
   def cuerpo_revision_fallida(id_intencion_de_venta, patente)
     titulo = "FIUBAK\n\n"
-    cuerpo = "Le informamos que debido al mal estado de su auto con patente #{patente}:" + "\n" \
-             "no pasó la revisión y por ende no será tenido en cuenta para ser comercializado por Fiubak" + "\n"
+    cuerpo = "Debido al mal estado de su auto con patente #{patente}" + "\n" \
+             "la revision fue un fracaso y no sera tenido en cuenta por Fiubak" + "\n"
 
     saludos = 'Saludos, ' + "\n" + "\n" \
               'Equipo FIUBAK'
