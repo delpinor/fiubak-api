@@ -12,7 +12,7 @@ Cuando('acepto la cotización de Fiubak') do
 end
 
 Entonces('veo el auto publicado para venta a un valor de {int}') do |precio|
-  @response = Faraday.get(obtener_publicaciones)
+  @response = Faraday.get(obtener_publicaciones, nil, header)
   publicaciones = JSON.parse(@response.body)
   datos = {"anio"=>2015, "marca"=>"Renault", "modelo"=>"Kangoo", "precio"=>precio, "tipo"=>"Fiubak"}
   publicaciones.each { |pub| pub.delete("id") }

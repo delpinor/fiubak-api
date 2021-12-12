@@ -9,7 +9,7 @@ Cuando('rechazo la cotización de Fiubak y publico por p2p con precio {int}') do
 end
 
 Entonces('veo el auto publicado con id correspondiente para venta a un valor de {int}') do |precio|
-    @response = Faraday.get(obtener_publicaciones)
+    @response = Faraday.get(obtener_publicaciones, nil, header)
     publicaciones = JSON.parse(@response.body)
     expect(publicaciones.any?{ |publicacion| publicacion['id'] == @id_publicacion && publicacion['precio'] == precio}).to eq(true)
   end
