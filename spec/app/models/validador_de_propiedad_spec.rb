@@ -6,6 +6,7 @@ describe 'Validador de propiedad' do
 
 
   let(:usuario){Usuario.new(99999, 'test', 'test@gmail.com', 9999)}
+  let(:usuario_comprador){Usuario.new(88888, 'test2', 'test2@gmail.com', 777)}
   let(:auto){Auto.new('fiat', 'palio', 1988, 'dfdsf23')}
 
   before(:each) do
@@ -18,12 +19,20 @@ describe 'Validador de propiedad' do
     Persistence::Repositories::RepositorioDeAutos.new.save(auto)
     intencion_venta = IntencionDeVenta.new(auto, usuario, 'en revisión')
     @intencion_con_id = Persistence::Repositories::RepositorioDeIntencionesDeVenta.new.save(intencion_venta)
+    @usuario_comprador_con_id = Persistence::Repositories::RepositorioDeUsuarios.new.save(usuario_comprador)
+    @publicacion = Publicacion.new(usuario, auto, 75000, "Fiubak", 1)
+    Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
   end
 
 
   it 'Cuando un usuario consulta una intencion de venta que no le pertenece, levanta excepcion' do
     id_usuario = 20
     expect{validador.validar_intencion_de_venta(id_usuario, @intencion_con_id.id)}.to raise_error(UsuarioInvalidoError)
+  end
+
+  it 'Cuando un usuario consulta por una publicacion que no le pertenece, levanta excepcion' do
+    id_usuario = 20
+    expect{validador.validar_publicacion(id_usuario, @publicacion.id)}.to raise_error(UsuarioInvalidoError)
   end
 
 end
