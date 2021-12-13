@@ -12,10 +12,9 @@ Como usuario vendedor quiero administrar solo mis publicaciones/autos
     Cuando consulto el estado por la intención de venta
     Entonces recibo un mensaje de error "No existe intención de venta asociada a su usuario"
 
-  @wip
   Escenario: 33.2 - Aceptar cotización
     Dado que registro mi usuario
-    Y el auto se encuentra 'cotizado y revisado'
+    Y se recibe una revision sin fallas
     Cuando acepto la cotización
     Entonces recibo un mensaje de error "No existe intención de venta asociada a su usuario"
 
