@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "0.2.35",
+    "version": "0.2.36",
     "title": "FIUBAK",
     "description": "Documentación para el uso de la API."
   },
