@@ -48,3 +48,11 @@ Cuando('acepto la cotización') do
   datos = {id_intencion: @id_intencion}.to_json
   @response = Faraday.put(aceptar_cotizacion_url, datos, header(4393))
 end
+
+Cuando('yo rechazo la cotización de Fiubak y publico por p2p con precio {int}') do |precio|
+  body = {
+    'id_intencion_de_venta': @id_intencion,
+    'precio': precio
+  }
+  @response = Faraday.post(crear_publicaciones, body.to_json, header(@id_segundo_usuario))
+end

@@ -18,11 +18,10 @@ Como usuario vendedor quiero administrar solo mis publicaciones/autos
     Cuando acepto la cotización
     Entonces recibo un mensaje de error "No existe intención de venta asociada a su usuario"
 
-  @wip
   Escenario: 33.3 - Rechazar cotización
     Dado que registro mi usuario
     Y se realizó la revisión sin fallas con precio de lista 100
-    Cuando rechazo la cotización de Fiubak y publico por p2p con precio 300
+    Cuando yo rechazo la cotización de Fiubak y publico por p2p con precio 300
     Entonces recibo un mensaje de error "No existe intención de venta asociada a su usuario"
 
   Escenario: 33.4 - Consultar publicación
