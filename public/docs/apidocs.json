@@ -634,7 +634,7 @@
               "type": "integer"
             },
             "required": true,
-            "description": "Id del usuario"
+            "description": "Id de la intención de venta"
           }
         ],
         "responses": {
