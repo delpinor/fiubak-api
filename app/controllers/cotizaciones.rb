@@ -4,8 +4,13 @@ WebTemplate::App.controllers :cotizaciones, :provides => [:json] do
       token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
       data = JSON.parse(request.body.read)
+      id_usuario = obtener_token_usuario(request)
+      ValidadorDePropiedad.new.validar_intencion_de_venta(id_usuario, data['id_intencion'])
       cambiar_a_vendido(data['id_intencion'])
       {mensaje: 'La intención de venta fue concretada con éxito'}.to_json
+    rescue UsuarioInvalidoError
+      status 404
+      {mensaje: 'No existe intención de venta asociada a su usuario'}.to_json
     rescue NoAutorizadoError
       status 401
       {mensaje: 'No autorizado'}.to_json

@@ -46,5 +46,7 @@ Cuando('consulto la publicación de ese usuario') do
   @response = Faraday.get(consultar_detalle_publicacion(@id_publicacion), nil, header(@id_segundo_usuario))
 end
 
-
-
+Cuando('acepto la cotización') do
+  datos = {id_intencion: @id_intencion}.to_json
+  @response = Faraday.put(aceptar_cotizacion_url, datos, header(4393))
+end
