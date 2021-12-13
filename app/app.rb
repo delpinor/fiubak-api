@@ -52,8 +52,8 @@ module WebTemplate
             :body => 'Body')
     end
 
-    get :docs, map: '/docs' do
-      render 'docs'
+    get :docs, map: '/apidoc' do
+      send_file File.join(settings.public_folder, 'docs/index.html')
     end
 
     ##
