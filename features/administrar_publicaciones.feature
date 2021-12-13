@@ -44,3 +44,9 @@ Como usuario vendedor quiero administrar solo mis publicaciones/autos
     Y que dicha publicación recibe una oferta
     Cuando intento rechazar la oferta
     Entonces recibo un mensaje de error "No existe oferta asociada a una publicación vigente para su usuario"
+
+    @wip
+  Escenario: 33.7 - registrar autos ajenos
+    Dado que registro mi usuario
+    Cuando registro un auto de otro usuario
+    Entonces recibo un mensaje de error "No dicha intencion de venta para su usuario"
