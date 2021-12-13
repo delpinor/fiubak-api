@@ -38,3 +38,8 @@ Cuando('intento aceptar la oferta') do
   @response = Faraday.post(aceptar_oferta(@id_oferta), nil, header(@id_segundo_usuario))
 end
 
+Cuando('intento rechazar la oferta') do
+  @response = Faraday.post(rechazar_oferta(@id_oferta), nil, header(@id_segundo_usuario))
+end
+
+

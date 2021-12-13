@@ -81,6 +81,8 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
     begin
       token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
+      id_usuario = obtener_token_usuario(request)
+      ValidadorDePropiedad.new.validar_oferta(id_usuario, params[:id_oferta])
       repo_ofertas = Persistence::Repositories::RepositorioDeOfertas.new
       oferta = repo_ofertas.find(params[:id_oferta].to_i)
       repo_ofertas.destroy(oferta)
@@ -89,6 +91,9 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       EnviadorMails.new.notificar_rechazo(oferta.id, publicacion.auto, oferta.valor, oferta.usuario)
       status 201
       {mensaje: 'oferta rechazada con exito'}.to_json
+    rescue UsuarioInvalidoError
+      status 404
+      {mensaje: 'No existe oferta asociada a una publicación vigente para su usuario'}.to_json
     rescue NoAutorizadoError
       status 401
       {mensaje: 'No autorizado'}.to_json
