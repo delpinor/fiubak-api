@@ -20,7 +20,7 @@ def header(id_usuario)
   { 'CONTENT_TYPE' => 'application/json',
     'API_TOKEN' => ENV['API_TOKEN'],
     'REV_TOKEN' => ENV['REV_TOKEN'],
-    'USR_TOKEN' => id_usuario}
+    'USR_TOKEN' => id_usuario.to_s}
 end
 
 def find_user_url(user_id)

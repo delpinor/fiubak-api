@@ -3,7 +3,7 @@ module HttpHelpers
     { 'CONTENT_TYPE' => 'application/json',
       'API_TOKEN' => ENV['API_TOKEN'],
       'REV_TOKEN' => ENV['REV_TOKEN'],
-      'USR_TOKEN' => usuario_id
+      'USR_TOKEN' => usuario_id.to_s
     }
   end
 
