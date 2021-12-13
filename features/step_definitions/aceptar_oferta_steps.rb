@@ -1,5 +1,5 @@
 Cuando('acepto la oferta') do
-  @response = Faraday.post(aceptar_oferta(@id_oferta), nil, header)
+  @response = Faraday.post(aceptar_oferta(@id_oferta), nil, header(@id_usuario))
 end
 
 Entonces('envio un mail de compra concretada con exito') do
@@ -10,7 +10,7 @@ Entonces('envio un mail de compra concretada con exito') do
 end
 
 Entonces('la publicacion no existe mas') do
-  @response = Faraday.get(obtener_publicaciones, nil, header)
+  @response = Faraday.get(obtener_publicaciones, nil, header(@id_usuario))
   publicaciones = JSON.parse(@response.body)
   expect(publicaciones.any?{ |publicacion| publicacion['id'] == @id_publicacion}).to eq(false)
 end

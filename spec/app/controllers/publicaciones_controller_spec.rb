@@ -20,7 +20,7 @@ describe 'Publicaciones controller' do
   end
 
   it 'La respuesta debe ser un mensaje exitoso' do
-    get('/publicaciones', nil, header_con_token)
+    get('/publicaciones', nil, header_con_token(usuario.id))
     body = JSON.parse(last_response.body)
     expect(body).to eq([])
     expect(last_response.status).to eq(200)
@@ -30,7 +30,7 @@ describe 'Publicaciones controller' do
     publicacion = @intencion_con_id.concretar_por_fiubak
     Persistence::Repositories::RepositorioDePublicaciones.new.save(publicacion)
 
-    get('/publicaciones', nil, header_con_token)
+    get('/publicaciones', nil, header_con_token(usuario.id))
     body = JSON.parse(last_response.body)
     expect(body.length()).to eq(1)
     expect(body[0]['id']).to be_present
@@ -45,7 +45,7 @@ describe 'Publicaciones controller' do
     datos = { id_intencion_de_venta: @intencion_con_id.id,
              precio: 45000 }
 
-    post('/publicaciones', datos.to_json, header_con_token)
+    post('/publicaciones', datos.to_json, header_con_token(usuario.id))
     body = JSON.parse(last_response.body)
     expect(body['valor']['id_publicacion']).to be_present
     expect(body['valor']['precio']).to eq(45000)
@@ -57,7 +57,7 @@ describe 'Publicaciones controller' do
     it 'Al crear una oferta recibo un mensaje exitoso' do
       pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
       datos = { id_usuario: @usuario_comprador_con_id.id.to_i, valor: 150 }
-      post("/publicaciones/#{pub.id}/ofertas", datos.to_json, header_con_token)
+      post("/publicaciones/#{pub.id}/ofertas", datos.to_json, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(body['valor']['id']).to be_present
       id_oferta = body['valor']['id']
@@ -69,18 +69,18 @@ describe 'Publicaciones controller' do
       datos_venta = { id_intencion_de_venta: @intencion_con_id.id,
                       precio: 45000 }
 
-      post('/publicaciones', datos_venta.to_json, header_con_token)
+      post('/publicaciones', datos_venta.to_json, header_con_token(usuario.id))
       expect(last_response.status).to eq 201
       body = JSON.parse(last_response.body)
       pub_id = body['valor']['id_publicacion']
 
       datos_oferta = { id_usuario: @usuario_comprador_con_id.id.to_i, valor: 150 }
-      post("/publicaciones/#{pub_id}/ofertas", datos_oferta.to_json, header_con_token)
+      post("/publicaciones/#{pub_id}/ofertas", datos_oferta.to_json, header_con_token(usuario.id))
       expect(last_response.status).to eq 201
       body = JSON.parse(last_response.body)
 
       id_oferta = body['valor']['id']
-      post("/ofertas/#{id_oferta}/rechazar", nil, header_con_token)
+      post("/ofertas/#{id_oferta}/rechazar", nil, header_con_token(usuario.id))
 
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq('oferta rechazada con exito')
@@ -90,18 +90,18 @@ describe 'Publicaciones controller' do
       datos_venta = { id_intencion_de_venta: @intencion_con_id.id,
                       precio: 45000 }
 
-      post('/publicaciones', datos_venta.to_json, header_con_token)
+      post('/publicaciones', datos_venta.to_json, header_con_token(usuario.id))
       expect(last_response.status).to eq 201
       body = JSON.parse(last_response.body)
       pub_id = body['valor']['id_publicacion']
 
       datos_oferta = { id_usuario: @usuario_comprador_con_id.id.to_i, valor: 150 }
-      post("/publicaciones/#{pub_id}/ofertas", datos_oferta.to_json, header_con_token)
+      post("/publicaciones/#{pub_id}/ofertas", datos_oferta.to_json, header_con_token(usuario.id))
       expect(last_response.status).to eq 201
       body = JSON.parse(last_response.body)
 
       id_oferta = body['valor']['id']
-      post("/ofertas/#{id_oferta}/aceptar", nil, header_con_token)
+      post("/ofertas/#{id_oferta}/aceptar", nil, header_con_token(usuario.id))
 
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq('oferta aceptada con exito')
@@ -109,7 +109,7 @@ describe 'Publicaciones controller' do
 
 
     it 'Cuando trato de aceptar una oferta inexistente obtengo un error' do
-      post("/ofertas/22/aceptar", nil, header_con_token)
+      post("/ofertas/22/aceptar", nil, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(last_response.status).to eq 404
       expect(body['mensaje']).to eq('oferta no encontrada')
@@ -119,20 +119,20 @@ describe 'Publicaciones controller' do
       datos_venta = { id_intencion_de_venta: @intencion_con_id.id,
                       precio: 45000 }
 
-      post('/publicaciones', datos_venta.to_json, header_con_token)
+      post('/publicaciones', datos_venta.to_json, header_con_token(usuario.id))
       expect(last_response.status).to eq 201
       body = JSON.parse(last_response.body)
       pub_id = body['valor']['id_publicacion']
 
       datos_oferta = { id_usuario: @usuario_comprador_con_id.id.to_i, valor: 150 }
-      post("/publicaciones/#{pub_id}/ofertas", datos_oferta.to_json, header_con_token)
+      post("/publicaciones/#{pub_id}/ofertas", datos_oferta.to_json, header_con_token(usuario.id))
       expect(last_response.status).to eq 201
       body = JSON.parse(last_response.body)
 
       id_oferta = body['valor']['id']
-      post("/ofertas/#{id_oferta}/aceptar", nil, header_con_token)
+      post("/ofertas/#{id_oferta}/aceptar", nil, header_con_token(usuario.id))
 
-      get('/publicaciones', nil, header_con_token)
+      get('/publicaciones', nil, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(body.length()).to eq(0)
     end
@@ -140,7 +140,7 @@ describe 'Publicaciones controller' do
     it 'Al crear otra oferta recibo un mensaje exitoso' do
       pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
       datos = { id_usuario: @usuario_comprador_con_id.id.to_i, valor: 400 }
-      post("/publicaciones/#{pub.id}/ofertas", datos.to_json, header_con_token)
+      post("/publicaciones/#{pub.id}/ofertas", datos.to_json, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(body['valor']['id']).to be_present
       id_oferta = body['valor']['id']
@@ -151,7 +151,7 @@ describe 'Publicaciones controller' do
     it 'Al una oferta con usuario inexistente recibo un error' do
       pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
       datos = { id_usuario: 41242141, valor: 400 }
-      post("/publicaciones/#{pub.id}/ofertas", datos.to_json, header_con_token)
+      post("/publicaciones/#{pub.id}/ofertas", datos.to_json, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq("Para realizar esta operacion debe registrarse")
       expect(last_response.status).to eq(404)
@@ -160,7 +160,7 @@ describe 'Publicaciones controller' do
     it 'Al una oferta con una publicacion inexistente recibo un error' do
       pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
       datos = { id_usuario: @usuario_comprador_con_id.id.to_i, valor: 400 }
-      post("/publicaciones/223222/ofertas", datos.to_json, header_con_token)
+      post("/publicaciones/223222/ofertas", datos.to_json, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq("La publicacion no existe")
       expect(last_response.status).to eq(404)
@@ -170,7 +170,7 @@ describe 'Publicaciones controller' do
 
   context 'Detalle de publicacion' do
     it 'Al consultar el detalle de una publicacion que no existe obtengo un error' do
-      get('/publicaciones/4242', nil, header_con_token)
+      get('/publicaciones/4242', nil, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq("La publicacion no existe")
       expect(last_response.status).to eq(404)
@@ -180,12 +180,12 @@ describe 'Publicaciones controller' do
       # Genero la publicacion y la oferta
       pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
       datos = { id_usuario: @usuario_comprador_con_id.id.to_i, valor: 400 }
-      post("/publicaciones/#{pub.id}/ofertas", datos.to_json, header_con_token)
+      post("/publicaciones/#{pub.id}/ofertas", datos.to_json, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       id_oferta = body['valor']['id']
 
       # Obtengo los datos
-      get("/publicaciones/#{pub.id}", nil, header_con_token)
+      get("/publicaciones/#{pub.id}", nil, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(body['id']).to eq(pub.id)
       expect(body['patente']).to eq(pub.auto.patente)
@@ -205,7 +205,7 @@ describe 'Publicaciones controller' do
       url = "https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid="
       stub = stub_request(:get, url + api_key)
         .to_return(body: {"weather": [{"main": "Rain"}, {"main": "Hot"}]}.to_json)
-      post("/publicaciones/#{pub.id}/test_drives", nil, header_con_token)
+      post("/publicaciones/#{pub.id}/test_drives", nil, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq("Test-drive para el día de hoy contratado con éxito. Deberá abonar una suma de $600")
       expect(last_response.status).to eq(201)
@@ -217,7 +217,7 @@ describe 'Publicaciones controller' do
       url = "https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid="
       stub = stub_request(:get, url + api_key)
         .to_return(body: {"weather": [{"main": "Cold"}, {"main": "Hot"}]}.to_json)
-      post("/publicaciones/#{pub.id}/test_drives", nil, header_con_token)
+      post("/publicaciones/#{pub.id}/test_drives", nil, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq("Test-drive para el día de hoy contratado con éxito. Deberá abonar una suma de $750")
       expect(last_response.status).to eq(201)
@@ -229,8 +229,8 @@ describe 'Publicaciones controller' do
       url = "https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid="
       stub = stub_request(:get, url + api_key)
         .to_return(body: {"weather": [{"main": "Cold"}, {"main": "Hot"}]}.to_json)
-      post("/publicaciones/#{pub.id}/test_drives", nil, header_con_token)
-      post("/publicaciones/#{pub.id}/test_drives", nil, header_con_token)
+      post("/publicaciones/#{pub.id}/test_drives", nil, header_con_token(usuario.id))
+      post("/publicaciones/#{pub.id}/test_drives", nil, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq("Contratacion fallida: Ya existe un test-drive asociado al dia de hoy")
       expect(last_response.status).to eq(409)

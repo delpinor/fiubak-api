@@ -1,5 +1,5 @@
 Cuando('rechazo la oferta') do
-  @response = Faraday.post(rechazar_oferta(@id_oferta), nil, header)
+  @response = Faraday.post(rechazar_oferta(@id_oferta), nil, header(@id_usuario))
 end
 
 Entonces('envio un mail rechazando la oferta') do

@@ -16,10 +16,11 @@ else
   end
 end
 
-def header
+def header(id_usuario)
   { 'CONTENT_TYPE' => 'application/json',
     'API_TOKEN' => ENV['API_TOKEN'],
-    'REV_TOKEN' => ENV['REV_TOKEN'] }
+    'REV_TOKEN' => ENV['REV_TOKEN'],
+    'USR_TOKEN' => id_usuario}
 end
 
 def find_user_url(user_id)

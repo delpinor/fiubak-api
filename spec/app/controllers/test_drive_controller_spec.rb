@@ -27,7 +27,7 @@ describe 'Test drive controller' do
       url = "https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid="
       stub = stub_request(:get, url + api_key)
         .to_return(body: {"weather": [{"main": "Rain"}, {"main": "Hot"}]}.to_json)
-      post("/publicaciones/#{pub.id}/test_drives", nil, header_con_token)
+      post("/publicaciones/#{pub.id}/test_drives", nil, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq("Test-drive para el día de hoy contratado con éxito. Deberá abonar una suma de $600")
       expect(last_response.status).to eq(201)
@@ -39,7 +39,7 @@ describe 'Test drive controller' do
       url = "https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid="
       stub = stub_request(:get, url + api_key)
         .to_return(body: {"weather": [{"main": "Cold"}, {"main": "Hot"}]}.to_json)
-      post("/publicaciones/#{pub.id}/test_drives", nil, header_con_token)
+      post("/publicaciones/#{pub.id}/test_drives", nil, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq("Test-drive para el día de hoy contratado con éxito. Deberá abonar una suma de $750")
       expect(last_response.status).to eq(201)
@@ -51,8 +51,8 @@ describe 'Test drive controller' do
       url = "https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid="
       stub = stub_request(:get, url + api_key)
         .to_return(body: {"weather": [{"main": "Cold"}, {"main": "Hot"}]}.to_json)
-      post("/publicaciones/#{pub.id}/test_drives",nil, header_con_token)
-      post("/publicaciones/#{pub.id}/test_drives",nil, header_con_token)
+      post("/publicaciones/#{pub.id}/test_drives",nil, header_con_token(usuario.id))
+      post("/publicaciones/#{pub.id}/test_drives",nil, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq("Contratacion fallida: Ya existe un test-drive asociado al dia de hoy")
       expect(last_response.status).to eq(409)
@@ -64,7 +64,7 @@ describe 'Test drive controller' do
       url = "https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid="
       stub = stub_request(:get, url + api_key)
         .to_return(body: {"weather": [{"main": "Cold"}, {"main": "Hot"}]}.to_json)
-      post("/publicaciones/#{pub.id}/test_drives", nil, header_con_token)
+      post("/publicaciones/#{pub.id}/test_drives", nil, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq("Solo puede contratar test-drive para autos de Fiubak")
       expect(last_response.status).to eq(409)

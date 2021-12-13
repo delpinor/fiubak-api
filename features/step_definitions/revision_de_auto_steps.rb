@@ -4,7 +4,7 @@ Cuando('se recibe una revision sin fallas') do
               nivel_danio_estetica: 0,
               nivel_danio_neumaticos: 0,
               precio_lista: 1000}.to_json
-  @response = Faraday.post(revisiones_url, @request, header)
+  @response = Faraday.post(revisiones_url, @request, header(@id_usuario))
   expect(@response.status).to eq(201)
 end
 
@@ -14,7 +14,7 @@ Dado('se realizó la revisión sin fallas con precio de lista {int}') do |precio
               nivel_danio_estetica: 0,
               nivel_danio_neumaticos: 0,
               precio_lista: precio_lista}.to_json
-  @response = Faraday.post(revisiones_url, @request, header)
+  @response = Faraday.post(revisiones_url, @request, header(@id_usuario))
   expect(@response.status).to eq(201)
 end
 
@@ -28,7 +28,7 @@ end
 
 Entonces('el estado de mi auto sera ‘revisado y cotizado’') do
   step 'se recibe una revision sin fallas'
-  @response = Faraday.get(consultar_intenciones_de_venta(@id_intencion), nil, header)
+  @response = Faraday.get(consultar_intenciones_de_venta(@id_intencion), nil, header(@id_usuario))
   data = JSON.parse(@response.body)
   expect(data['valor']['estado']).to eq('revisado y cotizado')
 end

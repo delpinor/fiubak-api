@@ -4,7 +4,7 @@ Dado('cuando termina la revision el estado tiene falla de neumaticos {string} y 
               nivel_danio_estetica: NivelDanioHerlper.new.nivel_en_letra(estetica),
               nivel_danio_neumaticos: NivelDanioHerlper.new.nivel_en_letra(neumaticos),
               precio_lista: precio}.to_json
-  @response = Faraday.post(revisiones_url, @request, header)
+  @response = Faraday.post(revisiones_url, @request, header(@id_usuario))
 end
 
 Entonces('la cotizacion es rechazada') do

@@ -19,6 +19,8 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
     begin
       token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
+      id_usuario = obtener_token_usuario(request)
+      ValidadorDePropiedad.new.validar_intencion_de_venta(id_usuario, params[:id])
       intencion_de_venta_buscada = recuperar_intencion_de_venta(params[:id])
       status 200
       {mensaje: 'intencion de venta recuperadas con exito', valor: intencion_de_venta_buscada }.to_json

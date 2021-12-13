@@ -15,7 +15,7 @@ Dado('existe una publicacion p2p con valor {int}') do |precio|
 end
 
 Entonces('veo el auto publicado por Fiubak para venta a un valor de {int}') do |precio|
-  @response = Faraday.get(obtener_publicaciones, nil, header)
+  @response = Faraday.get(obtener_publicaciones, nil, header(@id_usuario))
   publicaciones = JSON.parse(@response.body)
   datos = {"anio": 1988, "marca": "fiat", "modelo": "uno", "precio": precio, "tipo": "Fiubak"}
   find_pub = publicaciones.select {|pub| (pub["anio"] == 1988 and pub["marca"] == "fiat" and pub["modelo"] == "uno" and pub["precio"] == precio and pub["tipo"] == "Fiubak" )}
@@ -25,21 +25,21 @@ end
 
 
 Cuando('solicito el test-drive en un dia sin lluvia') do
-  Faraday.post(fijar_clima(), {:clima => "nublado"}.to_json, header)
+  Faraday.post(fijar_clima(), {:clima => "nublado"}.to_json, header(@id_usuario))
   request = {id_usuario: @id_usuario}.to_json
-  @response = Faraday.post(solicitar_test_drive(@id_publicacion_fiubak), request, header)
+  @response = Faraday.post(solicitar_test_drive(@id_publicacion_fiubak), request, header(@id_usuario))
 end
 
 Cuando('solicito el test-drive en un dia con lluvia') do
-  Faraday.post(fijar_clima(), {:clima => "lluvioso"}.to_json, header)
+  Faraday.post(fijar_clima(), {:clima => "lluvioso"}.to_json, header(@id_usuario))
   request = {id_usuario: @id_usuario}.to_json
-  @response = Faraday.post(solicitar_test_drive(@id_publicacion_fiubak), request, header)
+  @response = Faraday.post(solicitar_test_drive(@id_publicacion_fiubak), request, header(@id_usuario))
 end
 
 Cuando('solicito el test-drive en un dia con lluvia de una publicacion p2p') do
-  Faraday.post(fijar_clima(), {:clima => "lluvioso"}.to_json, header)
+  Faraday.post(fijar_clima(), {:clima => "lluvioso"}.to_json, header(@id_usuario))
   request = {id_usuario: @id_usuario}.to_json
-  @response = Faraday.post(solicitar_test_drive(@id_publicacion), request, header)
+  @response = Faraday.post(solicitar_test_drive(@id_publicacion), request, header(@id_usuario))
 end
 
 Entonces('obtengo un mensaje {string}') do |msg|

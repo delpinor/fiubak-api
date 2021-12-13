@@ -5,7 +5,7 @@ Cuando('me registro con con nombre {string}, dni {string} y email {string}') do 
     'dni': dni,
     'email': email
   }
-  @response = Faraday.post(registrar_usuario_url, body.to_json, header)
+  @response = Faraday.post(registrar_usuario_url, body.to_json, header(@id_usuario))
 end
 
 Entonces('me registro exitosamente') do

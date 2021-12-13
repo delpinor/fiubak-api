@@ -1,8 +1,10 @@
 module HttpHelpers
-  def header_con_token
+  def header_con_token(usuario_id)
     { 'CONTENT_TYPE' => 'application/json',
       'API_TOKEN' => ENV['API_TOKEN'],
-      'REV_TOKEN' => ENV['REV_TOKEN'] }
+      'REV_TOKEN' => ENV['REV_TOKEN'],
+      'USR_TOKEN' => usuario_id
+    }
   end
 
   def header_sin_token
