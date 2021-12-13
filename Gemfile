@@ -29,6 +29,7 @@ gem 'padrino', '0.15.0'
 
 # Or Padrino Edge
 # gem 'padrino', :github => 'padrino/padrino-framework'
+gem 'faraday'
 
 # Or Individual Gems
 # %w(core support gen helpers cache mailer admin).each do |g|
@@ -39,7 +40,6 @@ group :development, :test do
   gem 'byebug'
   gem 'dotenv'
   gem 'cucumber'
-  gem 'faraday'
   gem 'rack-test', require: 'rack/test'
   gem 'rspec'
   gem 'rspec-core'
