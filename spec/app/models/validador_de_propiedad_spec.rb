@@ -43,4 +43,10 @@ describe 'Validador de propiedad' do
     expect{validador.validar_oferta(id_usuario, @oferta.id)}.to raise_error(UsuarioInvalidoError)
   end
 
+  it 'Cuando se recibe un id de usuario distinto al usuario que llega por token, levanta excepcion' do
+    id_usuario = 20
+    id_usuario_params = 100
+    expect{validador.validar_usuario(id_usuario, id_usuario_params)}.to raise_error(UsuarioInvalidoError)
+  end
+
 end
