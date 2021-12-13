@@ -41,12 +41,19 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
     begin
       token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
-      publicacion = publicar_p2p(request.body.read)
+      req = request.body.read
+      data = JSON.parse(req)
+      id_usuario = obtener_token_usuario(request)
+      ValidadorDePropiedad.new.validar_intencion_de_venta(id_usuario, data['id_intencion_de_venta'])
+      publicacion = publicar_p2p(req)
       status 201
       {
         mensaje: "Registro exitoso de publicacion con id: #{publicacion[:id_publicacion]}",
         valor: publicacion
       }.to_json
+    rescue UsuarioInvalidoError
+      status 404
+      {mensaje: 'No existe intención de venta asociada a su usuario'}.to_json
     rescue NoAutorizadoError
       status 401
       {mensaje: 'No autorizado'}.to_json

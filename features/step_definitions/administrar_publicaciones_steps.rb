@@ -25,8 +25,6 @@ Cuando('consulto el estado por la intención de venta') do
 end
 
 Dado('que existe una publicación p2p del auto del otro usuario') do
-  step "registro un auto para vender con marca 'fiat', modelo 'uno', año 1988 y patente 'asd-457'"
-  step "se realizó la revisión sin fallas con precio de lista 100"
   step "rechazo la cotización de Fiubak y publico por p2p con precio 200"
 end
 

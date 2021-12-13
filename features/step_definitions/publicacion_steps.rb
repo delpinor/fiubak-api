@@ -3,7 +3,7 @@ Cuando('rechazo la cotización de Fiubak y publico por p2p con precio {int}') do
     'id_intencion_de_venta': @id_intencion,
     'precio': precio
   }
-  @response = Faraday.post(crear_publicaciones, body.to_json, header(@id_usuario))
+  @response = Faraday.post(crear_publicaciones, body.to_json, header(1))
   data = JSON.parse(@response.body)
   @id_publicacion = data['valor']['id_publicacion']
 end
