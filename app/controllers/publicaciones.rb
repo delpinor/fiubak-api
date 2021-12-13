@@ -20,9 +20,14 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
       id_publicacion = params[:id].to_i
+      id_usuario = obtener_token_usuario(request)
+      ValidadorDePropiedad.new.validar_publicacion(id_usuario, id_publicacion)
       publicacion = repositorio_de_publicaciones.find(id_publicacion)
       status 200
       publicacion_a_json publicacion
+    rescue UsuarioInvalidoError
+      status 404
+      {mensaje: 'No existe publicación asociada a su usuario'}.to_json
     rescue NoAutorizadoError
       status 401
       {mensaje: 'No autorizado'}.to_json

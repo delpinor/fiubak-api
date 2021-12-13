@@ -26,7 +26,6 @@ Como usuario vendedor quiero administrar solo mis publicaciones/autos
     Cuando rechazo la cotización de Fiubak y publico por p2p con precio 300
     Entonces recibo un mensaje de error "No existe intención de venta asociada a su usuario"
 
-  @wip
   Escenario: 33.4 - Consultar publicación
     Dado que registro mi usuario
     Y que existe una publicación p2p del auto del otro usuario
