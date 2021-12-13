@@ -1,0 +1,465 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: FIUBAK
+  description: Documentación para el uso de la API.
+
+servers:
+  - url: https://webapi-nairobi-test.herokuapp.com
+
+
+paths:
+  "/publicaciones":
+    get:
+      security:
+        - api_token: []
+      summary: Se obtienen todas las publicaciones activas
+      responses:
+        '200':
+          description: GET /publicaciones
+          content:
+            application/json:
+              example:
+                - id: 99
+                  marca: Ford
+                  modelo: Focus
+                  anio: 2019
+                  precio: 3423.4
+                  tipo: p2p
+
+                - id: 100
+                  marca: Ford
+                  modelo: Fiesta
+                  anio: 2013
+                  precio: 3323.4
+                  tipo: fiubak
+        '401':
+          $ref: '#/components/responses/NoAutorizado'
+
+  "/publicaciones/{id}":
+    get:
+      summary: Se obtiene una publicación y sus ofertas
+      security:
+        - api_token: []
+      parameters:
+        - in: header
+          name: USR_TOKEN
+          schema:
+            type: string
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Id del usuario
+      responses:
+        '200':
+          description: GET /publicaciones
+          content:
+            application/json:
+              example:
+                - id: 99
+                  marca: Ford
+                  modelo: Focus
+                  patente: ADC-324
+                  anio: 2013
+                  precio: 3423.4
+                  ofertas:
+                    - id: 1
+                      valor: 123000
+                      nombre_comprador: Juan
+                    - id: 2
+                      valor: 123000
+                      nombre_comprador: Pedro
+        '401':
+          $ref: '#/components/responses/NoAutorizado'
+        '404':
+          $ref: '#/components/responses/NoExistente'
+
+  "/publicaciones/{id}/ofertas":
+    post:
+      summary: Permite realizar una oferta sobre una publicación
+      security:
+        - api_token: []
+      parameters:
+        - in: header
+          name: USR_TOKEN
+          schema:
+            type: string
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Id de la publicación
+      responses:
+        '201':
+          description: GET /publicaciones
+          content:
+            application/json:
+              example:
+                mensaje: Generaste la oferta 23 con un monto de $2345.4
+                valor:
+                  id: 23
+                  valor: 2345.4
+
+        '400':
+          $ref: '#/components/responses/NoRegistrado'
+        '401':
+          $ref: '#/components/responses/NoAutorizado'
+        '404':
+          $ref: '#/components/responses/NoExistente'
+
+  "/ofertas/{id}/rechazar":
+    post:
+      summary: Permite rechazar una oferta recibida por una publicación
+      security:
+        - api_token: []
+      parameters:
+        - in: header
+          name: USR_TOKEN
+          schema:
+            type: string
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Id de la oferta
+      responses:
+        '201':
+          description: Oferta OK
+          content:
+            application/json:
+              example:
+                mensaje: Oferta rechazada con exito
+
+        '401':
+          $ref: '#/components/responses/NoAutorizado'
+        '404':
+          $ref: '#/components/responses/NoExistente'
+
+  "/ofertas/{id}/aceptar":
+    post:
+      summary: Permite aceptar una oferta recibida por una publicación
+      security:
+        - api_token: []
+      parameters:
+        - in: header
+          name: USR_TOKEN
+          schema:
+            type: string
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Id de la oferta
+      responses:
+        '201':
+          description: Oferta OK
+          content:
+            application/json:
+              example:
+                mensaje: Oferta aceptada con exito
+
+        '401':
+          $ref: '#/components/responses/NoAutorizado'
+        '404':
+          $ref: '#/components/responses/NoExistente'
+
+  "/revisiones":
+    post:
+      summary: Se envía el estado del auto y su precio de lista
+      parameters:
+        - in: header
+          name: REV_TOKEN
+          schema:
+            type: string
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_intencion:
+                  type: integer
+                nivel_danio_motor:
+                  type: integer
+                  minimum: 0
+                  maximum: 3
+                nivel_danio_estetica:
+                  type: integer
+                  minimum: 0
+                  maximum: 3
+                nivel_danio_neumaticos:
+                  type: integer
+                  minimum: 0
+                  maximum: 3
+                precio_lista:
+                  type: number
+            example:
+              id_intencion: 3
+              nivel_danio_motor: 0
+              nivel_danio_estetica: 1
+              nivel_danio_neumaticos: 3
+              precio_lista: 234344.3
+      responses:
+        '201':
+          description: Revisión OK
+          content:
+            application/json:
+              example:
+                mensaje: Revisión exitosa
+        '200':
+          description: Revisión fallida
+          content:
+            application/json:
+              example:
+                mensaje: El auto no se encontraba en buen estado y no logró pasar la revisión
+
+        '401':
+          $ref: '#/components/responses/NoAutorizado'
+        '404':
+          $ref: '#/components/responses/NoExistente'
+
+
+
+  "/publicaciones/{id}/test_drives":
+    post:
+      summary: Se envía el estado del auto y su precio de lista
+      security:
+        - api_token: []
+      parameters:
+        - in: header
+          name: USR_TOKEN
+          schema:
+            type: string
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Id de la publicación
+      responses:
+        '201':
+          description: Revisión OK
+          content:
+            application/json:
+              example:
+                mensaje: Test-drive para el día de hoy contratado con éxito. Deberá abonar una suma de $200
+        '409':
+          description: No disponible
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/responses/AutoReservado'
+                  - $ref: '#/components/responses/SoloFiubak'
+              example:
+                mensaje: "Solo puede contrartar test-drive para autos de Fiubak"
+
+
+
+        '401':
+          $ref: '#/components/responses/NoAutorizado'
+        '404':
+          $ref: '#/components/responses/NoExistente'
+
+  "/aceptar_cotizacion":
+    put:
+      summary: Aceptar una cotización para un auto
+      security:
+        - api_token: []
+      parameters:
+        - in: header
+          name: USR_TOKEN
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_intencion:
+                  type: integer
+            example:
+              id_intencion: 3
+      responses:
+        '200':
+          description: POST /users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+              example:
+                mensaje: "La intención de venta fue concretada con éxito"
+        '401':
+          $ref: '#/components/responses/NoAutorizado'
+        '404':
+          $ref: '#/components/responses/NoExistente'
+
+
+  "/usuarios":
+    post:
+      summary: Registrar el usuario
+      security:
+        - api_token: []
+      parameters:
+        - in: header
+          name: USR_TOKEN
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+
+              type: object
+              properties:
+                id:
+                  type: integer
+                dni:
+                  type: integer
+                nombre:
+                  type: string
+                email:
+                  type: string
+
+            example:
+              id: 1
+              dni: 12434534
+              nombre: "juan"
+              email: "juan@gmail.com"
+      responses:
+        '201':
+          description: POST /users
+          content:
+            application/json:
+              example:
+                mensaje: "Registro exitoso bajo id: 1"
+
+  "/usuarios/{id}/intenciones_de_venta/":
+    post:
+      summary: Para registrar una nueva venta
+      security:
+        - api_token: []
+      parameters:
+        - in: header
+          name: USR_TOKEN
+          schema:
+            type: string
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Id del usuario
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                marca:
+                  type: string
+                modelo:
+                  type: string
+                anio:
+                  type: integer
+                patente:
+                  type: string
+
+            example:
+              marca: Ford
+              modelo: Focus
+              anio: 2019
+              patente: AZD-213
+      responses:
+        '201':
+          description: Retorna un mensaje y el id. la intención de la venta.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                  id:
+                    type: integer
+              example:
+                mensaje: "Intención de venta registrada bajo el nro. 1"
+                id: 1
+  "/intenciones_de_venta/{id}":
+    get:
+      summary: Para consultar el estado de la venta
+      security:
+        - api_token: []
+      parameters:
+        - in: header
+          name: USR_TOKEN
+          schema:
+            type: string
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Id del usuario
+      responses:
+        '200':
+          description: GET /users
+          content:
+            application/json:
+              example:
+                - id: 99
+                  name: juan
+                - id: 100
+                  name: juan
+
+
+
+# Descriptions of common components
+components:
+  responses:
+    NoExistente:
+      description: Recurso inexistente
+      content:
+        application/json:
+          example:
+            mensaje: "No existente"
+    NoRegistrado:
+      description: Requiere registración
+      content:
+        application/json:
+          example:
+            mensaje: "Debe registrarse"
+    NoAutorizado:
+      description: No autorizado
+      content:
+        application/json:
+          example:
+            mensaje: "No autorizado"
+    AutoReservado:
+      description: Auto reservado
+      content:
+        application/json:
+          example:
+            mensaje: "Ya existe un test-drive asociado al dia de hoy"
+    SoloFiubak:
+      description: Solo puede reservar autos Fiubak
+      content:
+        application/json:
+          example:
+            mensaje: "Solo puede contrartar test-drive para autos de Fiubak"
+            components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      in: header
+      name: API_TOKEN
