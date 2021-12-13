@@ -33,8 +33,7 @@ Como usuario vendedor quiero administrar solo mis publicaciones/autos
     Cuando consulto la publicación de ese usuario
     Entonces recibo un mensaje de error "No existe publicación asociada a su usuario"
 
-  @wip
-  Escenario: 33.4 - aceptar oferta
+  Escenario: 33.5 - aceptar oferta
     Dado que registro mi usuario
     Y que existe una publicación p2p del auto del otro usuario
     Y que dicha publicación recibe una oferta
@@ -42,7 +41,7 @@ Como usuario vendedor quiero administrar solo mis publicaciones/autos
     Entonces recibo un mensaje de error "No existe oferta asociada a una publicación vigente para su usuario"
 
   @wip
-  Escenario: 33.5 - rechazar oferta
+  Escenario: 33.6 - rechazar oferta
     Dado que registro mi usuario
     Y que existe una publicación p2p del auto del otro usuario
     Y que dicha publicación recibe una oferta

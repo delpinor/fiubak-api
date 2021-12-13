@@ -23,3 +23,18 @@ end
 Cuando('consulto el estado por la intención de venta') do
   @response = Faraday.get(consultar_intenciones_de_venta(@id_intencion), nil, header(@id_segundo_usuario))
 end
+
+Dado('que existe una publicación p2p del auto del otro usuario') do
+  step "registro un auto para vender con marca 'fiat', modelo 'uno', año 1988 y patente 'asd-457'"
+  step "se realizó la revisión sin fallas con precio de lista 100"
+  step "rechazo la cotización de Fiubak y publico por p2p con precio 200"
+end
+
+Dado('que dicha publicación recibe una oferta') do
+  step "hago una oferta por el auto publicado"
+end
+
+Cuando('intento aceptar la oferta') do
+  @response = Faraday.post(aceptar_oferta(@id_oferta), nil, header(@id_segundo_usuario))
+end
+
