@@ -51,6 +51,9 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
         mensaje: "Registro exitoso de publicacion con id: #{publicacion[:id_publicacion]}",
         valor: publicacion
       }.to_json
+    rescue TransicionEstadoAutoInvalida
+      status 409
+      {mensaje: 'El auto no esta en condiciones de ser publicado'}.to_json
     rescue UsuarioInvalidoError
       status 404
       {mensaje: 'No existe intención de venta asociada a su usuario'}.to_json

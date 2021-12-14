@@ -111,6 +111,16 @@ describe 'Publicaciones controller' do
       expect(body['mensaje']).to eq('oferta aceptada con exito')
     end
 
+    it 'Al querer publicar un estado que no esta revisado obtengo un error' do
+      datos_venta = { id_intencion_de_venta: @intencion_con_id.id,
+                      precio: 45000 }
+
+      post('/publicaciones', datos_venta.to_json, header_con_token(usuario.id))
+      expect(last_response.status).to eq 409
+      body = JSON.parse(last_response.body)
+      expect(body['mensaje']).to eq('El auto no esta en condiciones de ser publicado')
+    end
+
 
     it 'Cuando trato de aceptar una oferta inexistente obtengo un error' do
       post("/ofertas/22/aceptar", nil, header_con_token(usuario.id))
