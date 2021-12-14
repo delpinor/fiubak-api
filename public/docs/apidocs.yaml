@@ -6,6 +6,7 @@ info:
 
 servers:
   - url: https://webapi-nairobi-test.herokuapp.com
+  - url: http://0.0.0.0:3000
 
 
 paths:
@@ -310,11 +311,6 @@ paths:
       summary: Registrar el usuario
       security:
         - api_token: []
-      parameters:
-        - in: header
-          name: USR_TOKEN
-          schema:
-            type: string
       requestBody:
         content:
           application/json:

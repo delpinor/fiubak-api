@@ -1,13 +1,16 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "0.2.36",
+    "version": "1.0.0",
     "title": "FIUBAK",
     "description": "Documentación para el uso de la API."
   },
   "servers": [
     {
       "url": "https://webapi-nairobi-test.herokuapp.com"
+    },
+    {
+      "url": "http://0.0.0.0:3000"
     }
   ],
   "paths": {
@@ -476,15 +479,6 @@
         "security": [
           {
             "api_token": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "USR_TOKEN",
-            "schema": {
-              "type": "string"
-            }
           }
         ],
         "requestBody": {

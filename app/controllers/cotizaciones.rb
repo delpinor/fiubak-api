@@ -3,10 +3,15 @@ WebTemplate::App.controllers :cotizaciones, :provides => [:json] do
     begin
       token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
-      data = JSON.parse(request.body.read)
       id_usuario = obtener_token_usuario(request)
+      data = JSON.parse(request.body.read)
       ValidadorDePropiedad.new.validar_intencion_de_venta(id_usuario, data['id_intencion'])
-      cambiar_a_vendido_por_fiubak(data['id_intencion'])
+      intencion = Repo.recuperar_intencion(data['id_intencion'])
+      publicacion = intencion.concretar_por_fiubak
+      Repo.guardar_publicacion(publicacion)
+      Repo.guardar_intencion(intencion)
+      EnviadorMails.new.notificar_venta_exitosa(intencion)
+
       {mensaje: 'La intención de venta fue concretada con éxito'}.to_json
     rescue TransicionEstadoAutoInvalida
       status 409
@@ -22,7 +27,7 @@ WebTemplate::App.controllers :cotizaciones, :provides => [:json] do
       {mensaje: 'Cotizacion de auto inexistente.'}.to_json
     rescue Exception => e
       status 400
-      {mensaje: 'se produjo un error'}.to_json
+      {mensaje: "se produjo un error"}.to_json
     end
   end
 end
