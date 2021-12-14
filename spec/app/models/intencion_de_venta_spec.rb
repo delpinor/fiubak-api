@@ -42,12 +42,19 @@ describe 'Crear intencion de venta' do
     it 'Al querer pasar de estado publicado a rechazado obtengo un error' do
       @intencion_de_venta.a_publicado
       expect{@intencion_de_venta.a_rechazado}.to raise_error(TransicionEstadoAutoInvalida)
+      expect{@intencion_de_venta.revisado_y_cotizado}.to raise_error(TransicionEstadoAutoInvalida)
     end
 
-    it 'Al querer pasar de estado vendido a rechazado y publicado obtengo un error' do
+    it 'Al querer pasar de estado vendido a rechazado o publicado o revisado y cotizado obtengo un error' do
       @intencion_de_venta.concretar_por_fiubak
       expect{@intencion_de_venta.a_rechazado}.to raise_error(TransicionEstadoAutoInvalida)
       expect{@intencion_de_venta.a_publicado}.to raise_error(TransicionEstadoAutoInvalida)
+      expect{@intencion_de_venta.revisado_y_cotizado}.to raise_error(TransicionEstadoAutoInvalida)
+    end
+
+    it 'Al querer pasar desde rechazado a revisado_y_cotizado de vuelta' do
+      @intencion_de_venta.a_rechazado
+      expect{@intencion_de_venta.revisado_y_cotizado}.to raise_error(TransicionEstadoAutoInvalida)
     end
 
   end
