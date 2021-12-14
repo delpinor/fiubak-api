@@ -123,6 +123,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       ValidadorDePropiedad.new.validar_oferta(id_usuario, params[:id_oferta])
       repo_ofertas = Persistence::Repositories::RepositorioDeOfertas.new
       oferta = repo_ofertas.find(params[:id_oferta].to_i)
+      ## aca validador de monto
       repo_ofertas.destroy(oferta)
       repo_publicaciones = Persistence::Repositories::RepositorioDePublicaciones.new
       publicacion = repo_publicaciones.find(oferta.id_publicacion)

@@ -1,0 +1,2 @@
+class MontoDistintoError < StandardError
+end
