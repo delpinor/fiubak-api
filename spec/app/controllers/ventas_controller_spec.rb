@@ -18,7 +18,7 @@ describe 'Ventas controller' do
   end
 
   it 'Al intentar registrar un auto sin registrar el usuario recibo un mensaje de error' do
-    post('/usuarios/1/intenciones_de_venta', datos_auto.to_json, header_con_token(datos_usuario[:id]))
+    post('/usuarios/343/intenciones_de_venta', datos_auto.to_json, header_con_token(datos_usuario[:id]))
     body = JSON.parse(last_response.body)
     expect(body['mensaje']).to eq('Para realizar esta operacion debe registrarse')
   end

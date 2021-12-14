@@ -23,8 +23,8 @@ class ValidadorDePropiedad
     raise UsuarioInvalidoError if id_usuario != id_publicacion.usuario.id.to_s
   end
 
-  def validar_usuario(id_usuario_param, id_usuario_header)
-    raise UsuarioInvalidoError if id_usuario_param != id_usuario_header
+  def validar_usuario(id_usuario_header, id_usuario_param)
+      raise UsuarioInvalidoError if id_usuario_param != id_usuario_header and id_usuario_header != ""
   end
 
 end

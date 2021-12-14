@@ -3,10 +3,15 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
     begin
       token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
+      id_usuario = obtener_token_usuario(request)
+      ValidadorDePropiedad.new.validar_usuario(id_usuario, params[:id])
       id_venta = crear_intencion_de_venta(params[:id], request.body.read)
       status 201
       {mensaje: "Intención de venta registrada bajo el nro. #{id_venta}", id: id_venta }.to_json
-    rescue ObjectNotFound
+    rescue UsuarioInvalidoError
+      status 404
+      {mensaje: 'No hay dicha intencion de venta para su usuario'}.to_json
+    rescue UsuarioNoEncontradoError
       status 404
       {mensaje: 'Para realizar esta operacion debe registrarse'}.to_json
     rescue NoAutorizadoError
