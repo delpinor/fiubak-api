@@ -39,5 +39,10 @@ describe 'Crear intencion de venta' do
       expect(publicacion.precio).to eq(45000)
     end
 
+    it 'Al querer pasar de estado rechazado a publicado obtengo un error' do
+      @intencion_de_venta.a_rechazado
+      expect{@intencion_de_venta.a_publicado}.to raise_error(TransicionEstadoAutoInvalida)
+    end
+
   end
 end

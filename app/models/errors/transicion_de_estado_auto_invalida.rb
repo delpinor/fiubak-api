@@ -1,0 +1,2 @@
+class TransicionEstadoAutoInvalida < StandardError
+end
