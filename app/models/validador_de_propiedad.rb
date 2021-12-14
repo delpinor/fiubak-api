@@ -1,6 +1,7 @@
 require_relative '../models/errors/usuario_invalido_error'
 
 class ValidadorDePropiedad
+  USUARIO_SIN_REGISTRAR = ''.freeze
   def initialize
     @repo_intencion_venta = Persistence::Repositories::RepositorioDeIntencionesDeVenta.new
     @repo_publicaciones = Persistence::Repositories::RepositorioDePublicaciones.new
@@ -24,7 +25,7 @@ class ValidadorDePropiedad
   end
 
   def validar_usuario(id_usuario_header, id_usuario_param)
-      raise UsuarioInvalidoError if id_usuario_param != id_usuario_header and id_usuario_header != ""
+      raise UsuarioInvalidoError if id_usuario_param != id_usuario_header and id_usuario_header != USUARIO_SIN_REGISTRAR
   end
 
 end
