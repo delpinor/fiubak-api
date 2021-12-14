@@ -7,7 +7,8 @@ module HttpHelpers
     }
   end
 
-  def header_sin_token
-    { 'CONTENT_TYPE' => 'application/json' }
+  def header_sin_token(usuario_id)
+    { 'CONTENT_TYPE' => 'application/json',
+      'USR_TOKEN' => usuario_id.to_s}
   end
 end
