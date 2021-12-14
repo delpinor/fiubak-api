@@ -30,7 +30,8 @@ class IntencionDeVenta
 
   def concretar_por_fiubak
     a_vendido
-    Publicacion.new(@usuario, @auto, @precio_cotizado*COMISION_POR_VENTA, TIPOS_VENTA[:fiubak])
+    usuario_fiubak = CreadorUsuario.new.crear_usuario_fiubak
+    Publicacion.new(usuario_fiubak, @auto, @precio_cotizado*COMISION_POR_VENTA, TIPOS_VENTA[:fiubak])
   end
 
   def concretar_por_p2p(precio)
