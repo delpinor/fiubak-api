@@ -56,3 +56,13 @@ Cuando('yo rechazo la cotización de Fiubak y publico por p2p con precio {int}')
   }
   @response = Faraday.post(crear_publicaciones, body.to_json, header(@id_segundo_usuario))
 end
+
+Cuando('registro un auto de otro usuario') do
+  body = {
+    'marca': "fiat",
+    'modelo': "uno",
+    'anio': 1988,
+    'patente': "asd-457"
+  }
+  @response = Faraday.post(registrar_nueva_venta(@id_segundo_usuario), body.to_json, header(@id_primer_usuario))
+end
