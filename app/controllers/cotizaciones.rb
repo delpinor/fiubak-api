@@ -8,6 +8,9 @@ WebTemplate::App.controllers :cotizaciones, :provides => [:json] do
       ValidadorDePropiedad.new.validar_intencion_de_venta(id_usuario, data['id_intencion'])
       cambiar_a_vendido(data['id_intencion'])
       {mensaje: 'La intención de venta fue concretada con éxito'}.to_json
+    rescue TransicionEstadoAutoInvalida
+      status 409
+      {mensaje: 'El auto no esta en condiciones de ser publicado'}.to_json
     rescue UsuarioInvalidoError
       status 404
       {mensaje: 'No existe intención de venta asociada a su usuario'}.to_json

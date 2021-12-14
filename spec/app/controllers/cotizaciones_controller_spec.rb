@@ -37,4 +37,11 @@ describe 'Cotizacones controller' do
     @response = put('/aceptar_cotizacion', datos.to_json, header_con_token(usuario.id))
     expect(last_response.status).to eq(404)
   end
+
+  it 'se lanza un error si el auto no estaba listo para aceptar cotizacion' do
+    datos = {id_usuario: usuario.id, id_intencion: @intencion_con_id.id}
+    @response = put('/aceptar_cotizacion', datos.to_json, header_con_token(usuario.id))
+    body = JSON.parse(last_response.body)
+    expect(body['mensaje']).to eq("El auto no esta en condiciones de ser publicado")
+  end
 end
