@@ -33,6 +33,7 @@ Como usuario vendedor quiero administrar solo mis publicaciones/autos
 
   Escenario: 33.5 - aceptar oferta
     Dado que registro mi usuario
+    Y se recibe una revision sin fallas
     Y que existe una publicación p2p del auto del otro usuario
     Y que dicha publicación recibe una oferta
     Cuando intento aceptar la oferta
@@ -40,6 +41,7 @@ Como usuario vendedor quiero administrar solo mis publicaciones/autos
 
   Escenario: 33.6 - rechazar oferta
     Dado que registro mi usuario
+    Y se recibe una revision sin fallas
     Y que existe una publicación p2p del auto del otro usuario
     Y que dicha publicación recibe una oferta
     Cuando intento rechazar la oferta

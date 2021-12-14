@@ -7,7 +7,8 @@ class IntencionDeVenta
     :vendido => "vendido",
     :revisado_y_cotizado => "revisado y cotizado",
     :publicado => "publicado",
-    :rechazado => "rechazado"
+    :rechazado => "rechazado",
+    :en_revision => "en revisión"
   }.freeze
 
   TIPOS_VENTA = {
@@ -40,21 +41,22 @@ class IntencionDeVenta
   end
 
   def a_vendido
+    raise TransicionEstadoAutoInvalida if ![ESTADOS[:revisado_y_cotizado], ESTADOS[:publicado]].include? @estado
     @estado = ESTADOS[:vendido]
   end
 
   def a_publicado
-    raise TransicionEstadoAutoInvalida if [ESTADOS[:publicado], ESTADOS[:vendido]].include? @estado
+    raise TransicionEstadoAutoInvalida if ![ESTADOS[:revisado_y_cotizado], ESTADOS[:rechazado]].include? @estado
     @estado = ESTADOS[:publicado]
   end
 
   def revisado_y_cotizado
-    raise TransicionEstadoAutoInvalida if [ESTADOS[:vendido], ESTADOS[:publicado], ESTADOS[:rechazado]].include? @estado
+    raise TransicionEstadoAutoInvalida if @estado != ESTADOS[:en_revision]
     @estado = ESTADOS[:revisado_y_cotizado]
   end
 
   def a_rechazado
-    raise TransicionEstadoAutoInvalida if [ESTADOS[:publicado], ESTADOS[:vendido], ESTADOS[:a_rechazado]].include? @estado
+    raise TransicionEstadoAutoInvalida if @estado != ESTADOS[:en_revision]
     @estado = ESTADOS[:rechazado]
   end
 

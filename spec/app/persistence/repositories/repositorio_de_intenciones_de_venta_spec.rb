@@ -7,7 +7,7 @@ describe Persistence::Repositories::RepositorioDeIntencionesDeVenta do
   let(:repo_publicaciones) { Persistence::Repositories::RepositorioDePublicaciones.new }
   let(:auto) { Auto.new("fiat", 'uno', 1999, "MFS222") }
   let(:usuario) { Usuario.new(12323423, 'Jhon', 'jhon@gmail.com', 3002) }
-  let(:intencion_de_venta) { IntencionDeVenta.new(auto, usuario, "en revision", 1) }
+  let(:intencion_de_venta) { IntencionDeVenta.new(auto, usuario, "en revisión", 1) }
 
   before do
     repo_intenciones_de_venta.delete_all
@@ -57,7 +57,7 @@ describe Persistence::Repositories::RepositorioDeIntencionesDeVenta do
 
     it 'Deber encontrar por el id y poder mapear el estado' do
       intencion_de_venta = repo_intenciones_de_venta.find(@id_intencion_de_venta)
-      expect(intencion_de_venta.estado).to eq("en revision")
+      expect(intencion_de_venta.estado).to eq("en revisión")
     end
 
     it 'Deber encontrar por el id y poder mapear el auto' do

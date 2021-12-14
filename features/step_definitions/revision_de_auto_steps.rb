@@ -27,7 +27,7 @@ Entonces('recibo un mail con la cotizacion por mi auto') do
 end
 
 Entonces('el estado de mi auto sera ‘revisado y cotizado’') do
-  step 'se recibe una revision sin fallas'
+  #step 'se recibe una revision sin fallas'
   @response = Faraday.get(consultar_intenciones_de_venta(@id_intencion), nil, header(@id_usuario))
   data = JSON.parse(@response.body)
   expect(data['valor']['estado']).to eq('revisado y cotizado')

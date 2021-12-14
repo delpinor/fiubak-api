@@ -52,10 +52,5 @@ describe 'Crear intencion de venta' do
       expect{@intencion_de_venta.revisado_y_cotizado}.to raise_error(TransicionEstadoAutoInvalida)
     end
 
-    it 'Al querer pasar desde rechazado a revisado_y_cotizado de vuelta' do
-      @intencion_de_venta.a_rechazado
-      expect{@intencion_de_venta.revisado_y_cotizado}.to raise_error(TransicionEstadoAutoInvalida)
-    end
-
   end
 end

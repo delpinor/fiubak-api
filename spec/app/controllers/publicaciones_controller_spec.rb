@@ -4,6 +4,7 @@ describe 'Publicaciones controller' do
   let(:usuario){Usuario.new(99999, 'test', 'test@gmail.com', 9999)}
   let(:usuario_comprador){Usuario.new(999999, 'test2', 'test2@gmail.com', 99999)}
   let(:auto){Auto.new('fiat', 'palio', 1988, 'dfdsf23')}
+  let(:auto_2){Auto.new('fiat', 'palio', 1988, 'dfdsf23')}
 
   before(:each) do
     Persistence::Repositories::RepositorioDeIntencionesDeVenta.new.delete_all
@@ -11,10 +12,13 @@ describe 'Publicaciones controller' do
     Persistence::Repositories::RepositorioDeUsuarios.new.delete_all
     Persistence::Repositories::RepositorioDeAutos.new.delete_all
     Persistence::Repositories::RepositorioDeTestDrives.new.delete_all
-    intencion_venta = IntencionDeVenta.new(auto, usuario, 'en revisión')
     Persistence::Repositories::RepositorioDeUsuarios.new.save(usuario)
     Persistence::Repositories::RepositorioDeAutos.new.save(auto)
+    Persistence::Repositories::RepositorioDeAutos.new.save(auto_2)
+    intencion_venta = IntencionDeVenta.new(auto, usuario, 'en revisión')
+    intencion_venta_revisada = IntencionDeVenta.new(auto_2, usuario, 'revisado y cotizado')
     @intencion_con_id = Persistence::Repositories::RepositorioDeIntencionesDeVenta.new.save(intencion_venta)
+    @intencion_con_id_revisada = Persistence::Repositories::RepositorioDeIntencionesDeVenta.new.save(intencion_venta_revisada)
     @usuario_comprador_con_id = Persistence::Repositories::RepositorioDeUsuarios.new.save(usuario_comprador)
     @publicacion = Publicacion.new(usuario, auto, 75000, "Fiubak", 1)
   end
@@ -27,7 +31,7 @@ describe 'Publicaciones controller' do
   end
 
   it 'Cuando el usuario confirma la venta y consulto las busquedas obtengo una nueva publicacion' do
-    publicacion = @intencion_con_id.concretar_por_fiubak
+    publicacion = @intencion_con_id_revisada.concretar_por_fiubak
     Persistence::Repositories::RepositorioDePublicaciones.new.save(publicacion)
 
     get('/publicaciones', nil, header_con_token(usuario.id))
@@ -42,7 +46,7 @@ describe 'Publicaciones controller' do
 
 
   it 'Cuando publico por p2p obtengo el id de la publicacion, el precio y el id de la intencion de venta' do
-    datos = { id_intencion_de_venta: @intencion_con_id.id,
+    datos = { id_intencion_de_venta: @intencion_con_id_revisada.id,
              precio: 45000 }
 
     post('/publicaciones', datos.to_json, header_con_token(usuario.id))
@@ -66,7 +70,7 @@ describe 'Publicaciones controller' do
     end
 
     it 'Cuando envio una oferta, espero un mensaje de oferta rechazada con exito' do
-      datos_venta = { id_intencion_de_venta: @intencion_con_id.id,
+      datos_venta = { id_intencion_de_venta: @intencion_con_id_revisada.id,
                       precio: 45000 }
 
       post('/publicaciones', datos_venta.to_json, header_con_token(usuario.id))
@@ -87,7 +91,7 @@ describe 'Publicaciones controller' do
     end
 
     it 'Cuando envio una oferta y luego acepto, espero un mensaje de oferta aceptada con exito' do
-      datos_venta = { id_intencion_de_venta: @intencion_con_id.id,
+      datos_venta = { id_intencion_de_venta: @intencion_con_id_revisada.id,
                       precio: 45000 }
 
       post('/publicaciones', datos_venta.to_json, header_con_token(usuario.id))
@@ -116,9 +120,8 @@ describe 'Publicaciones controller' do
     end
 
     it 'Cuando envio una oferta y luego acepto, al consultar las publicaciones la misma no debe estar presente' do
-      datos_venta = { id_intencion_de_venta: @intencion_con_id.id,
+      datos_venta = { id_intencion_de_venta: @intencion_con_id_revisada.id,
                       precio: 45000 }
-
       post('/publicaciones', datos_venta.to_json, header_con_token(usuario.id))
       expect(last_response.status).to eq 201
       body = JSON.parse(last_response.body)
