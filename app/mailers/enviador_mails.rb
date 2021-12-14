@@ -145,9 +145,11 @@ class EnviadorMails
 
 
   def enviar_mail(email, asunto, cuerpo)
-    WebTemplate::App.email(:from => 'rdelpino@fi.uba.ar',
-                           :to => email,
-                           :subject => asunto,
-                           :body => cuerpo)
+    if ENV['MAIL'] == 'SI'
+      WebTemplate::App.email(:from => 'rdelpino@fi.uba.ar',
+                             :to => email,
+                             :subject => asunto,
+                             :body => cuerpo)
+    end
   end
 end
