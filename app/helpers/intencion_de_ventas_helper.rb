@@ -28,7 +28,7 @@ module WebTemplate
         { estado: intencion_de_venta.estado, id: intencion_de_venta.id }
       end
 
-      def cambiar_a_vendido(id_intencion)
+      def cambiar_a_vendido_por_fiubak(id_intencion)
         intencion_de_venta = repositorio_de_intencion_de_ventas.find(id_intencion)
         publicacion = intencion_de_venta.concretar_por_fiubak
         repositorio_de_intencion_de_ventas.save(intencion_de_venta)

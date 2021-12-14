@@ -6,7 +6,7 @@ WebTemplate::App.controllers :cotizaciones, :provides => [:json] do
       data = JSON.parse(request.body.read)
       id_usuario = obtener_token_usuario(request)
       ValidadorDePropiedad.new.validar_intencion_de_venta(id_usuario, data['id_intencion'])
-      cambiar_a_vendido(data['id_intencion'])
+      cambiar_a_vendido_por_fiubak(data['id_intencion'])
       {mensaje: 'La intención de venta fue concretada con éxito'}.to_json
     rescue TransicionEstadoAutoInvalida
       status 409

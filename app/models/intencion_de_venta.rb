@@ -30,6 +30,7 @@ class IntencionDeVenta
   end
 
   def concretar_por_fiubak
+    raise TransicionEstadoAutoInvalida if [ESTADOS[:publicado]].include? @estado
     a_vendido
     usuario_fiubak = CreadorUsuario.new.crear_usuario_fiubak
     Publicacion.new(usuario_fiubak, @auto, @precio_cotizado*COMISION_POR_VENTA, TIPOS_VENTA[:fiubak])
