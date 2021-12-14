@@ -43,6 +43,7 @@ class IntencionDeVenta
   end
 
   def a_publicado
+    raise TransicionEstadoAutoInvalida if [ESTADOS[:publicado], ESTADOS[:vendido]].include? @estado
     @estado = ESTADOS[:publicado]
   end
 
@@ -51,7 +52,7 @@ class IntencionDeVenta
   end
 
   def a_rechazado
-    raise TransicionEstadoAutoInvalida if @estado == ESTADOS[:publicado]
+    raise TransicionEstadoAutoInvalida if [ESTADOS[:publicado], ESTADOS[:vendido], ESTADOS[:a_rechazado]].include? @estado
     @estado = ESTADOS[:rechazado]
   end
 
