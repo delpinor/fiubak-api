@@ -47,7 +47,7 @@ class IntencionDeVenta
   end
 
   def a_publicado
-    raise TransicionEstadoAutoInvalida if ![ESTADOS[:revisado_y_cotizado], ESTADOS[:rechazado]].include? @estado
+    raise TransicionEstadoAutoInvalida if ![ESTADOS[:revisado_y_cotizado]].include? @estado
     @estado = ESTADOS[:publicado]
   end
 
