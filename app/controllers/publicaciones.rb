@@ -6,7 +6,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
     begin
       token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
-      publicaciones = repositorio_de_publicaciones.all
+      publicaciones = Repo.recuperar_publicaciones
       status 200
       publicaciones_a_json publicaciones
     rescue NoAutorizadoError
@@ -22,7 +22,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       id_publicacion = params[:id].to_i
       id_usuario = obtener_token_usuario(request)
       ValidadorDePropiedad.new.validar_publicacion(id_usuario, id_publicacion)
-      publicacion = repositorio_de_publicaciones.find(id_publicacion)
+      publicacion = Repo.recuperar_publicacion(id_publicacion)
       status 200
       publicacion_a_json publicacion
     rescue UsuarioInvalidoError
@@ -41,15 +41,22 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
     begin
       token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
-      req = request.body.read
-      data = JSON.parse(req)
+      data = JSON.parse(request.body.read)
       id_usuario = obtener_token_usuario(request)
-      ValidadorDePropiedad.new.validar_intencion_de_venta(id_usuario, data['id_intencion_de_venta'])
-      publicacion = publicar_p2p(req)
+      precio_publicacion = data['precio']
+      id_intencion = data['id_intencion_de_venta']
+      ValidadorDePropiedad.new.validar_intencion_de_venta(id_usuario, id_intencion)
+
+      intencion = Repo.recuperar_intencion(id_intencion)
+      publicacion = intencion.concretar_por_p2p(precio_publicacion)
+      Repo.guardar_intencion(intencion)
+      publicacion_con_id = Repo.guardar_publicacion(publicacion)
+      pub_hash = publicacion_a_hash(publicacion_con_id, intencion.id)
+
       status 201
       {
-        mensaje: "Registro exitoso de publicacion con id: #{publicacion[:id_publicacion]}",
-        valor: publicacion
+        mensaje: "Registro exitoso de publicacion con id: #{publicacion_con_id.id}",
+        valor: pub_hash
       }.to_json
     rescue TransicionEstadoAutoInvalida
       status 409

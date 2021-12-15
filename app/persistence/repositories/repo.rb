@@ -11,6 +11,10 @@ class Repo
     publicaciones.find(publicacion)
   end
 
+  def self.recuperar_publicaciones
+    publicaciones.all
+  end
+
   def self.guardar_publicacion(publicacion)
     publicaciones.save(publicacion)
   end

@@ -19,16 +19,11 @@ module WebTemplate
         Persistence::Repositories::RepositorioDeTestDrives.new
       end
 
-      def publicar_p2p(data_json)
-        data = JSON.parse(data_json)
-        intencion_de_venta = repositorio_de_intencion_de_ventas.find(data['id_intencion_de_venta'])
-        publicacion = intencion_de_venta.concretar_por_p2p(data['precio'])
-        repositorio_de_intencion_de_ventas.save(intencion_de_venta)
-        publicacion_creada = repositorio_de_publicaciones.save(publicacion)
+      def publicacion_a_hash(publicacion, id_intencion)
         {
-          id_publicacion: publicacion_creada.id,
-          precio: publicacion_creada.precio,
-          id_intencion_de_venta: intencion_de_venta.id
+          id_publicacion: publicacion.id,
+          precio: publicacion.precio,
+          id_intencion_de_venta: id_intencion
         }
       end
 
