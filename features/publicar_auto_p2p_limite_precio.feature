@@ -1,6 +1,5 @@
 # language: es
 
-@wip
 Característica: US015.1 - Publicar auto p2p con precio mayor a la cotización
 
 Como usuario vendedor quiero publicar mi auto a un precio que quiero para venta p2p a un precio mayor al cotizado
@@ -15,9 +14,9 @@ Como usuario vendedor quiero publicar mi auto a un precio que quiero para venta 
     Entonces veo el auto publicado con id correspondiente para venta a un valor de 200
 
   Escenario: US015.1.2 - Con precio menor a la cotización
-    Cuando rechazo la cotización de Fiubak y publico por p2p con precio 149
-    Entonces recibo un mensaje 'El precio de publicación debe ser mayor al de cotización'
+    Cuando rechazo la cotización de Fiubak y publico por p2p con un precio de 99
+    Entonces recibo un mensaje de error al crear la publicacion 'El precio de publicación debe ser mayor al de cotización'
 
   Escenario: US015.1.3 - Con precio igual a la cotización
-    Cuando rechazo la cotización de Fiubak y publico por p2p con precio 150
-    Entonces recibo un mensaje 'El precio de publicación debe ser mayor al de cotización'
+    Cuando rechazo la cotización de Fiubak y publico por p2p con un precio de 100
+    Entonces recibo un mensaje de error al crear la publicacion 'El precio de publicación debe ser mayor al de cotización'
