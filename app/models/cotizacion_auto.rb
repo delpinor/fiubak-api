@@ -2,6 +2,7 @@ class CotizacionAuto
   def initialize(precio_lista)
     @partes = []
     @precio_lista = precio_lista
+    validar_cotizacion
   end
 
   def agregar_parte(parte)
@@ -20,4 +21,9 @@ class CotizacionAuto
     @precio_lista * (1 - total_pct_descuento)
   end
 
+  private
+
+  def validar_cotizacion
+    raise PrecioNegativoError if @precio_lista < 0
+  end
 end

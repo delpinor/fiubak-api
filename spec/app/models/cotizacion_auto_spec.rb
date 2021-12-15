@@ -4,6 +4,10 @@ describe 'Revision de auto' do
 
   let(:cotizacion){CotizacionAuto.new(200000)}
 
+  it 'El precio de lista no puede ser negativo sino se lanza un error' do
+    expect { CotizacionAuto.new(-1) }.to raise_error(PrecioNegativoError)
+  end
+
   it 'Dado que el auto no tiene fallas el precio es de lista' do
     cotizacion.agregar_parte(ParteNeumaticos.new(SinDanio.new))
     cotizacion.agregar_parte(ParteMotor.new(SinDanio.new))
