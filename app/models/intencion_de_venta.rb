@@ -22,7 +22,6 @@ class IntencionDeVenta
     @estado = estado
     @id = id
     @precio_cotizado = 0
-    validar_intencion_de_venta
   end
 
   def self.crear_en_revision(auto, usuario)
@@ -30,6 +29,7 @@ class IntencionDeVenta
   end
   
   def set_valor_cotizado(precio)
+    raise PrecioNegativoError if precio < 0
     @precio_cotizado = precio
   end
 
@@ -64,11 +64,5 @@ class IntencionDeVenta
   def a_rechazado
     raise TransicionEstadoAutoInvalida if @estado != ESTADOS[:en_revision]
     @estado = ESTADOS[:rechazado]
-  end
-
-  def validar_intencion_de_venta
-    # TODO: validar tipos de estado
-    # todo validar precio que no sea negativo (y no sea decimal)
-    nil
   end
 end

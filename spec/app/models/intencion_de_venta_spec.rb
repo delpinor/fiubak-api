@@ -8,6 +8,11 @@ describe 'Crear intencion de venta' do
       @intencion_de_venta = IntencionDeVenta.new(@auto, @usuario, "revisado y cotizado", 1)
       @intencion_de_venta.set_valor_cotizado(30000)
     end
+
+    it 'El precio de cotizacion no puede ser negativo' do
+      expect { @intencion_de_venta.set_valor_cotizado(-1) }.to raise_error(PrecioNegativoError)
+    end
+
     it 'Se crea con estado' do
       expect(@intencion_de_venta.estado).to eq "revisado y cotizado"
     end
