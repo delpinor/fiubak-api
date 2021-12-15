@@ -5,9 +5,6 @@ Cuando('hago una oferta por el auto publicado con un monto distinto') do
     'id_usuario': 1
   }
   @response = Faraday.post(registrar_nueva_oferta(@ids[0]), body.to_json, header(@id_usuario))
-  data = JSON.parse(@response.body)
-  @id_oferta = data['valor']['id']
-  @mensaje = data['mensaje']
 end
 
 Dado('veo el auto publicado para venta') do

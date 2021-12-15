@@ -16,10 +16,8 @@ Como usuario comprador quiero comprar un auto de Fiubak
     Entonces recibo un mensaje "La intención de venta fue concretada con éxito"
     Y la publicacion es dada de baja
 
-  @wip
   Escenario: 39.2 - Compra de auto a Fiubak fallida por monto
 
     Cuando hago una oferta por el auto publicado con un monto distinto
-    #Y se acepta la oferta
     Entonces recibo un mensaje de error "El monto debe ser igual al de la publicacion"
 
