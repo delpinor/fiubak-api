@@ -24,7 +24,11 @@ class EnviadorMails
   def notificar_oferta(publicacion, oferta, usuario_ofertador)
     email = publicacion.usuario.email
 
-    enviar_mail(email, 'Oferta Recibida', cuerpo_oferta(publicacion.id, oferta.id, oferta.valor, usuario_ofertador.id))
+    if publicacion.tipo == 'Fiubak'
+      enviar_mail(email, 'Auto vendido', cuerpo_comprar_fiubak(publicacion.id, oferta.valor, usuario_ofertador.nombre))
+    else
+      enviar_mail(email, 'Oferta Recibida', cuerpo_oferta(publicacion.id, oferta.id, oferta.valor, usuario_ofertador.nombre))
+    end
   end
 
   def notificar_rechazo(id_oferta, auto, precio, usuario)
@@ -128,11 +132,11 @@ class EnviadorMails
     titulo + cuerpo + pie + saludos
   end
 
-  def cuerpo_oferta(id_publicacion, id_oferta, precio, id_usuario)
+  def cuerpo_oferta(id_publicacion, id_oferta, precio, usuario_nombre)
     titulo = "FIUBAK\n\n"
     cuerpo = "Le notificamos que su publicación con id: #{id_publicacion} " + "\n" \
              "fue ofertada por un valor de pesos($): #{precio}" + "\n" \
-             "por el usuario con id: #{id_usuario}" + "\n"
+             "por el usuario de nombre: #{usuario_nombre}" + "\n"
 
     pie = 'Si desea aceptar la oferta, en el bot debe ingresar:' + "\n" \
           "/aceptar_oferta #{id_oferta}" + "\n" + "\n"
@@ -141,6 +145,15 @@ class EnviadorMails
               'Equipo FIUBAK'
 
     titulo + cuerpo + pie + saludos
+  end
+
+  def cuerpo_comprar_fiubak(id_publicacion, precio, usuario_nombre)
+    titulo = "FIUBAK\n\n"
+    cuerpo = "Le notificamos que su publicación con id: #{id_publicacion} " + "\n" \
+             "fue comprada por el precio publicado de ($): #{precio}" + "\n" \
+             "por el usuario de nombre: #{usuario_nombre}" + "\n"
+
+    titulo + cuerpo
   end
 
 

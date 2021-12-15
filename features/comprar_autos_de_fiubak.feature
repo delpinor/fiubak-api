@@ -13,7 +13,7 @@ Como usuario comprador quiero comprar un auto de Fiubak
   Escenario: 39.1 - Compra de auto a Fiubak
 
     Cuando hago una oferta por el auto publicado con el monto exacto
-    Entonces recibo un mensaje "La intención de venta fue concretada con éxito"
+    Entonces recibo un mensaje "oferta aceptada con exito"
     Y la publicacion es dada de baja
 
   Escenario: 39.2 - Compra de auto a Fiubak fallida por monto

@@ -87,8 +87,10 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       usuario = Repo.recuperar_usuario(data[:id_usuario])
       oferta = Oferta.new(usuario, data[:valor], nil, params[:id])
       oferta_con_id = Repo.guardar_oferta(oferta)
+      if publicacion.tipo == 'Fiubak'
+        Repo.eliminar_publicacion(publicacion)
+      end
       EnviadorMails.new.notificar_oferta(publicacion, oferta, usuario)
-
       status 201
       nueva_oferta_a_json oferta_con_id
     rescue NoAutorizadoError
@@ -134,7 +136,6 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       id_usuario = obtener_token_usuario(request)
       ValidadorDePropiedad.new.validar_oferta(id_usuario, params[:id_oferta])
       oferta = Repo.recuperar_oferta(params[:id_oferta].to_i)
-      ## aca validador de monto
       Repo.eliminar_oferta(oferta)
       publicacion = Repo.recuperar_publicacion(oferta.id_publicacion)
       intencion = Repo.recuperar_intencion_por_auto(publicacion.auto.id)
