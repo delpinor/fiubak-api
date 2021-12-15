@@ -12,6 +12,9 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
       intencion_con_id = Repo.guardar_intencion(intencion)
       status 201
       {mensaje: "Intención de venta registrada bajo el nro. #{intencion_con_id.id}", id: intencion_con_id.id }.to_json
+    rescue PatenteYaRegistradaError
+      status 409
+      {mensaje: 'La patente ya se encuentra registrada en FIUBAK'}.to_json
     rescue UsuarioInvalidoError
       status 404
       {mensaje: 'No hay dicha intencion de venta para su usuario'}.to_json

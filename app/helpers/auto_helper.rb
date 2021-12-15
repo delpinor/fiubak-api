@@ -4,7 +4,7 @@ module WebTemplate
   class App
     module AutoHelper
       def parsear_auto(data)
-        Auto.new(data['marca'], data['modelo'], data['anio'].to_i, data['patente'])
+        CreadorAuto.new.crear_auto(data['marca'], data['modelo'], data['anio'].to_i, data['patente'])
       end
     end
     helpers AutoHelper

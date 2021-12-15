@@ -9,7 +9,7 @@ end
 
 Dado('existe una publicacion p2p con valor {int}') do |precio|
   step 'que soy usuario vendedor'
-  step 'registro un auto para vender con marca "fiat", modelo "uno", año 1988 y patente "asd-457"'
+  step 'registro un auto para vender con marca "fiat", modelo "uno", año 1988 y patente "xd-457"'
   step 'se realizó la revisión sin fallas con precio de lista 100'
   step "rechazo la cotización de Fiubak y publico por p2p con precio #{precio}"
 end

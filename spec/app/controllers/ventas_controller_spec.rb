@@ -23,6 +23,14 @@ describe 'Ventas controller' do
     expect(body['mensaje']).to eq('Para realizar esta operacion debe registrarse')
   end
 
+  it 'Al intentar registrar una misma patente dos veces recibo un mensaje de error' do
+    post('/usuarios', datos_usuario.to_json, header_con_token(datos_usuario[:id]))
+    post('/usuarios/343/intenciones_de_venta', datos_auto.to_json, header_con_token(datos_usuario[:id]))
+    post('/usuarios/343/intenciones_de_venta', datos_auto.to_json, header_con_token(datos_usuario[:id]))
+    body = JSON.parse(last_response.body)
+    expect(body['mensaje']).to eq('La patente ya se encuentra registrada en FIUBAK')
+  end
+
   it 'cuando creamos 2 intenciones de venta la respuesta es exitosa' do
     post('/usuarios', datos_usuario_2.to_json, header_con_token(datos_usuario_2[:id]))
     post('/usuarios', datos_usuario.to_json, header_con_token(datos_usuario[:id]))
