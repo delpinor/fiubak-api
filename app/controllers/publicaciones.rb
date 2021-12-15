@@ -58,6 +58,9 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
         mensaje: "Registro exitoso de publicacion con id: #{publicacion_con_id.id}",
         valor: pub_hash
       }.to_json
+    rescue PrecioDePublicacionInvalido
+      status 409
+      {mensaje: 'El precio de publicación debe ser mayor al de cotización'}.to_json
     rescue TransicionEstadoAutoInvalida
       status 409
       {mensaje: 'El auto no esta en condiciones de ser publicado'}.to_json

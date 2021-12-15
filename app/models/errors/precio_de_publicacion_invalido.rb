@@ -1,0 +1,2 @@
+class PrecioDePublicacionInvalido < StandardError
+end
