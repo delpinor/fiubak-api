@@ -4,14 +4,19 @@ WebTemplate::App.controllers :revisiones, :provides => [:json] do
       token = obtener_token_rev(request)
       ValidadorDeToken.new.validar_para_revision(token)
       data = JSON.parse(request.body.read)
-      procesar_revision(data)
+      intencion = Repo.recuperar_intencion(data['id_intencion'].to_i)
+      cotizacion = parsear_cotizacion(data)
+      intencion.set_valor_cotizado(cotizacion.valor_cotizado)
+      intencion.revisado_y_cotizado
+      Repo.guardar_intencion(intencion)
+      EnviadorMails.new.notificar_revision(cotizacion, intencion)
       status 201
       {mensaje: 'Revisión exitosa'}.to_json
     rescue CotizacionFallida
-      intencion = repositorio_de_intencion_de_ventas.find(data['id_intencion'].to_i)
+      intencion = Repo.recuperar_intencion(data['id_intencion'].to_i)
       intencion.a_rechazado
-      repositorio_de_intencion_de_ventas.save(intencion)
-      notificar_rechazo_cotizacion_por_email(intencion)
+      Repo.guardar_intencion(intencion)
+      EnviadorMails.new.notificar_revision_desaprobada(intencion)
       status 200
       {mensaje: 'El auto no se encontraba en buen estado y no logró pasar la revisión'}.to_json
     rescue NoAutorizadoError

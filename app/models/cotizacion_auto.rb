@@ -1,7 +1,6 @@
 class CotizacionAuto
-  def initialize(auto, precio_lista)
+  def initialize(precio_lista)
     @partes = []
-    @auto = auto
     @precio_lista = precio_lista
   end
 
