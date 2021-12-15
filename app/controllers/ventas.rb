@@ -5,9 +5,13 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
       ValidadorDeToken.new.validar_para_bot(token)
       id_usuario = obtener_token_usuario(request)
       ValidadorDePropiedad.new.validar_usuario(id_usuario, params[:id])
-      id_venta = crear_intencion_de_venta(params[:id], request.body.read)
+      usuario = Repo.recuperar_usuario(params[:id])
+      auto = parsear_auto(JSON.parse(request.body.read))
+      Repo.guardar_auto(auto)
+      intencion = IntencionDeVenta.crear_en_revision(auto, usuario)
+      intencion_con_id = Repo.guardar_intencion(intencion)
       status 201
-      {mensaje: "Intención de venta registrada bajo el nro. #{id_venta}", id: id_venta }.to_json
+      {mensaje: "Intención de venta registrada bajo el nro. #{intencion_con_id.id}", id: intencion_con_id.id }.to_json
     rescue UsuarioInvalidoError
       status 404
       {mensaje: 'No hay dicha intencion de venta para su usuario'}.to_json
@@ -26,9 +30,10 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
       ValidadorDeToken.new.validar_para_bot(token)
       id_usuario = obtener_token_usuario(request)
       ValidadorDePropiedad.new.validar_intencion_de_venta(id_usuario, params[:id])
-      intencion_de_venta_buscada = recuperar_intencion_de_venta(params[:id])
+      intencion = Repo.recuperar_intencion(params[:id])
+      intencion_hash = intencion_a_hash(intencion)
       status 200
-      {mensaje: 'intencion de venta recuperadas con exito', valor: intencion_de_venta_buscada }.to_json
+      {mensaje: 'intencion de venta recuperadas con exito', valor: intencion_hash}.to_json
     rescue UsuarioInvalidoError
       status 404
       {mensaje: 'No existe intención de venta asociada a su usuario'}.to_json

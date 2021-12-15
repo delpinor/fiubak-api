@@ -28,11 +28,11 @@ module WebTemplate
 
     post '/reset', :provides => [:js] do
       if ENV['ENABLE_RESET'] == 'true'
-        repositorio_de_autos.delete_all
-        repositorio_de_usuarios.delete_all
-        repositorio_de_intencion_de_ventas.delete_all
-        repositorio_de_publicaciones.delete_all
-        repositorio_de_test_drives.delete_all
+        Repo.autos.delete_all
+        Repo.usuarios.delete_all
+        Repo.intenciones.delete_all
+        Repo.publicaciones.delete_all
+        Repo.test_drives.delete_all
 
         status 200
         {message: 'reset ok'}.to_json

@@ -3,22 +3,6 @@
 module WebTemplate
   class App
     module PublicacionesHelper
-      def repositorio_de_publicaciones
-        Persistence::Repositories::RepositorioDePublicaciones.new
-      end
-
-      def repositorio_de_ofertas
-        Persistence::Repositories::RepositorioDeOfertas.new
-      end
-
-      def repositorio_de_intencion_de_ventas
-        Persistence::Repositories::RepositorioDeIntencionesDeVenta.new
-      end
-
-      def repositorio_de_test_drives
-        Persistence::Repositories::RepositorioDeTestDrives.new
-      end
-
       def publicacion_a_hash(publicacion, id_intencion)
         {
           id_publicacion: publicacion.id,
@@ -40,11 +24,6 @@ module WebTemplate
       def oferta_params
         @body ||= request.body.read
         JSON.parse(@body).symbolize_keys
-      end
-
-      def obtener_publicaciones
-        publicaciones = repositorio_de_publicaciones.all
-        { estado: intencion_de_venta.estado, id: intencion_de_venta.id }
       end
 
       def publicaciones_a_json(publicaciones)

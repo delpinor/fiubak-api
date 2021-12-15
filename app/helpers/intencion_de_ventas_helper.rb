@@ -3,29 +3,8 @@
 module WebTemplate
   class App
     module IntencionDeVentaHelper
-      def repositorio_de_usuarios
-        Persistence::Repositories::RepositorioDeUsuarios.new
-      end
-
-      def repositorio_de_intencion_de_ventas
-        Persistence::Repositories::RepositorioDeIntencionesDeVenta.new
-      end
-
-      def repositorio_de_publicaciones
-        Persistence::Repositories::RepositorioDePublicaciones.new
-      end
-
-      def crear_intencion_de_venta(id_usuario, data)
-        usuario = repositorio_de_usuarios.find(id_usuario.to_i)
-        auto = crear_auto(data)
-        intencion_venta = IntencionDeVenta.new(auto, usuario, 'en revisión')
-        intencion_de_venta_con_id = repositorio_de_intencion_de_ventas.save(intencion_venta)
-        intencion_de_venta_con_id.id.to_i
-      end
-
-      def recuperar_intencion_de_venta(id_intencion_de_venta)
-        intencion_de_venta = repositorio_de_intencion_de_ventas.find(id_intencion_de_venta)
-        { estado: intencion_de_venta.estado, id: intencion_de_venta.id }
+      def intencion_a_hash(intencion)
+        { estado: intencion.estado, id: intencion.id }
       end
     end
 

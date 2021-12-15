@@ -159,7 +159,7 @@ class EnviadorMails
 
   def enviar_mail(email, asunto, cuerpo)
     if ENV['MAIL'] == 'SI'
-      WebTemplate::App.email(:from => 'rdelpino@fi.uba.ar',
+      WebTemplate::App.email(:from => ENV['SENDGRID_USER'],
                              :to => email,
                              :subject => asunto,
                              :body => cuerpo)
