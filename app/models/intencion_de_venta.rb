@@ -37,6 +37,7 @@ class IntencionDeVenta
   end
 
   def concretar_por_p2p(precio)
+    raise PrecioDePublicacionInvalido if precio <= @precio_cotizado
     a_publicado
     Publicacion.new(@usuario, @auto, precio, TIPOS_VENTA[:peer_to_peer])
   end
