@@ -17,5 +17,9 @@ describe 'Crear oferta' do
       expect(@oferta.valor).to eq 75000
     end
 
+    it 'No se puede crear una oferta negativa' do
+      expect { Oferta.new(@usuario_comprador, -1) }.to raise_error(PrecioNegativoError)
+    end
+
   end
 end

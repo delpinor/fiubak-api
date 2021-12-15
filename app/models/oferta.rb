@@ -11,7 +11,6 @@ class Oferta
   end
 
   def validar_oferta
-    #Validar estados: creada, aceptada, rechazada
-    nil
+    raise PrecioNegativoError if @valor < 0
   end
 end
