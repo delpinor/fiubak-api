@@ -12,7 +12,7 @@ class Auto
   end
 
   def validar_auto
-    nil
+    raise AutoInvalidoError if (@marca and @modelo and @anio).nil? == true
   end
 
   def ==(other)

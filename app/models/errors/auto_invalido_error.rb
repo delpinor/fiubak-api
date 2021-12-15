@@ -1,0 +1,2 @@
+class AutoInvalidoError < StandardError
+end

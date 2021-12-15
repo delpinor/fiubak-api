@@ -32,5 +32,9 @@ describe 'Crear auto' do
       auto2 = Auto.new("Fiat", "uno", 1950, "MFL200")
       expect(auto1 == auto2).to eq(false)
     end
+
+    it 'El auto debe contener Marca, Modelo y año sino se lanza un error' do
+      expect { Auto.new('ford', 'focus', nil, nil) }.to raise_error(AutoInvalidoError)
+    end
   end
 end
