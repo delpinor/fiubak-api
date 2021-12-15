@@ -48,6 +48,10 @@ class Repo
     publicaciones.destroy(publicacion)
   end
 
+  def self.guardar_test_drive(test_drive)
+    test_drives.save(test_drive)
+  end
+
   def self.intenciones
     Persistence::Repositories::RepositorioDeIntencionesDeVenta.new
   end
@@ -64,4 +68,7 @@ class Repo
     Persistence::Repositories::RepositorioDeOfertas.new
   end
 
+  def self.test_drives
+    Persistence::Repositories::RepositorioDeTestDrives.new
+  end
 end
