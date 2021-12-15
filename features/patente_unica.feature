@@ -1,6 +1,6 @@
 # language: es
 
-@wip
+
 Característica: US038 - Como usuario vendedor quiero que la patente sea única al registrar el auto
 
 
