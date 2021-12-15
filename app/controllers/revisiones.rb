@@ -19,6 +19,9 @@ WebTemplate::App.controllers :revisiones, :provides => [:json] do
       EnviadorMails.new.notificar_revision_desaprobada(intencion)
       status 200
       {mensaje: 'El auto no se encontraba en buen estado y no logró pasar la revisión'}.to_json
+    rescue PrecioNegativoError
+      status 400
+      {mensaje: 'El precio de lista es inválido'}.to_json
     rescue NoAutorizadoError
       status 401
       {mensaje: 'No autorizado'}.to_json

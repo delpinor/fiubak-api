@@ -8,9 +8,6 @@
   "servers": [
     {
       "url": "https://webapi-nairobi-test.herokuapp.com"
-    },
-    {
-      "url": "http://0.0.0.0:3000"
     }
   ],
   "paths": {
@@ -168,6 +165,9 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/PrecioNegativo"
+          },
           "401": {
             "$ref": "#/components/responses/NoAutorizado"
           },
@@ -175,7 +175,24 @@
             "$ref": "#/components/responses/NoExistente"
           },
           "409": {
-            "$ref": "#/components/responses/TransicionInvalida"
+            "description": "No disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/responses/TransicionInvalida"
+                    },
+                    {
+                      "$ref": "#/components/responses/PrecioPublicacionInvalido"
+                    }
+                  ]
+                },
+                "example": {
+                  "mensaje": "El precio de publicación debe ser mayor al precio de cotización"
+                }
+              }
+            }
           }
         }
       }
@@ -206,6 +223,27 @@
             "description": "Id de la publicación"
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_usuario": {
+                    "type": "integer"
+                  },
+                  "valor": {
+                    "type": "number"
+                  }
+                }
+              },
+              "example": {
+                "id_usuario": 2,
+                "valor": 99000
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "GET /publicaciones",
@@ -222,13 +260,47 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/NoRegistrado"
+            "description": "No disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/responses/NoRegistrado"
+                    },
+                    {
+                      "$ref": "#/components/responses/PrecioNegativo"
+                    }
+                  ]
+                },
+                "example": {
+                  "mensaje": "El precio no puede ser negativo"
+                }
+              }
+            }
           },
           "401": {
             "$ref": "#/components/responses/NoAutorizado"
           },
           "404": {
-            "$ref": "#/components/responses/NoExistente"
+            "description": "No disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/responses/NoExistente"
+                    },
+                    {
+                      "$ref": "#/components/responses/OfertaFiubakInvalido"
+                    }
+                  ]
+                },
+                "example": {
+                  "mensaje": "La publicación no existe"
+                }
+              }
+            }
           }
         }
       }
@@ -393,6 +465,16 @@
               "application/json": {
                 "example": {
                   "mensaje": "Revisión exitosa"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "precio de lista",
+            "content": {
+              "application/json": {
+                "example": {
+                  "mensaje": "El precio de lista es inválido"
                 }
               }
             }
@@ -716,6 +798,36 @@
   },
   "components": {
     "responses": {
+      "PrecioNegativo": {
+        "description": "Precio negativo",
+        "content": {
+          "application/json": {
+            "example": {
+              "mensaje": "El precio no puede ser un valor negativo"
+            }
+          }
+        }
+      },
+      "OfertaFiubakInvalido": {
+        "description": "Precio de oferta",
+        "content": {
+          "application/json": {
+            "example": {
+              "mensaje": "El precio de la oferta debe ser igual al precio publicado"
+            }
+          }
+        }
+      },
+      "PrecioPublicacionInvalido": {
+        "description": "Precio de publicación",
+        "content": {
+          "application/json": {
+            "example": {
+              "mensaje": "El precio de publicación debe ser mayor al de cotización"
+            }
+          }
+        }
+      },
       "NoExistente": {
         "description": "Recurso inexistente",
         "content": {
