@@ -12,8 +12,7 @@ class CreadorUsuario
   end
 
   def crear_usuario_fiubak
-    fiubak = Usuario.new(0, 'Fiubak', 'fiubak@gmail.com', 0)
-    @repo.load_by_email(fiubak.email)
+    fiubak = Usuario.new(0, 'Fiubak', ENV['FIUBAK_MAIL'], ENV['FIUBAK_ID'])
     fiubak_con_id = @repo.save(fiubak)
     fiubak_con_id
   end
