@@ -25,9 +25,6 @@ WebTemplate::App.controllers :cotizaciones, :provides => [:json] do
     rescue ObjectNotFound => e
       status 404
       {mensaje: 'Cotizacion de auto inexistente.'}.to_json
-    rescue Exception => e
-      status 400
-      {mensaje: "se produjo un error"}.to_json
     end
   end
 end

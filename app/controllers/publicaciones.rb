@@ -70,9 +70,6 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
     rescue NoAutorizadoError
       status 401
       {mensaje: 'No autorizado'}.to_json
-    rescue Exception => e
-      status 400
-      {mensaje: 'se produjo un error'}.to_json
     end
   end
 
@@ -100,7 +97,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       status 404
       {mensaje: 'El monto debe ser igual al de la publicacion'}.to_json
     rescue UsuarioNoEncontradoError => e
-      status 404
+      status 400
       {mensaje: 'Para realizar esta operacion debe registrarse'}.to_json
     rescue PublicacionNoEncontradaError => e
       status 404

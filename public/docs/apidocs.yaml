@@ -8,7 +8,7 @@ servers:
   - url: https://webapi-nairobi-test.herokuapp.com
   - url: http://0.0.0.0:3000
 
-
+7
 paths:
   "/publicaciones":
     get:

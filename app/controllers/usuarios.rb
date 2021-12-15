@@ -17,9 +17,6 @@ WebTemplate::App.controllers :usuarios, :provides => [:json] do
     rescue MailYaRegistradoError
       status 404
       {mensaje: 'El email ya se encuentra registrado'}.to_json
-    rescue Exception => e
-      status 400
-      {mensaje: "Se produjo un error"}.to_json
     end
   end
 end

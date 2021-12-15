@@ -181,7 +181,7 @@ describe 'Publicaciones controller' do
       post("/publicaciones/#{pub.id}/ofertas", datos.to_json, header_con_token(usuario.id))
       body = JSON.parse(last_response.body)
       expect(body['mensaje']).to eq("Para realizar esta operacion debe registrarse")
-      expect(last_response.status).to eq(404)
+      expect(last_response.status).to eq(400)
     end
 
     it 'Al una oferta con una publicacion inexistente recibo un error' do

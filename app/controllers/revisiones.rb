@@ -22,9 +22,6 @@ WebTemplate::App.controllers :revisiones, :provides => [:json] do
     rescue NoAutorizadoError
       status 401
       {mensaje: 'No autorizado'}.to_json
-    rescue Exception => e
-      status 400
-      {mensaje: e.message}.to_json
     end
   end
 end
