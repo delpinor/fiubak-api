@@ -79,6 +79,8 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       ValidadorDeToken.new.validar_para_bot(token)
       data = oferta_params
       publicacion = Repo.recuperar_publicacion(params[:id])
+      valor_oferta = data[:valor]
+      ValidadorOfertaFiubak.new.validar_oferta_a_fiubak(valor_oferta, publicacion)
       usuario = Repo.recuperar_usuario(data[:id_usuario])
       oferta = Oferta.new(usuario, data[:valor], nil, params[:id])
       oferta_con_id = Repo.guardar_oferta(oferta)
@@ -89,6 +91,9 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
     rescue NoAutorizadoError
       status 401
       {mensaje: 'No autorizado'}.to_json
+    rescue MontoDistintoError
+      status 404
+      {mensaje: 'El monto debe ser igual al de la publicacion'}.to_json
     rescue UsuarioNoEncontradoError => e
       status 404
       {mensaje: 'Para realizar esta operacion debe registrarse'}.to_json

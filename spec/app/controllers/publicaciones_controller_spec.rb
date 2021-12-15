@@ -20,7 +20,9 @@ describe 'Publicaciones controller' do
     @intencion_con_id = Persistence::Repositories::RepositorioDeIntencionesDeVenta.new.save(intencion_venta)
     @intencion_con_id_revisada = Persistence::Repositories::RepositorioDeIntencionesDeVenta.new.save(intencion_venta_revisada)
     @usuario_comprador_con_id = Persistence::Repositories::RepositorioDeUsuarios.new.save(usuario_comprador)
-    @publicacion = Publicacion.new(usuario, auto, 75000, "Fiubak", 1)
+    @publicacion = Publicacion.new(usuario, auto, 75000, "p2p", 1)
+    @publicacion_fiubak = Publicacion.new(usuario, auto_2, 75000, "Fiubak", 2)
+
   end
 
   it 'La respuesta debe ser un mensaje exitoso' do
@@ -213,7 +215,7 @@ describe 'Publicaciones controller' do
 
   context 'contratacion de test drives' do
     it 'Al contratar un test drive recibo un mensaje exitoso con el costo día lluvioso' do
-      pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
+      pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion_fiubak)
       api_key = ENV['CLIMA_API_KEY']
       url = "https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid="
       stub = stub_request(:get, url + api_key)
@@ -225,7 +227,7 @@ describe 'Publicaciones controller' do
     end
 
     it 'Al contratar un test drive recibo un mensaje exitoso con el costo día no lluvioso' do
-      pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
+      pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion_fiubak)
       api_key = ENV['CLIMA_API_KEY']
       url = "https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid="
       stub = stub_request(:get, url + api_key)
@@ -237,7 +239,7 @@ describe 'Publicaciones controller' do
     end
 
     it 'Obtengo un error al intentar contratar dos test drive para una publicacion' do
-      pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion)
+      pub = Persistence::Repositories::RepositorioDePublicaciones.new.save(@publicacion_fiubak)
       api_key = ENV['CLIMA_API_KEY']
       url = "https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid="
       stub = stub_request(:get, url + api_key)
