@@ -9,7 +9,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
 
       publicacion = repositorio_de_publicaciones.find(params[:id])
       test_drive = CreadorTestDrive.new.crear_test_drive(publicacion)
-      nuevo_test_drive = repositorio_de_test_drives.save(test_drive)
+      nuevo_test_drive = Repo.guardar_test_drive(test_drive)
       precio = nuevo_test_drive.obtener_costo(ProveedorDeClima.new(@@clima))
       EnviadorMails.new.notificar_test_drive(test_drive, precio)
 

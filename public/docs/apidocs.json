@@ -1,13 +1,16 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "0.2.36",
+    "version": "1.0.0",
     "title": "FIUBAK",
     "description": "Documentación para el uso de la API."
   },
   "servers": [
     {
       "url": "https://webapi-nairobi-test.herokuapp.com"
+    },
+    {
+      "url": "http://0.0.0.0:3000"
     }
   ],
   "paths": {
@@ -112,6 +115,67 @@
           },
           "404": {
             "$ref": "#/components/responses/NoExistente"
+          }
+        }
+      }
+    },
+    "/publicaciones/": {
+      "post": {
+        "summary": "Para realizar una publicación p2p",
+        "security": [
+          {
+            "api_token": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "USR_TOKEN",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_intencion_de_venta": {
+                    "type": "integer"
+                  },
+                  "precio": {
+                    "type": "number"
+                  }
+                }
+              },
+              "example": {
+                "id_intencion_de_venta": 1,
+                "precio": 99000
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Publicacion p2p OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "mensaje": "Registro exitoso de publicacion con id 37"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/NoAutorizado"
+          },
+          "404": {
+            "$ref": "#/components/responses/NoExistente"
+          },
+          "409": {
+            "$ref": "#/components/responses/TransicionInvalida"
           }
         }
       }
@@ -478,15 +542,6 @@
             "api_token": []
           }
         ],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "USR_TOKEN",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -671,6 +726,16 @@
           }
         }
       },
+      "TransicionInvalida": {
+        "description": "El estado del auto no permite esta transición",
+        "content": {
+          "application/json": {
+            "example": {
+              "mensaje": "El auto no esta en condiciones de ser publicado"
+            }
+          }
+        }
+      },
       "NoRegistrado": {
         "description": "Requiere registración",
         "content": {
@@ -706,8 +771,7 @@
         "content": {
           "application/json": {
             "example": {
-              "mensaje": "Solo puede contrartar test-drive para autos de Fiubak",
-              "components": null
+              "mensaje": "Solo puede contrartar test-drive para autos de Fiubak"
             }
           }
         }
