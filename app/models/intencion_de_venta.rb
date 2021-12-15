@@ -4,17 +4,17 @@ class IntencionDeVenta
   COMISION_POR_VENTA = 1.5
 
   ESTADOS = {
-    :vendido => "vendido",
-    :revisado_y_cotizado => "revisado y cotizado",
-    :publicado => "publicado",
-    :rechazado => "rechazado",
-    :en_revision => "en revisión"
+    :vendido => 'vendido',
+    :revisado_y_cotizado => 'revisado y cotizado',
+    :publicado => 'publicado',
+    :rechazado => 'rechazado',
+    :en_revision => 'en revisión'
   }.freeze
 
   TIPOS_VENTA = {
-    :peer_to_peer => "p2p",
-    :fiubak => "Fiubak"
-  }
+    :peer_to_peer => 'p2p',
+    :fiubak => 'Fiubak'
+  }.freeze
 
   def initialize(auto, usuario, estado, id = nil)
     @auto = auto
@@ -25,6 +25,10 @@ class IntencionDeVenta
     validar_intencion_de_venta
   end
 
+  def self.crear_en_revision(auto, usuario)
+    IntencionDeVenta.new(auto, usuario, 'en revisión')
+  end
+  
   def set_valor_cotizado(precio)
     @precio_cotizado = precio
   end
@@ -42,12 +46,12 @@ class IntencionDeVenta
   end
 
   def a_vendido
-    raise TransicionEstadoAutoInvalida if ![ESTADOS[:revisado_y_cotizado], ESTADOS[:publicado]].include? @estado
+    raise TransicionEstadoAutoInvalida unless [ESTADOS[:revisado_y_cotizado], ESTADOS[:publicado]].include? @estado
     @estado = ESTADOS[:vendido]
   end
 
   def a_publicado
-    raise TransicionEstadoAutoInvalida if ![ESTADOS[:revisado_y_cotizado], ESTADOS[:rechazado]].include? @estado
+    raise TransicionEstadoAutoInvalida unless [ESTADOS[:revisado_y_cotizado], ESTADOS[:rechazado]].include? @estado
     @estado = ESTADOS[:publicado]
   end
 
@@ -62,7 +66,7 @@ class IntencionDeVenta
   end
 
   def validar_intencion_de_venta
-    # todo validar tipos de estado
+    # TODO: validar tipos de estado
     # todo validar precio que no sea negativo (y no sea decimal)
     nil
   end

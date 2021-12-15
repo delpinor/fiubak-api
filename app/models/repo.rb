@@ -52,6 +52,10 @@ class Repo
     test_drives.save(test_drive)
   end
 
+  def self.guardar_auto(auto)
+    autos.save(auto)
+  end
+
   def self.intenciones
     Persistence::Repositories::RepositorioDeIntencionesDeVenta.new
   end
@@ -70,5 +74,9 @@ class Repo
 
   def self.test_drives
     Persistence::Repositories::RepositorioDeTestDrives.new
+  end
+
+  def self.autos
+    Persistence::Repositories::RepositorioDeAutos.new
   end
 end
