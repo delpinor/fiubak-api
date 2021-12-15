@@ -3,7 +3,7 @@ Característica: Como usuario vendedor quiero ver el estado de mis intenciones d
     
     Escenario: 1.1 – Consulta de estado exitosa
     Dado que soy usuario vendedor
-    Y registro un auto para vender con marca "fiat", modelo "uno", año 1988 y patente "asd-457" y guardo el id
+    Y registro un auto para vender con marca "fiat", modelo "uno", año 1988 y patente "asd-457" y espero mensaje
     Cuando consulto por mis autos registrados
     Entonces puedo ver mi intencion de venta con id y estado "en revisión"
 

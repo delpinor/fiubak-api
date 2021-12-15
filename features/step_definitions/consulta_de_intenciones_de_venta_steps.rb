@@ -1,4 +1,4 @@
-Cuando('registro un auto para vender con marca {string}, modelo {string}, año {int} y patente {string} y guardo el id') do |marca, modelo, anio, patente|
+Cuando('registro un auto para vender con marca {string}, modelo {string}, año {int} y patente {string} y espero mensaje') do |marca, modelo, anio, patente|
   body = {
     'marca': marca,
     'modelo': modelo,
