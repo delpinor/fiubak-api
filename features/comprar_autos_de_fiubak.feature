@@ -9,12 +9,10 @@ Como usuario comprador quiero comprar un auto de Fiubak
     Y acepto la cotización de Fiubak
     Y veo el auto publicado para venta
 
-    @wip
   Escenario: 39.1 - Compra de auto a Fiubak
 
     Cuando hago una oferta por el auto publicado con el monto exacto
-    Entonces recibo un mensaje "oferta aceptada con exito"
-    Y la publicacion es dada de baja
+    Entonces recibo un mensaje que contiene "Generaste la oferta"
 
   Escenario: 39.2 - Compra de auto a Fiubak fallida por monto
 
