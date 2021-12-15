@@ -58,6 +58,9 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
         mensaje: "Registro exitoso de publicacion con id: #{publicacion_con_id.id}",
         valor: pub_hash
       }.to_json
+    rescue PrecioNegativoError
+      status 400
+      {mensaje: 'El precio publicado es inválido'}.to_json
     rescue PrecioDePublicacionInvalido
       status 409
       {mensaje: 'El precio de publicación debe ser mayor al de cotización'}.to_json
@@ -88,6 +91,9 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       EnviadorMails.new.notificar_oferta(publicacion, oferta, usuario)
       status 201
       nueva_oferta_a_json oferta_con_id
+    rescue PrecioNegativoError
+      status 400
+      {mensaje: 'El valor de la oferta es inválido'}.to_json
     rescue NoAutorizadoError
       status 401
       {mensaje: 'No autorizado'}.to_json

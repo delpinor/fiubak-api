@@ -12,8 +12,6 @@ class Publicacion
     @auto = auto
     @precio = precio
     @id = id
-    raise TipoInvalidoError unless CATEGORIAS.include? tipo
-    raise PrecioNegativoError if precio.negative?
     @tipo = tipo
     @ofertas = []
     validar_publicacion
@@ -24,9 +22,8 @@ class Publicacion
   end
 
   def validar_publicacion
-    # todo validar tipo de venta (solo 'Fiubak' y 'p2p')
-    # todo validar tipos de estado
-    # todo validar precio que no sea negativo (y no sea decimal)
+    raise TipoInvalidoError unless CATEGORIAS.include? tipo
+    raise PrecioNegativoError if precio.negative?
   end
 
   def obtener_ofertas
