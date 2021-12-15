@@ -19,6 +19,10 @@ class Publicacion
     validar_publicacion
   end
 
+  def es_fiubak?
+    @tipo == 'Fiubak'
+  end
+
   def validar_publicacion
     # todo validar tipo de venta (solo 'Fiubak' y 'p2p')
     # todo validar tipos de estado

@@ -84,9 +84,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       usuario = Repo.recuperar_usuario(data[:id_usuario])
       oferta = Oferta.new(usuario, data[:valor], nil, params[:id])
       oferta_con_id = Repo.guardar_oferta(oferta)
-      if publicacion.tipo == 'Fiubak'
-        Repo.eliminar_publicacion(publicacion)
-      end
+      Repo.eliminar_publicacion(publicacion) if publicacion.es_fiubak?
       EnviadorMails.new.notificar_oferta(publicacion, oferta, usuario)
       status 201
       nueva_oferta_a_json oferta_con_id
