@@ -72,6 +72,8 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       ValidadorDeToken.new.validar_para_bot(token)
       data = oferta_params
       publicacion = repositorio_de_publicaciones.find(params[:id])
+      valor_oferta = data[:valor]
+      ValidadorOfertaFiubak.new.validar_oferta_a_fiubak(valor_oferta, publicacion)
       usuario = repositorio_de_usuarios.find(data[:id_usuario])
       oferta = Oferta.new(usuario, data[:valor], nil, params[:id])
       #TODO Validar que el usuario no oferto mas de una vez a la misma publicacion

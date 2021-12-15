@@ -26,7 +26,7 @@ describe 'Validador de oferta a Fiubak' do
   end
 
   it 'Cuando oferto por una publicacion de Fiubak, con el monto equivocado, obtengo un error' do
-    expect{validador.validar_oferta_a_fiubak(@oferta.id)}.to raise_error(MontoDistintoError)
+    expect{validador.validar_oferta_a_fiubak(150 ,@publicacion)}.to raise_error(MontoDistintoError)
   end
 
 end
