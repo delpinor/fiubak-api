@@ -7,7 +7,7 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       token = obtener_token_api(request)
       ValidadorDeToken.new.validar_para_bot(token)
 
-      publicacion = repositorio_de_publicaciones.find(params[:id])
+      publicacion = Repo.recuperar_publicacion(params[:id])
       test_drive = CreadorTestDrive.new.crear_test_drive(publicacion)
       nuevo_test_drive = Repo.guardar_test_drive(test_drive)
       precio = nuevo_test_drive.obtener_costo(ProveedorDeClima.new(@@clima))
