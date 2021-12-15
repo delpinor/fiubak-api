@@ -26,8 +26,7 @@ end
 
 Entonces('recibo un mensaje {string}') do |mensaje|
   data = JSON.parse(@response.body)
-  mensaje = data['mensaje']
-  expect(mensaje).to eq("Para realizar esta operacion debe registrarse")
+  expect(data['mensaje']).to eq(mensaje)
 end
 
 

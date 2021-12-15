@@ -25,7 +25,7 @@ Cuando('consulto el estado por la intención de venta') do
 end
 
 Dado('que existe una publicación p2p del auto del otro usuario') do
-  step "rechazo la cotización de Fiubak y publico por p2p con precio 200"
+  step "rechazo la cotización de Fiubak y publico por p2p con precio 900000"
 end
 
 Dado('que dicha publicación recibe una oferta') do

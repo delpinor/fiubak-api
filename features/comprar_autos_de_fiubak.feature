@@ -1,6 +1,5 @@
 # language: es
 
-  @wip
 Característica: US039 - Compra de autos publicados por Fiubak
 Como usuario comprador quiero comprar un auto de Fiubak
   Antecedentes:
@@ -8,12 +7,12 @@ Como usuario comprador quiero comprar un auto de Fiubak
     Y registro un auto para vender con marca "fiat", modelo "uno", año 1988 y patente "asd-457"
     Y se realizó la revisión sin fallas con precio de lista 100
     Y acepto la cotización de Fiubak
+    Y veo el auto publicado para venta
 
   Escenario: 39.1 - Compra de auto a Fiubak
 
     Cuando hago una oferta por el auto publicado con el monto exacto
-    Entonces recibo un mensaje "La intención de venta fue concretada con éxito"
-    Y la publicacion es dada de baja
+    Entonces recibo un mensaje que contiene "Generaste la oferta"
 
   Escenario: 39.2 - Compra de auto a Fiubak fallida por monto
 

@@ -58,6 +58,9 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
         mensaje: "Registro exitoso de publicacion con id: #{publicacion_con_id.id}",
         valor: pub_hash
       }.to_json
+    rescue PrecioDePublicacionInvalido
+      status 409
+      {mensaje: 'El precio de publicación debe ser mayor al de cotización'}.to_json
     rescue TransicionEstadoAutoInvalida
       status 409
       {mensaje: 'El auto no esta en condiciones de ser publicado'}.to_json
@@ -79,16 +82,23 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       ValidadorDeToken.new.validar_para_bot(token)
       data = oferta_params
       publicacion = Repo.recuperar_publicacion(params[:id])
+      valor_oferta = data[:valor]
+      ValidadorOfertaFiubak.new.validar_oferta_a_fiubak(valor_oferta, publicacion)
       usuario = Repo.recuperar_usuario(data[:id_usuario])
       oferta = Oferta.new(usuario, data[:valor], nil, params[:id])
       oferta_con_id = Repo.guardar_oferta(oferta)
+      if publicacion.tipo == 'Fiubak'
+        Repo.eliminar_publicacion(publicacion)
+      end
       EnviadorMails.new.notificar_oferta(publicacion, oferta, usuario)
-
       status 201
       nueva_oferta_a_json oferta_con_id
     rescue NoAutorizadoError
       status 401
       {mensaje: 'No autorizado'}.to_json
+    rescue MontoDistintoError
+      status 404
+      {mensaje: 'El monto debe ser igual al de la publicacion'}.to_json
     rescue UsuarioNoEncontradoError => e
       status 404
       {mensaje: 'Para realizar esta operacion debe registrarse'}.to_json
@@ -126,7 +136,6 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       id_usuario = obtener_token_usuario(request)
       ValidadorDePropiedad.new.validar_oferta(id_usuario, params[:id_oferta])
       oferta = Repo.recuperar_oferta(params[:id_oferta].to_i)
-      ## aca validador de monto
       Repo.eliminar_oferta(oferta)
       publicacion = Repo.recuperar_publicacion(oferta.id_publicacion)
       intencion = Repo.recuperar_intencion_por_auto(publicacion.auto.id)

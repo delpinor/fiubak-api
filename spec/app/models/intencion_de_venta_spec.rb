@@ -6,6 +6,7 @@ describe 'Crear intencion de venta' do
       @auto = Auto.new("Fiat", "uno", 1940, "MFL200", 1)
       @usuario = Usuario.new(33234543, 'Nicolas', 'nicoperez@gmail.com', 665)
       @intencion_de_venta = IntencionDeVenta.new(@auto, @usuario, "revisado y cotizado", 1)
+      @intencion_de_venta.set_valor_cotizado(30000)
     end
     it 'Se crea con estado' do
       expect(@intencion_de_venta.estado).to eq "revisado y cotizado"
@@ -37,6 +38,11 @@ describe 'Crear intencion de venta' do
     it 'Al concretar una intencion de venta su estado cambia a vendido y obtengo una publicacion de 45000 pesos' do
       publicacion = @intencion_de_venta.concretar_por_p2p(45000)
       expect(publicacion.precio).to eq(45000)
+    end
+
+    it 'Al concretar una intencion de venta con un precio menor o igual al de cotizacion obtengo un error' do
+      expect{@intencion_de_venta.concretar_por_p2p(28000)}.to raise_error(PrecioDePublicacionInvalido)
+      expect{@intencion_de_venta.concretar_por_p2p(30000)}.to raise_error(PrecioDePublicacionInvalido)
     end
 
     it 'Al querer pasar de estado publicado a rechazado obtengo un error' do

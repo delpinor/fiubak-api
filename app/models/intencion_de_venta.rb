@@ -41,6 +41,7 @@ class IntencionDeVenta
   end
 
   def concretar_por_p2p(precio)
+    raise PrecioDePublicacionInvalido if precio <= @precio_cotizado
     a_publicado
     Publicacion.new(@usuario, @auto, precio, TIPOS_VENTA[:peer_to_peer])
   end
@@ -51,7 +52,7 @@ class IntencionDeVenta
   end
 
   def a_publicado
-    raise TransicionEstadoAutoInvalida unless [ESTADOS[:revisado_y_cotizado], ESTADOS[:rechazado]].include? @estado
+    raise TransicionEstadoAutoInvalida if ![ESTADOS[:revisado_y_cotizado]].include? @estado
     @estado = ESTADOS[:publicado]
   end
 

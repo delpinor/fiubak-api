@@ -8,9 +8,7 @@ class ValidadorOfertaFiubak
     @repo_ofertas = Persistence::Repositories::RepositorioDeOfertas.new
   end
 
-  def validar_oferta_a_fiubak(id_oferta)
-    oferta = @repo_ofertas.find(id_oferta)
-    id_publicacion = @repo_publicaciones.find(oferta.id_publicacion)
-    raise MontoDistintoError if oferta.valor != id_publicacion.precio and id_publicacion.tipo == PUBLICACION_DE_FIUBAK
+  def validar_oferta_a_fiubak(valor_oferta, publicacion)
+    raise MontoDistintoError if valor_oferta != publicacion.precio and publicacion.tipo == PUBLICACION_DE_FIUBAK
   end
 end
