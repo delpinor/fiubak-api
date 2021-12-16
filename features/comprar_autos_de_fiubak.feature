@@ -13,6 +13,7 @@ Como usuario comprador quiero comprar un auto de Fiubak
 
     Cuando hago una oferta por el auto publicado con el monto exacto
     Entonces recibo un mensaje "Compraste el auto"
+    Y la publicacion no existe mas
 
   Escenario: 39.2 - Compra de auto a Fiubak fallida por monto
 
