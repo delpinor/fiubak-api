@@ -87,10 +87,14 @@ WebTemplate::App.controllers :publicaciones, :provides => [:json] do
       usuario = Repo.recuperar_usuario(data[:id_usuario])
       oferta = Oferta.new(usuario, data[:valor], nil, params[:id])
       oferta_con_id = Repo.guardar_oferta(oferta)
-      Repo.eliminar_publicacion(publicacion) if publicacion.es_fiubak?
       EnviadorMails.new.notificar_oferta(publicacion, oferta, usuario)
       status 201
-      nueva_oferta_a_json oferta_con_id
+      if publicacion.es_fiubak?
+        Repo.eliminar_publicacion(publicacion)
+        {mensaje: 'Compraste el auto'}.to_json
+      else
+        nueva_oferta_a_json oferta_con_id
+      end
     rescue PrecioNegativoError
       status 400
       {mensaje: 'El valor de la oferta es inválido'}.to_json
