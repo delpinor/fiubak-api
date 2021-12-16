@@ -24,8 +24,8 @@ class EnviadorMails
   def notificar_oferta(publicacion, oferta, usuario_ofertador)
     email = publicacion.usuario.email
 
-    if publicacion.tipo == 'Fiubak'
-      enviar_mail(email, 'Auto vendido', cuerpo_comprar_fiubak(publicacion.id, oferta.valor, usuario_ofertador.nombre))
+    if publicacion.es_fiubak?
+      enviar_mail(usuario_ofertador.email, 'Auto comprado', cuerpo_comprar_fiubak(publicacion.id, oferta.valor, usuario_ofertador.nombre))
     else
       enviar_mail(email, 'Oferta Recibida', cuerpo_oferta(publicacion.id, oferta.id, oferta.valor, usuario_ofertador.nombre))
     end
@@ -149,11 +149,15 @@ class EnviadorMails
 
   def cuerpo_comprar_fiubak(id_publicacion, precio, usuario_nombre)
     titulo = "FIUBAK\n\n"
-    cuerpo = "Le notificamos que su publicación con id: #{id_publicacion} " + "\n" \
-             "fue comprada por el precio publicado de ($): #{precio}" + "\n" \
-             "por el usuario de nombre: #{usuario_nombre}" + "\n"
 
-    titulo + cuerpo
+    cuerpo = "Felicidades, #{usuario_nombre}! Le notificamos que compro el auto de id: #{id_publicacion} " + "\n" \
+             "adquirido por el precio de ($): #{precio}" + "\n" \
+             "comprado a Fiubak" + "\n"
+
+    saludos = 'Saludos, ' + "\n" + "\n" \
+              'Equipo FIUBAK'
+
+    titulo + cuerpo + saludos
   end
 
 
